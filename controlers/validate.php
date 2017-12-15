@@ -13,10 +13,10 @@
 			$row = $execSelect->fetch(PDO::FETCH_ASSOC);
 			$_SESSION["usr_active"]=$row['login'];
 			echo '<script> alert("Iniciando sesion de '.$_SESSION['usr_active'].'");</script>';
-			echo '<script>window.location="../index.php"; </script>';
+			echo "<script>window.location.replace('http://mexq.mx/devweb/resguardo/index.php');</script>";
 		}else{
 			echo '<script> alert("Usuario y/o contraseña incorrectos.");</script>';
-			echo '<script> window.location="../index.php"; </script>';
+			echo "<script>window.location.replace('http://mexq.mx/devweb/resguardo/index.php');</script>";
 		}
 	}
 

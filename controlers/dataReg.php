@@ -59,10 +59,10 @@
 		$insertQuery->execute();
 		if ($insertQuery) {
 			echo "<script>alert('Registro exitoso!');</script>";
-			header('Location: ../index.php');
+			echo "<script>window.location.replace('http://mexq.mx/devweb/resguardo/index.php');</script>";
 		}else{
 			echo "<script>alert('Hubo un error al momento de registrar.');</script>";
-			header('Location: ../index.php');
+			echo "<script>window.location.replace('http://mexq.mx/devweb/resguardo/index.php');</script>";
 		}
 	}	
  ?>

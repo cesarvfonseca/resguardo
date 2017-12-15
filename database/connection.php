@@ -9,7 +9,7 @@
 
 		$db_pass		= 'n&Wi1UG[RNwo';
 
-		$db_database	= 'mexqmx_sgc'; 
+		$db_database	= 'mexqcmmx_resguardo'; 
 */
 
 		$db_host		= 'localhost';
