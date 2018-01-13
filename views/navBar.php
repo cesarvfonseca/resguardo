@@ -1,3 +1,14 @@
+<?php  
+    $st = "";
+    $pgm = "#";
+  if (empty($_SESSION['usr_active'])){
+    $st = "disabled";
+    $pgm = "#";
+  }else{
+    $st = "";
+    $pgm = "views/maintenance.php";
+  }
+?>
 <nav class="navbar navbar-toggleable-md navbar-light bg-primary">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -9,10 +20,7 @@
         <a class="nav-link" href="index.php">Inicio<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Registro</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Mantenimientos</a>
+        <a class="nav-link <?php echo $st ?>" href="<?php echo $pgm ?>">Mantenimientos</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle  disabled" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,18 +43,16 @@
         <div class="form-group">
             <input type="password" class="form-control mr-sm-2" name="txtPassword" placeholder="Contraseña">
         </div>
-        <button type="submit" class="btn btn-success my-sm-0" name="btnLogin">Entrar</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success my-sm-0" name="btnLogin">Entrar</button>
+        </div>
     </form>
     <?php 
     	}else{
     		?>
         <div class="navbar-right ml-auto">
-        <ul class="nav navbar-nav">
-            <li>
-              <a href="controlers/logout.php"><button type="submit" class="btn navbar-btn btn-danger my-sm-0" name="logout" id="logout"  value="Log Out">Salir</button></a>
-            </li>
-                </ul>     
-        </div>
+          <div class="pull-right"><a href="controlers/logout.php"><button type="submit" class="btn navbar-btn btn-danger my-sm-0" name="logout" id="logout"  value="Log Out">Salir</button></a></div>
+        </div>                
     <?php 
     	}
      ?>

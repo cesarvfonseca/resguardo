@@ -84,11 +84,10 @@
 
 		if ($updateQuery) {
 			echo "<script>alert('Registro modificado exitosamente!');</script>";
-			echo "<script>window.location.replace('http://mexq.mx/devweb/resguardo/index.php');</script>";
-			?><meta http-equiv="Location" content="http://mexq.mx/devweb/resguardo"/><?php 
+			echo "<script> location.href='../'; </script>";
 		}else{
 			echo "<script>alert('Hubo un error al momento de registrar.');</script>";
-			echo "<script>window.location.replace('http://mexq.mx/devweb/resguardo/index.php');</script>";			
+			echo "<script> location.href='../'; </script>";
 		}
 	}
 

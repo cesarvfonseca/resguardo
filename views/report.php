@@ -159,24 +159,22 @@ if(isset($_GET['codeR'])){
 							<td colspan="1">
 								<img valign="bottom" src="../img/LogoMQ.png" alt="imagenQR" height="50" width="100">
 							</td>
-							<td colspan="3"><h1>Respaldo de equipo</h1></td>
+							<td colspan="4"><h1>Respaldo de equipo</h1></td>
 							<td colspan="1"><img src="../img/QR/'.$fileName.'" alt="imagenQR" height="60" width="60"></td>
 						</tr>
 						<tr>
 							<td bgcolor="#B0B0B0" colspan="1"><p>Propiedad: </p></td>
-							<td colspan="4"><p>MEXQ (SERV. DE ASEG. DE CALIDAD MUÑING)</p></td>
+							<td colspan="5"><p>MEXQ (SERV. DE ASEG. DE CALIDAD MUÑING)</p></td>
 						</tr>
 						<tr>
-							<td bgcolor="#B0B0B0" colspan="1"><p>Responsable: </p></td>
-							<td colspan="4"><p>'.$employee_name." ".$employee_lastname.'</p></td>
-						</tr>
-						<tr>
+							<td bgcolor="#B0B0B0" colspan="1"><p>Usuario: </p></td>
+							<td colspan="3"><p>'.$employee_name." ".$employee_lastname.'</p></td>
 							<td bgcolor="#B0B0B0" colspan="1"><p>Equipo: </p></td>
-							<td colspan="4"><p>'.$ntype.'</p></td>
+							<td colspan="1"><p>'.$ntype.'</p></td>
 						</tr>
 						<tr>
 							<td bgcolor="#B0B0B0" colspan="1"><p>Marca: </p></td>
-							<td colspan="1"><p>'.$nbrand.'</p></td>						
+							<td colspan="2"><p>'.$nbrand.'</p></td>						
 							<td bgcolor="#B0B0B0" colspan="1"><p>Modelo: </p></td>
 							<td colspan="2"><p>'.$nmodel.'</p></td>						
 						</tr>		
@@ -188,12 +186,14 @@ if(isset($_GET['codeR'])){
 							<td colspan="2"><p>'.$nproduct.'</p></td>
 						</tr>	
 						<tr>
-							<td bgcolor="#B0B0B0" colspan="1"><p>Sucursal / Planta: </p></td>
-							<td colspan="4"><p>'.$employee_branch." / ".$employee_ws.'</p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>Sucursal: </p></td>
+							<td colspan="2"><p>'.$employee_branch.'</p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>No. Planta: </p></td>
+							<td colspan="2"><p>'.$employee_ws.'</p></td>
 						</tr>				
 						<tr>
 							<td bgcolor="#B0B0B0" colspan="1"><p>Fecha: </p></td>
-							<td colspan="1"><p>'.$date_registry.'</p></td>
+							<td colspan="2"><p>'.$date_registry.'</p></td>
 							<td bgcolor="#B0B0B0" colspan="1"><p>ID: </p></td>
 							<td colspan="2"><p>'.$id.'</p></td>
 						</tr>																																		
