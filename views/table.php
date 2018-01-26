@@ -4,21 +4,11 @@
 	include 'views/modals/newRegistry.php';
 	include 'views/modals/info.php';
 
-	$status_colors = array('I' => '#ffff00');
-	$font_colors = array('I' => '#ff0000');
+	$status_colors = array('I' => '#ff0000');
+	$font_colors = array('I' => '#ffff00');
 
 	$conn = Connect();
-
-	if (isset($_POST['idEq'])) {
-
-	$id=$_POST['idEq'];
-	$sql= "SELECT * FROM registry where code='$id'";
-	$query = $conn->query($sql);
-	$datos =$query->fetchAll();
-
-	echo json_encode($datos);
-
-	}
+	
 	$stmSelect = "SELECT * FROM registry WHERE active='1'";
 	$execSelect = $conn->query($stmSelect);?>
 
@@ -69,7 +59,7 @@
 						<td>
 							<a href="index.php?vcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-info" title="Modificar registro"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 							<a href="controlers/deleteRegistry.php?dcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-danger btn-eliminar" onclick="return confirm('Seguro de eliminar?')" title="Eliminar registro"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-							<a href="views/report.php?codeR=<?php echo $row ['code']; ?>" name="create_pdf" class="btn btn-sm btn-success" title="Carta responsiva"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+							<a href="views/report.php?codeR=<?php echo $row ['code']; ?>" name="create_pdf" class="btn btn-sm btn-success" title="Carta responsiva" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 						</td>
 
 						<?php }else{ ?>

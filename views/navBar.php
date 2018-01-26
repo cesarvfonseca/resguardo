@@ -1,4 +1,4 @@
-<?php  
+<?php 
     $st = "";
     $pgm = "#";
   if (empty($_SESSION['usr_active'])){
@@ -6,7 +6,7 @@
     $pgm = "#";
   }else{
     $st = "";
-    $pgm = "views/maintenance.php";
+    $pgm = "views/history.php";
   }
 ?>
 <nav class="navbar navbar-toggleable-md navbar-light bg-primary">
@@ -17,10 +17,10 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">Inicio<span class="sr-only">(current)</span></a>
+        <a class="nav-link <?php echo $st ?>" href="index.php">Inicio<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <?php echo $st ?>" href="<?php echo $pgm ?>">Mantenimientos</a>
+        <a class="nav-link <?php echo $st ?>" href="index.php?h=1" title="Historial de equipos" >Historial</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle  disabled" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

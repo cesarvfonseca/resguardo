@@ -99,8 +99,8 @@ if ($execSelect->rowCount()>0) {
 									<div class="form-group">
 										<small class="form-text text-muted">Tipo</small>
 										<select class="form-control" name="cmType">
-											<option value="MQ">Laptop</option>
-											<option value="PC">Desktop</option>
+											<option <?php if ($row ["type"]=="MQ") echo 'selected' ?> value="MQ">Laptop</option>
+											<option <?php if ($row ["type"]=="PC") echo 'selected' ?>  value="PC">Desktop</option>
 											<option value="MQ">AIO</option>
 										</select>
 									</div>
