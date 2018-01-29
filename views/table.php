@@ -57,7 +57,7 @@
 						<?php if (!isset($_SESSION['usr_active']) || empty($_SESSION['usr_active']) || $_SESSION['usr_active']=='admin'){ ?>
 												
 						<td>
-							<a href="index.php?vcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-info" title="Modificar registro"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+							<a href="index.php?vcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-info" title="Modificar registro" target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 							<a href="controlers/deleteRegistry.php?dcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-danger btn-eliminar" onclick="return confirm('Seguro de eliminar?')" title="Eliminar registro"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 							<a href="views/report.php?codeR=<?php echo $row ['code']; ?>" name="create_pdf" class="btn btn-sm btn-success" title="Carta responsiva" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 						</td>
@@ -65,7 +65,7 @@
 						<?php }else{ ?>
 
 						<td>
-							<a href="" id="<?php echo $r["code"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#viewInfo"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+							<a href="index.php?vcode=<?php echo $row['code'] ?>" id="<?php echo $r["code"];?>" class="btn btn-sm btn-info btn-editar" data-toggle="modal" data-target="#viewInfo" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
 						</td>
 
 					<?php } ?>

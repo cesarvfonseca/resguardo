@@ -1,6 +1,6 @@
 <div class="modal fade" id="newRegistry" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
-		<form class="form-horizontal" method="post" action="controlers/dataReg.php">
+		<form class="form-horizontal" method="post" action="controlers/dataReg.php" enctype="multipart/form-data">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Agregar equipo</h5>
@@ -139,6 +139,16 @@
 										    <input class="form-control" type="date" value="1999-01-01" name="txtInvoicedate">
 										</div>									
 									</div>															
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="form-group">
+											<label class="col-xs-4 control-label">Adjunta Factura</label>
+											<div class="col-xs-4 form-group-file">
+												<input type="file" class="form-control" id="archivo[]" name="archivo[]" multiple="">
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="row">
 									<div class="col-12">

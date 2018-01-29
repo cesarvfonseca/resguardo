@@ -26,6 +26,45 @@
 		$txt_comment = $_POST['txtComment'];
 		$txt_date = date('Y-m-d');
 
+			// SUBIR FACTURAS
+		foreach($_FILES["archivo"]['tmp_name'] as $key => $tmp_name)
+	{
+		//Validamos que el archivo exista
+		if($_FILES["archivo"]["name"][$key]) {
+			$filename = $_FILES["archivo"]["name"][$key]; //Obtenemos el nombre original del archivo
+        	$ext = pathinfo($filename, PATHINFO_EXTENSION);
+			$filename = $_FILES["archivo"]["name"][$key]=$txt_serial.".".$ext; //Obtenemos el nombre original del archivo Y se cambia
+			$source = $_FILES["archivo"]["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
+			
+			$directorio = '../assets/invoices/'.$txt_serial; //Declaramos un  variable con la ruta donde guardaremos los archivos
+
+			
+			//Validamos si la ruta de destino existe, en caso de no existir la creamos
+			if(!file_exists($directorio)){
+				mkdir($directorio, 0777,true);
+				// mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");	
+			}
+			
+			$dir=opendir($directorio); //Abrimos el directorio de destino
+			$target_path = $directorio.'/'.$filename; //Indicamos la ruta de destino, así como el nombre del archivo
+			
+			//Movemos y validamos que el archivo se haya cargado correctamente
+			//El primer campo es el origen y el segundo el destino
+			if(move_uploaded_file($source, $target_path)) {	
+				// echo "El archivo $filename se ha almacenado en forma exitosa.<br>";
+				// echo "<script> location.href='../'; </script>";
+				// } else {	
+				// echo "Ha ocurrido un error, por favor inténtelo de nuevo.<br>";
+				// echo "<script> location.href='../'; </script>";
+			closedir($dir); //Cerramos el directorio de destino
+
+			}
+			// closedir($dir); //Cerramos el directorio de destino
+		}
+	}
+		// SUBIR FACTURAS
+	
+
 		$lastRegistry = "SELECT SUBSTRING(code,3,10)+1 as reg from registry where type='".$txt_type."' ORDER BY id DESC LIMIT 1";
 		$query = $conn->query($lastRegistry);
 		while ($r=$query->fetch()):
@@ -57,12 +96,13 @@
 		$insertQuery->bindValue(':Status', $txt_status);
 		$insertQuery->bindValue(':Comment', $txt_comment);
 		$insertQuery->execute();
+
 		if ($insertQuery) {
-			echo "<script>alert('Registro exitoso!');</script>";
-			echo "<script> location.href='../'; </script>";	
+			sleep(2);
+			header('Location: ../');  
 		}else{
-			echo "<script>alert('Hubo un error al momento de registrar.');</script>";
-			echo "<script> location.href='../'; </script>";	
+			sleep(1);
+			header('Location: ../'); 
 		}
 	}	
  ?>

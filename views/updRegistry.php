@@ -10,7 +10,7 @@ $stmSelect = "SELECT * FROM registry WHERE code='$code'";
 $execSelect = $conn->query($stmSelect);
 if ($execSelect->rowCount()>0) {
 	?>
-	<form method="POST" action="controlers/dataUpdate.php">
+	<form method="POST" action="controlers/dataUpdate.php" enctype="multipart/form-data">
 		<div class="row justify-content-md-center">
 			<h3 class="display-2">Modificar equipo <?php echo $code ?></h3>
 		</div>
@@ -89,6 +89,11 @@ if ($execSelect->rowCount()>0) {
 						</div>
 						<br><br><br><br><br>
 					</div>
+
+					<a href="controlers/reader.php?file_name=../assets/invoices/<?php echo $row ["serial"]; ?>/<?php echo $row ["serial"]; ?>.pdf" target="_blank" class="btn btn-info btn-block">Ver PDF</a>
+					<hr>
+					<a href="controlers/reader.php?file_name=../assets/invoices/<?php echo $row ["serial"]; ?>/<?php echo $row ["serial"]; ?>.xml" target="_blank" class="btn btn-success btn-block">Ver XML</a>
+
 				</div>
 				<div class="col">
 					<div class="card card-outline-info mb-3">
@@ -158,11 +163,19 @@ if ($execSelect->rowCount()>0) {
 									</div>									
 								</div>															
 							</div>
+
+							<div class="form-group">
+								<label class="col-xs-4 control-label">Adjunta Factura</label>
+								<div class="col-xs-4 form-group-file">
+									<input type="file" class="form-control" id="archivo[]" name="archivo[]" multiple="">
+								</div>
+							</div>
+
 							<div class="row">
 								<div class="col-12">
 									<div class="form-group">
 										<small class="form-text text-muted">Comentarios</small>
-										<textarea class="form-control" name="txtComment" rows="3"><?php echo $row ["comment"]; ?></textarea>
+										<textarea class="form-control" name="txtComment" rows="5"><?php echo $row ["comment"]; ?></textarea>
 									</div>
 								</div>
 							</div>																			
