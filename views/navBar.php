@@ -28,8 +28,8 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="index.php?h=2">Administrar usuarios</a>
-          <a class="dropdown-item" href="#">Mantenimientos</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+<!--           <a class="dropdown-item" href="#">Mantenimientos</a>
+          <a class="dropdown-item" href="#">Something else here</a> -->
         </div>
       </li>
     </ul>

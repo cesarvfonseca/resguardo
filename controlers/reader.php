@@ -14,6 +14,10 @@ else if ($fileExt=='xml')
 {
 	$nSerie = str_replace('.xml', '', $filex);
 }
+else if ($fileExt=='jpg')
+{
+	$nSerie = str_replace('.jpg', '', $filex);
+}
 
 $dir = $path.$nSerie."/";
 
@@ -37,6 +41,11 @@ else
 	  	if ($fileExt=="xml") 
 	  	{
 	  		header('Location:'.$dir.$filex);
+	  	}
+	  	if ($fileExt=="jpg") 
+	  	{
+	  		 header('content-type: image/'.$fileExt);
+  			 readfile($dir.$filex);
 	  	}
 	}
 }

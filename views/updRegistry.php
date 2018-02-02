@@ -84,15 +84,29 @@ if ($execSelect->rowCount()>0) {
 										<small class="form-text text-muted">Planta ó departamento</small>
 										<input type="text" class="form-control" name="txtStation" placeholder="Planta / Departamento" value="<?php echo $row ["workstation"]; ?>">
 									</div>
-								</div>								
+								</div>
+
+								<div class="col-12">
+									<div class="form-group">
+										<label class="control-label text-muted">Adjunta carta responsiva</label>
+										<div class="form-group-file">
+											<input type="file" class="form-control" id="cResponsiva[]" name="cResponsiva[]" multiple="">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-12">
+									<a href="controlers/reader.php?file_name=<?php echo $row ["serial"];?>.jpg" target="_blank" class="btn btn-warning btn-block">Ver Carta Responsiva</a>
+									<hr>
+									<a href="controlers/reader.php?file_name=<?php echo $row ["serial"];?>.pdf" target="_blank" class="btn btn-info btn-block">Ver PDF</a>
+									<a href="controlers/reader.php?file_name=<?php echo $row ["serial"];?>.xml" target="_blank" class="btn btn-success btn-block">Ver XML</a>
+								</div>
+
 							</div>															
 						</div>
-						<br><br><br><br><br>
 					</div>
 
-					<a href="controlers/reader.php?file_name=<?php echo $row ["serial"];?>.pdf" target="_blank" class="btn btn-info btn-block">Ver PDF</a>
-					<hr>
-					<a href="controlers/reader.php?file_name=<?php echo $row ["serial"];?>.xml" target="_blank" class="btn btn-success btn-block">Ver XML</a>
+					
 
 				</div>
 				<div class="col">
@@ -165,7 +179,7 @@ if ($execSelect->rowCount()>0) {
 							</div>
 
 							<div class="form-group">
-								<label class="col-xs-4 control-label">Adjunta Factura</label>
+								<label class="col-xs-4 control-label text-muted">Adjunta Factura (PDF y XML)</label>
 								<div class="col-xs-4 form-group-file">
 									<input type="file" class="form-control" id="archivo[]" name="archivo[]" multiple="">
 								</div>
