@@ -33,6 +33,7 @@ if(isset($_GET['codeR'])){
 		$ncomment = $row["comment"];
 		$compUser;
 
+		$contenidoQR = 'Responsable: '.$employee_name . ' ' . $employee_lastname . ' Número de nomina:'.$nproduct.'Nomina:'.$id_employee.' Encargado:'.$employee_name.' '.$employee_lastname;
 		$contenidoQR = 'NS:'.$nserie.' NP:'.$nproduct.'Nomina:'.$id_employee.' Encargado:'.$employee_name.' '.$employee_lastname;
 
 		if ($ntype=="MQ"){
@@ -91,8 +92,8 @@ if(isset($_GET['codeR'])){
 							<td>Correo: '.$employee_mail.'</td>
 						</tr>
 						<tr>
-							<td>Sucursal: '.$employee_ws.'</td>
-							<td>Departamento / Planta: '.$employee_branch.'</td>
+							<td>Sucursal: '.$employee_branch.'</td>
+							<td>Departamento / Planta: '.$employee_ws.'</td>
 						</tr>
 						<tr>
 							<td>Telefono: '.$employee_phone.'</td>
@@ -163,38 +164,38 @@ if(isset($_GET['codeR'])){
 							<td colspan="1"><img src="../img/QR/'.$fileName.'" alt="imagenQR" height="60" width="60"></td>
 						</tr>
 						<tr>
-							<td bgcolor="#B0B0B0" colspan="1"><p>Propiedad: </p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>Propiedad </p></td>
 							<td colspan="5"><p>MEXQ (SERV. DE ASEG. DE CALIDAD MUÑING)</p></td>
 						</tr>
 						<tr>
-							<td bgcolor="#B0B0B0" colspan="1"><p>Usuario: </p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>Usuario </p></td>
 							<td colspan="3"><p>'.$employee_name." ".$employee_lastname.'</p></td>
-							<td bgcolor="#B0B0B0" colspan="1"><p>Equipo: </p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>Equipo </p></td>
 							<td colspan="1"><p>'.$ntype.'</p></td>
 						</tr>
 						<tr>
-							<td bgcolor="#B0B0B0" colspan="1"><p>Marca: </p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>Marca </p></td>
 							<td colspan="2"><p>'.$nbrand.'</p></td>						
-							<td bgcolor="#B0B0B0" colspan="1"><p>Modelo: </p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>Modelo </p></td>
 							<td colspan="2"><p>'.$nmodel.'</p></td>						
 						</tr>		
 		
 						<tr>
-							<td bgcolor="#B0B0B0" colspan="1"><p>No. serie: </p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>No. serie </p></td>
 							<td colspan="2"><p>'.$nserie.'</p></td>
-							<td bgcolor="#B0B0B0" colspan="1"><p>No. producto: </p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>No. producto </p></td>
 							<td colspan="2"><p>'.$nproduct.'</p></td>
 						</tr>	
 						<tr>
-							<td bgcolor="#B0B0B0" colspan="1"><p>Sucursal: </p></td>
-							<td colspan="2"><p>'.$employee_branch.'</p></td>
-							<td bgcolor="#B0B0B0" colspan="1"><p>No. Planta: </p></td>
-							<td colspan="2"><p>'.$employee_ws.'</p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>Sucursal</p></td>
+							<td colspan="1"><p>' .$employee_branch . '</p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>Planta o Depto. </p></td>
+							<td colspan="3"><p>' . $employee_ws . '</p></td>
 						</tr>				
 						<tr>
-							<td bgcolor="#B0B0B0" colspan="1"><p>Fecha: </p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>Fecha </p></td>
 							<td colspan="2"><p>'.$date_registry.'</p></td>
-							<td bgcolor="#B0B0B0" colspan="1"><p>ID: </p></td>
+							<td bgcolor="#B0B0B0" colspan="1"><p>ID </p></td>
 							<td colspan="2"><p>'.$id.'</p></td>
 						</tr>																																		
 					</table>

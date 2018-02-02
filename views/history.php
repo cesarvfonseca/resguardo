@@ -6,7 +6,7 @@
 
 	$conn = Connect();
 
-	$stmQuery = "SELECT * FROM history ORDER BY code";
+	$stmQuery = "SELECT * FROM history ORDER BY fin_date desc,code";
 	$execQuery = $conn -> query($stmQuery);?>
 	
 	<div class="container-fluid">

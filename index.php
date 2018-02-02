@@ -1,9 +1,8 @@
 <?php 
-	if (empty($_REQUEST['h'])) {
-		$h="2";
-	}else{
+	if (empty($_REQUEST['h']))
+		$h="0";
+	else
 		$h=$_REQUEST['h'];
-	}
     
 	session_start();
 	include 'database/connection.php';
@@ -28,7 +27,15 @@
 <body>
 	<header>
 		<?php 
-			include('views/navBar.php')
+		if (!isset($_SESSION['usr_active']) || empty($_SESSION['usr_active']))
+    	{
+			include('views/navBaru.php');
+		}
+		elseif (isset($_SESSION['usr_active']) || !empty($_SESSION['usr_active'])) 
+		{
+			include('views/navBar.php');
+		}
+
 		 ?>
 		 <hr>
 	</header>
@@ -40,19 +47,38 @@
     			{
 					include('views/initPage.php');
 				}
-				else if (!empty($_REQUEST['vcode'])&&$_SESSION['usr_active']=='admin') 
+				else if (!empty($_REQUEST['vcode'])&&$_SESSION['level']=='1') 
 				{
 					include('views/updRegistry.php');
 				}
-				else if (!empty($_REQUEST['vcode'])&&$_SESSION['usr_active']!='admin')
+				else if (!empty($_REQUEST['vcode'])&&$_SESSION['level']!='1')
 				{
 					include('views/modals/info.php');
+				}
+				else if (!empty($_REQUEST['id']))//ACTUALIZAR USUARIOS
+				{
+					include('views/updUser.php');
+				}
+				else if (!empty($_REQUEST['idD']))//BORRAR USUARIOS
+				{
+					include('controlers/userDel.php');
 				}
 				else if ($h=='1') 
 				{
 					include('views/history.php');
+					$h='';
 				}
-				else
+				else if ($h=='2') 
+				{
+					include('views/userControl.php');
+					$h='';
+				}
+				else if ($h=='3') 
+				{
+					include('controlers/userReg.php');
+					$h='';
+				}
+				else if (isset($_SESSION['usr_active']) || !empty($_SESSION['usr_active']))
 				{
 					include('views/table.php');
 				}

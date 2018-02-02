@@ -1,7 +1,7 @@
 <?php 
     $st = "";
     $pgm = "#";
-  if (empty($_SESSION['usr_active'])){
+  if (!($_SESSION['level']>0)){
     $st = "disabled";
     $pgm = "#";
   }else{
@@ -17,18 +17,18 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link <?php echo $st ?>" href="index.php">Inicio<span class="sr-only">(current)</span></a>
+        <a class="nav-link active" href="index.php"> Inicio <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <?php echo $st ?>" href="index.php?h=1" title="Historial de equipos" >Historial</a>
+        <a class="nav-link active" href="index.php?h=1" title="Historial de equipos" >Historial</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle  disabled" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Administración
+        <a class="nav-link dropdown-toggle  <?php echo $st ?>" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Configuración
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="index.php?h=2">Administrar usuarios</a>
+          <a class="dropdown-item" href="#">Mantenimientos</a>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>

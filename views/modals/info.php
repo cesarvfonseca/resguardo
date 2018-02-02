@@ -92,9 +92,9 @@ if ($execSelect->rowCount()>0) {
 						<br><br><br><br><br>
 					</div>
 
-					<a href="controlers/reader.php?file_name=../assets/invoices/<?php echo $row ["serial"]; ?>/<?php echo $row ["serial"]; ?>.pdf" target="_blank" class="btn btn-info btn-block">Ver PDF</a>
+					<a href="controlers/reader.php?file_name=<?php echo $row ["serial"];?>.pdf" target="_blank" class="btn btn-info btn-block">Ver PDF</a>
 					<hr>
-					<a href="controlers/reader.php?file_name=../assets/invoices/<?php echo $row ["serial"]; ?>/<?php echo $row ["serial"]; ?>.xml" target="_blank" class="btn btn-success btn-block">Ver XML</a>
+					<a href="controlers/reader.php?file_name=<?php echo $row ["serial"];?>.xml" target="_blank" class="btn btn-success btn-block">Ver XML</a>
 
 				</div>
 				<div class="col">

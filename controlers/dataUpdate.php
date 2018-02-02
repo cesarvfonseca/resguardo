@@ -58,11 +58,8 @@
 			//Movemos y validamos que el archivo se haya cargado correctamente
 			//El primer campo es el origen y el segundo el destino
 			if(move_uploaded_file($source, $target_path)) {	
-				echo "El archivo $filename se ha almacenado en forma exitosa.<br>";
-				} else {	
-				echo "Ha ocurrido un error, por favor inténtelo de nuevo.<br>";
+				closedir($dir); //Cerramos el directorio de destino
 			}
-			closedir($dir); //Cerramos el directorio de destino
 		}
 	}
 		// SUBIR FACTURAS
