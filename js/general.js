@@ -12,6 +12,9 @@ $('#editsp').on('show.bs.modal', function (event) {
 	  var recipient9 = button.data('spimei')
 	  var recipient10 = button.data('spaccount')
 	  var recipient11 = button.data('empphone')
+	  var recipient12 = button.data('spstatus')
+	  var recipient13 = button.data('spcomment')
+
 	   // Extract info from data-* attributes
 	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -29,5 +32,10 @@ $('#editsp').on('show.bs.modal', function (event) {
 	  modal.find('.modal-body #spimei').val(recipient9)		 
 	  modal.find('.modal-body #spaccount').val(recipient10)		 
 	  modal.find('.modal-body #empphone').val(recipient11)		 
+	  modal.find('.modal-body #spstatus').val(recipient12)		 
+	  modal.find('.modal-body #spcomment').val(recipient13)		 
 	});
 
+
+$("#spstatus").val();
+// $("#spstatus option[value=0]").attr('selected', 'selected');

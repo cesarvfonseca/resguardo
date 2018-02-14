@@ -14,14 +14,21 @@ $conn = Connect();
 <div class="row-fluid">
 
 	<div class="col-md-12">
-		<button class="btn btn-md btn-success" data-toggle="modal" data-target="#nuevoUsu">
+
+		<?php if ($_SESSION['level']=='1'){ ?>
+
+		<button class="btn btn-md btn-success" data-toggle="modal" data-target="#newsp">
 			<i class="fas fa-plus-circle"></i>
 
 			Agregar
 
 		</button>
 
-		<hr>
+		<?php }else{ ?>
+
+			<hr>
+
+		<?php } ?>
 
 	</div>
 	<div class="col-md-12">
@@ -29,8 +36,9 @@ $conn = Connect();
 			<table id="example" class="stripe row-border order-column" cellspacing="0" width="100%"> 
 				<thead class="thead-inverse">
 					<tr>
+						<th>#</th>
 						<th>Codigo</th>
-						<th>Nomina</th>
+						<!-- <th>Nomina</th> -->
 						<th>Responsable</th>
 						<th>Sucursal</th>
 						<th>Area</th>
@@ -51,8 +59,8 @@ $conn = Connect();
 					{					
 						echo "<tr>";
 						echo "	
+								<td>$fila[0]</td>
 								<td>$fila[1]</td>
-								<td>$fila[2]</td>
 								<td>$fila[3]</td>
 								<td>$fila[4]</td>
 								<td>$fila[5]</td>
@@ -63,26 +71,29 @@ $conn = Connect();
 								<td>$fila[10]</td>
 								<td>$fila[11]</td>
 							 ";	
-						echo "	
-								<td>
-									<a data-toggle='modal' data-target='#editsp' 
-										data-id ='" .$fila[0] ."' 
-										data-spcode = '" .$fila[1] ."' 
-										data-empcode = '" .$fila[2] ."' 
-										data-empname = '" .$fila[3] ."' 
-										data-empbranch = '" .$fila[4] ."' 
-										data-emparea = '" .$fila[5] ."' 
-										data-spstatus = '" .$fila[5] ."' 
-										data-spcolor = '" .$fila[6] ."' 
-										data-spbrand = '" .$fila[7] ."' 
-										data-spmodel = '" .$fila[8] ."' 
-										data-spimei = '" .$fila[9] ."' 
-										data-spaccount = '" .$fila[10] ."' 
-										data-empphone = '" .$fila[11] ."' 
-										class='btn btn-warning'><span class='glyphicon glyphicon-pencil'></span>Editar</a> 
-									<a class='btn btn-danger' href='elimina.php?id=" .$fila[0] ."'><span class='glyphicon glyphicon-remove'></span>Eliminar</a>
-								</td>
-							  ";			
+							echo "<td>";
+							echo		"<a data-toggle='modal' data-target='#editsp' 
+											data-id ='" .$fila[0] ."' 
+											data-spcode = '" .$fila[1] ."' 
+											data-empcode = '" .$fila[2] ."' 
+											data-empname = '" .$fila[3] ."' 
+											data-empbranch = '" .$fila[4] ."' 
+											data-emparea = '" .$fila[5] ."' 
+											data-spcolor = '" .$fila[6] ."' 
+											data-spbrand = '" .$fila[7] ."' 
+											data-spmodel = '" .$fila[8] ."' 
+											data-spimei = '" .$fila[9] ."' 
+											data-spaccount = '" .$fila[10] ."' 
+											data-empphone = '" .$fila[11] ."' 
+											data-spstatus = '" .$fila[12] ."' 
+											data-spcomment = '" .$fila[13] ."' 
+											class='btn btn-warning text-white'><i class='fas fa-pen-square'></i></a>";
+							if ($_SESSION['level']=='1'){				
+							echo		"<a class='btn btn-danger text-white' onclick='return confirm('Seguro de eliminar?')' href='controlers/sp/sp_delete.php?id=" .$fila[0] ."'><i class='fas fa-times-circle'></i></a>";
+							}
+							echo "</td>";
+							  	
+
 						echo "</tr>";
 					}
 				}

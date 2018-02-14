@@ -2,7 +2,7 @@
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="#">MEXQ</a>
+  <a class="navbar-brand bg-primary text-white" href="#">MEXQ</a>
     <form class="form-inline navbar-right ml-auto" role="search" method="POST" action="controlers/validate.php">
         <div class="form-group">
             <input type="text" class="form-control mr-sm-2" name="txtUsername" placeholder="Usuario">
