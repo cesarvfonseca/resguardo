@@ -77,7 +77,7 @@ if ($execSelect->rowCount()>0) {
 			<br>
 			<div class="col">
 				<div class="card card-outline-info mb-3">
-					<button type="submit" class="btn btn-primary btn-lg btn-block" name="btnUpdUser" id="btnUpdUser">Modificar usuario</button>
+					<button type="submit" class="btn btn-primary btn-lg btn-block" name="btnUpdUser" id="btnUpdUser">Modificar usuario <i class="fas fa-edit"></i></button>
 				</div>
 			</div>
 		</div>

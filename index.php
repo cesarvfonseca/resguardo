@@ -17,12 +17,17 @@
 	<link rel="shortcut icon" href="img/icoMQ.ico">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
     <script src="js/dataTables.bootstrap4.min.js"></script>
+
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" media="screen">
+
 </head>
 <body>
 	<header>
@@ -51,6 +56,10 @@
 				{
 					include('views/updRegistry.php');
 				}
+				else if (!empty($_REQUEST['computer_code'])&&$_SESSION['level']=='1') 
+				{
+					include('views/support.php');
+				}
 				else if (!empty($_REQUEST['vcode'])&&$_SESSION['level']!='1')
 				{
 					include('views/modals/info.php');
@@ -62,6 +71,10 @@
 				else if (!empty($_REQUEST['idD']))//BORRAR USUARIOS
 				{
 					include('controlers/userDel.php');
+				}
+				else if (!empty($_REQUEST['supportID']))//ACTUALIZAR USUARIOS
+				{
+					include('views/edit_support.php');//ACTUALIZA SOPORTE
 				}
 				else if ($h=='1') 
 				{
@@ -76,6 +89,11 @@
 				else if ($h=='3') 
 				{
 					include('controlers/userReg.php');
+					$h='';
+				}
+				else if ($h=='4') 
+				{
+					include('views/smartphone_view.php');
 					$h='';
 				}
 				else if (isset($_SESSION['usr_active']) || !empty($_SESSION['usr_active']))

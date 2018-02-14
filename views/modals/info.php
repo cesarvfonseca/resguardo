@@ -161,7 +161,7 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Fecha factura</small>
-										<input class="form-control" type="date" name="txtInvoicedate" value="<?php echo $row ["invoicedate"]; ?>">
+										<input disabled class="form-control" type="date" name="txtInvoicedate" value="<?php echo $row ["invoicedate"]; ?>">
 									</div>									
 								</div>															
 							</div>

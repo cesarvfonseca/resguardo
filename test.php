@@ -2,113 +2,44 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Table 5</title>
-	<link rel="shortcut icon" href="img/csr.ico">
-	
-	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
-	<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<title>Tabla</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">	
 </head>
 <body>
-	<div class="container">
-		<div class="table-responsive">
-			<table id="myTable" class="table table-striped" >  
 
-				<thead>  
-					<tr>  
-						<th>ENO</th>  
-						<th>EMPName</th>  
-						<th>Country</th>  
-						<th>Salary</th>  
-					</tr>  
-				</thead>  
-				<tbody>  
-					<tr>  
-						<td>001</td>  
-						<td>Anusha</td>  
-						<td>India</td>  
-						<td>10000</td>  
-					</tr>  
-					<tr>  
-						<td>002</td>  
-						<td>Charles</td>  
-						<td>United Kingdom</td>  
-						<td>28000</td>  
-					</tr>  
-					<tr>  
-						<td>003</td>  
-						<td>Sravani</td>  
-						<td>Australia</td>  
-						<td>7000</td>  
-					</tr>  
-					<tr>  
-						<td>004</td>  
-						<td>Amar</td>  
-						<td>India</td>  
-						<td>18000</td>  
-					</tr>  
-					<tr>  
-						<td>005</td>  
-						<td>Lakshmi</td>  
-						<td>India</td>  
-						<td>12000</td>  
-					</tr>  
-					<tr>  
-						<td>006</td>  
-						<td>James</td>  
-						<td>Canada</td>  
-						<td>50000</td>  
-					</tr>  
+<?php 
+	
+	include_once 'database/connection.php';
+	$conn = Connect();
 
-					<tr>  
-						<td>007</td>  
-						<td>Ronald</td>  
-						<td>US</td>  
-						<td>75000</td>  
-					</tr>  
-					<tr>  
-						<td>008</td>  
-						<td>Mike</td>  
-						<td>Belgium</td>  
-						<td>100000</td>  
-					</tr>  
-					<tr>  
-						<td>009</td>  
-						<td>Andrew</td>  
-						<td>Argentina</td>  
-						<td>45000</td>  
-					</tr>  
-
-					<tr>  
-						<td>010</td>  
-						<td>Stephen</td>  
-						<td>Austria</td>  
-						<td>30000</td>  
-					</tr>  
-					<tr>  
-						<td>011</td>  
-						<td>Sara</td>  
-						<td>China</td>  
-						<td>750000</td>  
-					</tr>  
-					<tr>  
-						<td>012</td>  
-						<td>JonRoot</td>  
-						<td>Argentina</td>  
-						<td>65000</td>  
-					</tr>  
-				</tbody>  
-
-			</table>
+	$sql = "SELECT code FROM `registry` WHERE `registry`.`status`='A'";
+	$execSQL = $conn->query($sql);
+	?>
+		<div class="form-group"> 
+			<label class="col-xs-4 control-label">Equipos</label>
+			<div class="col-xs-5 selectContainer">
+	<?php
+	while ($row = $execSQL->fetch()){
+	    // echo "<input type='checkbox' code='students[]' value='".$row['code']."'>".$row['code'];
+	        ?>
+						<label class="custom-control custom-checkbox">
+						  <input type="checkbox" class="custom-control-input" name="<?php echo $row['code']; ?>" value="<?php echo $row['code']; ?>">
+						  <span class="custom-control-indicator"></span>
+						  <span class="custom-control-description"><?php echo $row['code']; ?></span>
+						</label>
+	        <?php
+	}
+	?>
+			</div>
 		</div>
-	</div>
-</body>
-</html>
+	<?php
 
-<script>
-$(document).ready(function(){
-    $('#myTable').dataTable();
-});
-</script>
+ ?>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>‌​
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+ </body>
+</html>

@@ -22,7 +22,8 @@ if(!$consulta){
 				<br>
 			</div>
 				<button class="btn btn-md btn-success" data-toggle="modal" data-target="#userRegistry">
-					Agregar usuario
+					<i class="fas fa-plus-circle"></i>
+					 Agregar usuario
 				</button>
 				<hr>
 				<div class="row">
@@ -49,8 +50,8 @@ if(!$consulta){
 		                            <?php echo "<td>". $row['lastname']. "</td>"; ?>
 		                            <?php echo "<td>". $row['login']. "</td>"; ?>
 		                            <?php echo "<td>". $roll . "</td>"; ?>
-		                            <?php echo "<td class='centrar'>"."<a href='index.php?id=".$row['id']."' class='btn btn-sm btn-warning'>Editar</a>". "</td>"; ?>
-								  <?php echo "<td class='centrar'>"."<a href='index.php?idD=".$row['id']."' class='btn btn-sm btn-danger' onclick='return confirm('Seguro de eliminar?')'>Eliminar</a>". "</td>"; ?>
+		                            <?php echo "<td class='centrar'>"."<a href='index.php?id=".$row['id']."' class='btn btn-sm btn-warning'><i class='fas fa-pen-square'> Editar</a>". "</td>"; ?>
+								  <?php echo "<td class='centrar'>"."<a href='index.php?idD=".$row['id']."' class='btn btn-sm btn-danger' onclick='return confirm('Seguro de eliminar?')'><i class='fas fa-minus-circle'></i> Eliminar</a>". "</td>"; ?>
 								</tr>
 							<?php endforeach; ?>
 							</table>

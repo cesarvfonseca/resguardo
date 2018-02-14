@@ -35,11 +35,19 @@
 			$updateData->execute();
 
 		if ($updateData) {
-			// sleep(2);
-			header('Location: ../');  
+			sleep(1);
+			?>
+				<script type="text/javascript">
+					window.history.go(-2);
+				</script>
+			<?php  
 		}else{
-			sleep(2);
-			header('Location: ../'); 
+			sleep(5);
+			?>
+				<script type="text/javascript">
+					window.history.go(-2);
+				</script>
+			<?php 
 		}
 		}
 		

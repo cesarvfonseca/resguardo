@@ -20,8 +20,7 @@
 
 	
 
-	$stmSelect = "SELECT * FROM `registry` WHERE `registry`.`active`='1'";
-	// $stmSelect = "SELECT * FROM `registry` WHERE `registry`.`active`='1' ORDER BY `registry`.`date` DESC";
+	$stmSelect = "SELECT * FROM `registry` WHERE `registry`.`active`='1' AND `registry`.`type`='PC' ORDER BY `registry`.`date` DESC";
 
 	$execSelect = $conn->query($stmSelect);?>
 
@@ -44,9 +43,8 @@
 			<?php if ($_SESSION['level']=='1'){ ?>
 
 				<button class="btn btn-md btn-success" data-toggle="modal" data-target="#newRegistry">
-					<i class="fas fa-plus-circle"></i>
 
-					 Agregar
+					Agregar
 
 				</button>
 
@@ -72,7 +70,7 @@
 
 			<br>
 
-			<table id="example" class="stripe row-border order-column" cellspacing="0" width="100%"> 
+			<table id="example" class="table table-striped text-center">  
 
 					<thead class="thead-inverse">
 
@@ -96,8 +94,6 @@
 
 						<th>No.Producto</th>
 
-						<th>Fecha</th>
-
 						<th>Factura</th>
 
 						<th>Estado</th>
@@ -111,7 +107,7 @@
 						while ($row = $execSelect->fetch()):
 
 					 ?>
-				
+
 					<tr style="background-color: <?php echo $status_colors[$row ["status"]];?>; color: <?php echo $font_colors[$row ["status"]];?>">
 
 						
@@ -136,8 +132,6 @@
 
 						<td><?php echo $row ["product"]; ?></td>
 
-						<td><?php echo $row ["date"]; ?></td>
-
 						<td><?php echo $row ["invoicenbr"]; ?></td>
 
 						<td><?php echo $row ["status"]; ?></td>
@@ -152,13 +146,11 @@
 
 								<td>
 
-									<a href="index.php?vcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-info" title="Modificar registro" target="_blank"><i class="fas fa-pen-square"></i></a>
+									<a href="index.php?vcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-info" title="Modificar registro" target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 
-									<a href="controlers/deleteRegistry.php?dcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-danger btn-eliminar" onclick="return confirm('Seguro de eliminar?')" title="Eliminar registro"><i class="fas fa-minus-circle"></i></a>
+									<a href="controlers/deleteRegistry.php?dcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-danger btn-eliminar" onclick="return confirm('Seguro de eliminar?')" title="Eliminar registro"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 
-									<a href="views/report.php?codeR=<?php echo $row ['code']; ?>" name="create_pdf" class="btn btn-sm btn-success" title="Carta responsiva" target="_blank"><i class="fas fa-file-pdf"></i></a>
-									
-									<a href="index.php?computer_code=<?php echo $row ['code']; ?>" name="create_pdf" class="btn btn-sm btn-warning" title="Soporte técnico" target="_blank"><i class="fas fa-shield-alt"></i></a>
+									<a href="views/report.php?codeR=<?php echo $row ['code']; ?>" name="create_pdf" class="btn btn-sm btn-success" title="Carta responsiva" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 
 								</td>
 
