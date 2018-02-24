@@ -25,13 +25,19 @@ if ($execSelect->rowCount()>0) {
 								</div>								
 							</div>
 							<div class="row">
-								<div class="col-6">
+								<div class="col-4">
+									<div class="form-group">
+										<small class="form-text text-muted">Nomina</small>
+										<input type="text" class="form-control" name="txtNomina" id="txtNomina" placeholder="Numero de nomina" value="<?php echo $row ["employee_id"]; ?>">
+									</div>
+								</div>
+								<div class="col-4">
 									<div class="form-group">
 										<small class="form-text text-muted">Nombre(s)</small>
 										<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Nombres" value="<?php echo $row ["name"]; ?>">
 									</div>
 								</div>
-								<div class="col-6">
+								<div class="col-4">
 									<div class="form-group">
 										<small class="form-text text-muted">Apellido(s)</small>
 										<input type="text" class="form-control" name="txtlastName" id="txtlastName" placeholder="Apellidos" value="<?php echo $row ["lastname"]; ?>">
@@ -49,8 +55,9 @@ if ($execSelect->rowCount()>0) {
 									<div class="form-group">
 										<small class="form-text text-muted">Rol del usuario</small>
 										<select class="form-control" name="cmRol">
-											<option <?php if ($row ["roll"]=="1") echo 'selected' ?> value="1">Administrador</option>
-											<option <?php if ($row ["roll"]=="0") echo 'selected' ?>  value="0">Limitado</option>
+											<option <?php if ($row ["roll"]=="0") echo 'selected' ?> value="0">Administrador</option>
+											<option <?php if ($row ["roll"]=="1") echo 'selected' ?> value="1">Supervisor</option>
+											<option <?php if ($row ["roll"]=="3") echo 'selected' ?>  value="3">Limitado</option>
 										</select>
 									</div>
 								</div>								

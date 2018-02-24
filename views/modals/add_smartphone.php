@@ -1,9 +1,9 @@
-<div class="modal fade" id="editsp" role="dialog" aria-hidden="true">
+<div class="modal fade" id="addsp" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
-		<form class="form-horizontal" method="POST" action="controlers/sp/sp_edit.php" enctype="multipart/form-data">
+		<form class="form-horizontal" method="POST" action="controlers/sp/sp_new.php" enctype="multipart/form-data">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Editar Smartphone</h5>
+					<h5 class="modal-title">Añadir responsable</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -24,7 +24,7 @@
 									<div class="col-6">
 									  <div class="form-group">
 									  	<small class="form-text text-muted">Teléfono</small>
-									    <input type="phone" class="form-control" name="empphone" id="empphone" placeholder="Teléfono de contacto">
+									    <input readonly type="phone" class="form-control" name="empphone" id="empphone" placeholder="Teléfono de contacto">
 									  </div>
 									</div>								
 								</div>
@@ -60,21 +60,21 @@
 									<div class="col-4">
 										<div class="form-group">
 											<small class="form-text text-muted">Codigo</small>
-											<input readonly type="text" class="form-control" name="spcode" id="spcode" placeholder="Codigo del telefono">
+											<input readonly type="text" class="form-control" name="spcode" id="spcode" placeholder="Color">
 										</div>
 									</div>
 
 									<div class="col-4">
 										<div class="form-group">
 											<small class="form-text text-muted">Color</small>
-											<input type="text" class="form-control" name="spcolor" id="spcolor" placeholder="Color">
+											<input readonly type="text" class="form-control" name="spcolor" id="spcolor" placeholder="Color">
 										</div>
 									</div>
 
 									<div class="col-4">
 										<div class="form-group">
 											<small class="form-text text-muted">Estado</small>
-											<select class="form-control" name="spstatus" id="spstatus">
+											<select readonly class="form-control" name="spstatus" id="spstatus">
 												<option value="1">Activo</option>
 												<option value="0">Baja</option>
 											</select>
@@ -86,13 +86,13 @@
 									<div class="col-6">
 									  <div class="form-group">
 									  	<small class="form-text text-muted">Marca</small>
-									    <input type="text" class="form-control" name="spbrand" id="spbrand" placeholder="Marca">
+									    <input readonly type="text" class="form-control" name="spbrand" id="spbrand" placeholder="Marca">
 									  </div>
 									</div>
 									<div class="col-6">
 									  <div class="form-group">
 									  	<small class="form-text text-muted">Modelo</small>
-									    <input type="text" class="form-control" name="spmodel" id="spmodel" placeholder="Modelo">
+									    <input readonly type="text" class="form-control" name="spmodel" id="spmodel" placeholder="Modelo">
 									  </div>
 									</div>								
 								</div>
@@ -100,19 +100,19 @@
 									<div class="col-6">
 									  <div class="form-group">
 									  	<small class="form-text text-muted">IMEI</small>
-									    <input type="text" class="form-control" name="spimei" id="spimei" placeholder="IMEI">
+									    <input readonly type="text" class="form-control" name="spimei" id="spimei" placeholder="IMEI">
 									  </div>
 									</div>
 									<div class="col-6">
 									  <div class="form-group">
 									  	<small class="form-text text-muted">Cuenta de Google</small>
-									    <input type="mail" class="form-control" name="spaccount" id="spaccount" placeholder="Correo de google">
+									    <input readonly type="mail" class="form-control" name="spaccount" id="spaccount" placeholder="Correo de google">
 									  </div>
 									</div>
 									<div class="col-12">
 										<div class="form-group">
 											<small class="form-text text-muted">Comentarios</small>
-											<textarea class="form-control" name="spcomment" id="spcomment" rows="2"></textarea>
+											<textarea readonly class="form-control" name="spcomment" id="spcomment" rows="2"></textarea>
 										</div>
 									</div>
 								</div>																		
@@ -123,7 +123,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary" name="btnEdit">Salvar datos</button>
+					<button type="submit" class="btn btn-primary" name="btnAdd">Añadir usuario</button>
 				</div>
 			</div>
 		</form>

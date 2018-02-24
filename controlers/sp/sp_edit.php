@@ -20,10 +20,12 @@
 		$spStatus = $_POST['spstatus'];
 		$spComment = $_POST['spcomment'];
 		$updTime = date('Y-m-d');
+		$date_update=date('Y-m-d H:i:s');
+		$user_update = $_SESSION["whoIs"];
 
 		$updateQry = $conn->prepare('UPDATE `smartphone` SET `employee_code`=:empCode_,`employee_name`=:empName_,`branch`=:empBranch_,`area`=:empArea_,`color`=:spColor_,
 						`brand`=:spBrand_,`model`=:spModel_,`imei`=:spImei_,`account`=:spAccount_,`phone_number`=:empPhone_,`status`=:spStatus_,
-						`comment`=:spComment_,`update_time`=:updTime_ WHERE `id`=:spId_');
+						`comment`=:spComment_,`update_time`=:updTime_,`user_update`=:usrUpd_ WHERE `id`=:spId_');
 		$updateQry->bindValue(':empCode_', $empCode);
 		$updateQry->bindValue(':empName_', $empName);
 		$updateQry->bindValue(':empBranch_', $empBranch);
@@ -36,7 +38,8 @@
 		$updateQry->bindValue(':empPhone_', $empPhone);
 		$updateQry->bindValue(':spStatus_', $spStatus);
 		$updateQry->bindValue(':spComment_', $spComment);
-		$updateQry->bindValue(':updTime_', $updTime);
+		$updateQry->bindValue(':updTime_', $date_update);
+		$updateQry->bindValue(':usrUpd_', $user_update);
 		$updateQry->bindValue(':spId_', $spId);
 
 		$updateQry->execute();

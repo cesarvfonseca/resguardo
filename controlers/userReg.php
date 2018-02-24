@@ -7,6 +7,7 @@
 		include "../database/connection.php";
 		$conn = Connect();
 
+		$txt_nomina = $_POST['nomina'];
 		$txt_name = $_POST['nombres'];
 		$txt_lastname = $_POST['apellidos'];
 		$txt_user= $_POST['usuario'];
@@ -24,11 +25,12 @@
 
 		if ($errors=='') 
 		{
-			$insertData = $conn->prepare('INSERT INTO `user`(`login`, `pwd`, `name`, `lastname`, `roll`) 
-											VALUES (:Login,:Pwd,:Name,:Lname,:Roll)');
+			$insertData = $conn->prepare('INSERT INTO `user`(`login`, `pwd`, `employee_id`, `name`, `lastname`, `roll`) 
+											VALUES (:Login,:Pwd,:Nomina,:Name,:Lname,:Roll)');
 
 			$insertData->bindValue(':Login',$txt_user);
 			$insertData->bindValue(':Pwd',$txt_pass1);
+			$insertData->bindValue(':Nomina',$txt_nomina);
 			$insertData->bindValue(':Name',$txt_name);
 			$insertData->bindValue(':Lname',$txt_lastname);
 			$insertData->bindValue(':Roll',$txt_roll);

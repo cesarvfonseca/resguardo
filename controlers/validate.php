@@ -15,6 +15,7 @@
 			$_SESSION["usr_active"]=$row['login'];
 			$_SESSION["whoIs"]=$row['name'].' '.$row['lastname'];
 			$_SESSION["level"]=$row['roll'];
+			$_SESSION["empID"]=$row['employee_id'];
 			echo '<script> alert("Iniciando sesion de '.$_SESSION['whoIs'].'");</script>';
 			echo "<script> location.href='../'; </script>";
 			// echo "<script>window.location.replace('http://mexq.mx/devweb/resguardo/');</script>";

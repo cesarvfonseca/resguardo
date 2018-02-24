@@ -1,9 +1,9 @@
-<div class="modal fade" id="newRegistry" role="dialog" aria-hidden="true">
+<div class="modal fade" id="editmq" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<form class="form-horizontal" method="post" action="controlers/dataReg.php" enctype="multipart/form-data">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Agregar equipo</h5>
+					<h5 class="modal-title">Editar equipo</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -17,7 +17,7 @@
 									<div class="col-6">
 									  <div class="form-group">
 									  	<small class="form-text text-muted">Número de nomina</small>
-									    <input type="text" class="form-control" name="txtCodeemp" placeholder="Número de nomina">
+									    <input type="text" class="form-control" name="codeemp" id="codeemp" placeholder="Número de nomina">
 									  </div>
 									</div>
 									<div class="col-6">
@@ -93,7 +93,7 @@
 									    <select class="form-control" name="cmStatus">
 									      <option value="A">Activo</option>
 									      <option value="I">Inactivo</option>
-									      <option value="X">Soporte</option>
+									      <option value="X">Desconocido</option>
 									    </select>
 									  </div>
 									</div>																

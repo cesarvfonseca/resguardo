@@ -14,13 +14,19 @@
 							<div class="card-block">
 								<h3 class="card-title">Datos del usuario</h3>
 								<div class="row">
-									<div class="col-6">
+									<div class="col-4">
 									  <div class="form-group">
-									  	<small class="form-text text-muted">Nombre (s)</small>
-                    					<input requiered class="form-control" type="text" name="nombres" placeholder="Nombres" autofocus/>
+									  	<small class="form-text text-muted">Nomina</small>
+                    					<input requiered class="form-control" type="text" name="nomina" placeholder="Numero de nomina" autofocus/>
 									  </div>
 									</div>
-									<div class="col-6">
+									<div class="col-4">
+									  <div class="form-group">
+									  	<small class="form-text text-muted">Nombre (s)</small>
+                    					<input requiered class="form-control" type="text" name="nombres" placeholder="Nombres"/>
+									  </div>
+									</div>
+									<div class="col-4">
 									  <div class="form-group">
 									  	<small class="form-text text-muted">Apellido (s)</small>
                     					<input class="form-control" type="text" name="apellidos" placeholder="Apellidos" />
@@ -38,8 +44,9 @@
 									  <div class="form-group">
 				  	                    <small class="form-text text-muted">Rol</small>
 					                    <select class="form-control" name="roll">
-					                      <option value="1">Administrador</option>
-					                      <option value="0">Limitado</option>
+					                      <option value="3">Limitado</option>
+					                      <option value="1">Supervisor</option>
+					                      <option value="0">Administrador</option>
 					                    </select>
 									  </div>
 									</div>							

@@ -128,9 +128,9 @@ if ($execSelect->rowCount()>0) {
 									<div class="form-group">
 										<small class="form-text text-muted">Estatus</small>
 										<select class="form-control" name="cmStatus">
-											<option value="A">Activo</option>
-											<option value="I">Inactivo</option>
-											<option value="X">Desconocido</option>
+											<option <?php if ($row ["status"]=="A") echo 'selected' ?> value="A">Activo</option>
+											<option <?php if ($row ["status"]=="I") echo 'selected' ?> value="I">Inactivo</option>
+											<option <?php if ($row ["status"]=="X") echo 'selected' ?> value="X">Soporte</option>
 										</select>
 									</div>
 								</div>																

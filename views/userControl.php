@@ -32,6 +32,7 @@ if(!$consulta){
 						<div class="table table-sm table-hover table-striped">
 							<table class="table table-striped">
 								 <thead class="thead-inverse">
+									<th>Nomina</th>
 									<th>Nombres</th>
 									<th>Apellidos</th>
 		                            <th>Usuario</th>
@@ -41,11 +42,16 @@ if(!$consulta){
 								  <tr>
 								<?php foreach ($consulta as $row): ?>
 									<?php 
-										if ($row['roll']=='1') {
+										if ($row['roll']=='0') {
 											$roll = 'Administrador';
-										}else{
+										}elseif ($row['roll']=='1') 
+										{
+											$roll = 'Supervisor';
+										}elseif ($row['roll']=='3') 
+										{
 											$roll = 'Limitado';
 										}
+										  echo "<td>". $row['employee_id']. "</td>";
 										  echo "<td>". $row['name']. "</td>"; ?>
 		                            <?php echo "<td>". $row['lastname']. "</td>"; ?>
 		                            <?php echo "<td>". $row['login']. "</td>"; ?>

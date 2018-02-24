@@ -11,8 +11,8 @@
 		$txt_lastname = $_POST['txtlastName'];
 		$txt_position = $_POST['txtPosition'];
 		$txt_mail = $_POST['txtEmail'];
-		$txt_branch = $_POST['txtBranch'];
-		$txt_station = $_POST['txtStation'];
+		$txt_branch = strtoupper($_POST['txtBranch']);
+		$txt_station = strtoupper($_POST['txtStation']);
 
 		$txt_type = $_POST['cmType'];
 		$txt_status = $_POST['cmStatus'];
@@ -24,6 +24,9 @@
 		$txt_invoicedate = $_POST['txtInvoicedate'];
 		$txt_comment = $_POST['txtComment'];
 		$txt_date = date('Y-m-d');
+
+		$date_update=date('Y-m-d H:i:s');
+		$user_update = $_SESSION["whoIs"];
 
 		$txtCode = $_POST['txt_rCode'];
 		$txtNames = $_POST['txt_rNames'];
@@ -101,13 +104,13 @@
 										`position`=:Position, `branch`=:Branch,`workstation`=:Ws,
 										`mail`=:Mail, `phone`=:Phone, `date`=:Date_,`serial`=:Serial_,
 										`product`=:Product, `brand`=:Brand, `model`=:Model,`type`=:Type,
-										`invoicenbr`=:Invoicenbr, `invoicedate`=:Invoicedate,`status`=:Status,
+										`invoicenbr`=:Invoicenbr, `invoicedate`=:Invoicedate,`status`=:Status, `date_update`=:Date_update,`user_update`=:User_update,
 										`comment`=:Comment WHERE `code`=:Code');
 		$updateQuery->bindValue(':idEmp', $txt_codemp);
 		$updateQuery->bindValue(':Name', ucwords(strtolower($txt_name)));
 		$updateQuery->bindValue(':Lastname', ucwords(strtolower($txt_lastname)));
 		$updateQuery->bindValue(':Position', ucwords(strtolower($txt_position)));
-		$updateQuery->bindValue(':Branch', ucwords(strtolower($txt_branch)));
+		$updateQuery->bindValue(':Branch', $txt_branch);
 		$updateQuery->bindValue(':Ws', $txt_station);
 		$updateQuery->bindValue(':Mail', $txt_mail);
 		$updateQuery->bindValue(':Phone', $txt_phone);
@@ -121,6 +124,8 @@
 		$updateQuery->bindValue(':Invoicedate', $txt_invoicedate);
 		$updateQuery->bindValue(':Status', $txt_status);
 		$updateQuery->bindValue(':Comment', $txt_comment);
+		$updateQuery->bindValue(':Date_update', $date_update);
+		$updateQuery->bindValue(':User_update', $user_update);
 		$updateQuery->bindValue(':Code', $txt_codeRegistry);
 
 		$updateQuery->execute();

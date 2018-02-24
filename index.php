@@ -52,15 +52,15 @@
     			{
 					include('views/initPage.php');
 				}
-				else if (!empty($_REQUEST['vcode'])&&$_SESSION['level']=='1') 
+				else if (!empty($_REQUEST['vcode'])&&$_SESSION['level']=='0') 
 				{
 					include('views/updRegistry.php');
 				}
-				else if (!empty($_REQUEST['computer_code'])&&$_SESSION['level']=='1') 
+				else if (!empty($_REQUEST['computer_code'])&&$_SESSION['level']=='0') 
 				{
 					include('views/support.php');
 				}
-				else if (!empty($_REQUEST['vcode'])&&$_SESSION['level']!='1')
+				else if (!empty($_REQUEST['vcode'])&&$_SESSION['level']!='0')
 				{
 					include('views/modals/info.php');
 				}

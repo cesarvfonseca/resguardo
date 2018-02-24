@@ -1,6 +1,8 @@
 <?php 
 include('modals/new_smartphone.php');
 include('modals/edit_smartphone.php');
+include('modals/add_smartphone.php');
+include('modals/gaccounts.php');
 include_once 'database/connection.php';
 $conn = Connect();
 ?>
@@ -15,7 +17,7 @@ $conn = Connect();
 
 	<div class="col-md-12">
 
-		<?php if ($_SESSION['level']=='1'){ ?>
+		<?php if ($_SESSION['level']=='0'){ ?>
 
 		<button class="btn btn-md btn-success" data-toggle="modal" data-target="#newsp">
 			<i class="fas fa-plus-circle"></i>
@@ -23,6 +25,13 @@ $conn = Connect();
 			Agregar
 
 		</button>
+
+<!-- 		<button class="btn btn-md btn-primary" data-toggle="modal" data-target="#gaccounts">
+			<i class="fas fa-at"></i>
+
+			Correos
+
+		</button> -->
 
 		<?php }else{ ?>
 
@@ -48,11 +57,18 @@ $conn = Connect();
 						<th>IMEI</th>
 						<th>Cuenta</th>
 						<th>Telefono</th>
-						<th>Acciones</span></th>
+						<th>Acciones</th>
 					</tr>
 				</thead>			
 				<?php
-				$consulta= "SELECT * FROM smartphone";
+				// $consulta= "SELECT * FROM smartphone";
+				$consulta= "SELECT sp.`id`, sp.`code_smartphone`, sp.`employee_code`, sp.`employee_name`, sp.`branch`, sp.`area`, 
+				sp.`color`, sp.`brand`, sp.`model`, sp.`imei`, sp.`account`, sp.`phone_number`, sp.`status`, sp.`comment`, 
+				sp.`deliver_date`, sp.`update_time`, ac.`pwd` 
+				FROM `smartphone` AS sp 
+				INNER JOIN `accounts` AS ac 
+				ON sp.`account` = ac.`account`";
+
 				if ($resultado = $conn->query($consulta)) 
 				{
 					while ($fila = $resultado->fetch()) 
@@ -60,7 +76,21 @@ $conn = Connect();
 						echo "<tr>";
 						echo "	
 								<td>$fila[0]</td>
-								<td>$fila[1]</td>
+								<td>
+									<a class='btn btn-sm btn-default text-primary' title='Añadir responsable del equipo' data-toggle='modal' data-target='#addsp'
+									data-id ='" .$fila[0] ."'
+									data-spcode = '" .$fila[1] ."'
+									data-spcolor = '" .$fila[6] ."' 
+									data-spbrand = '" .$fila[7] ."' 
+									data-spmodel = '" .$fila[8] ."' 
+									data-spimei = '" .$fila[9] ."' 
+									data-spaccount = '" .$fila[10] ."'
+									data-empphone = '" .$fila[11] ."'
+									data-spstatus = '" .$fila[12] ."' 
+									data-spcomment = '" .$fila[13] ."' 
+									><i class='fas fa-plus-circle'></i></a>
+									$fila[1]
+								</td>
 								<td>$fila[3]</td>
 								<td>$fila[4]</td>
 								<td>$fila[5]</td>
@@ -68,7 +98,14 @@ $conn = Connect();
 								<td>$fila[7]</td>
 								<td>$fila[8]</td>
 								<td>$fila[9]</td>
-								<td>$fila[10]</td>
+								<td>
+									<a class='btn btn-sm btn-default text-primary' data-toggle='modal' data-target='#gaccounts' 
+									data-account ='" .$fila[10] ."'
+									data-pwd ='" .$fila[16] ."'
+									title='Clic para ver contraseña'
+									>".$fila[10]."
+									</a>
+								</td>
 								<td>$fila[11]</td>
 							 ";	
 							echo "<td>";
@@ -87,9 +124,9 @@ $conn = Connect();
 											data-empphone = '" .$fila[11] ."' 
 											data-spstatus = '" .$fila[12] ."' 
 											data-spcomment = '" .$fila[13] ."' 
-											class='btn btn-warning text-white'><i class='fas fa-pen-square'></i></a>";
-							if ($_SESSION['level']=='1'){				
-							echo		"<a class='btn btn-danger text-white' onclick='return confirm('Seguro de eliminar?')' href='controlers/sp/sp_delete.php?id=" .$fila[0] ."'><i class='fas fa-times-circle'></i></a>";
+											class='btn btn-sm btn-warning text-white'><i class='fas fa-pen-square'></i></a>";
+							if ($_SESSION['level']=='0'){				
+							echo		"<a class='btn btn-sm btn-danger text-white' onclick='return confirm('Seguro de eliminar?')' href='controlers/sp/sp_delete.php?id=" .$fila[0] ."'><i class='fas fa-times-circle'></i></a>";
 							}
 							echo "</td>";
 							  	

@@ -7,6 +7,7 @@
 		$conn = Connect();
 
 		$txt_id = $_POST['txtID'];
+		$txt_employeeid = $_POST['txtNomina'];
 		$txt_name = $_POST['txtName'];
 		$txt_lastname = $_POST['txtlastName'];
 		$txt_user= $_POST['txtUser'];
@@ -24,11 +25,12 @@
 
 		if ($errors=='') 
 		{
-			$updateData = $conn->prepare('UPDATE `user` SET `login`=:Login,`pwd`=:Pwd,`name`=:Name,`lastname`=:Lname,`roll`=:Roll WHERE `id`=:ID');
+			$updateData = $conn->prepare('UPDATE `user` SET `login`=:Login,`pwd`=:Pwd,`employee_id`=:Employeeid,`name`=:Name,`lastname`=:Lname,`roll`=:Roll WHERE `id`=:ID');
 
 			$updateData->bindValue(':ID',$txt_id);
 			$updateData->bindValue(':Login',$txt_user);
 			$updateData->bindValue(':Pwd',$txt_pass1);
+			$updateData->bindValue(':Employeeid',$txt_employeeid);
 			$updateData->bindValue(':Name',$txt_name);
 			$updateData->bindValue(':Lname',$txt_lastname);
 			$updateData->bindValue(':Roll',$txt_roll);

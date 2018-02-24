@@ -12,8 +12,8 @@
 		$txt_lastname = $_POST['txtlastName'];
 		$txt_position = $_POST['txtPosition'];
 		$txt_mail = $_POST['txtEmail'];
-		$txt_branch = $_POST['txtBranch'];
-		$txt_station = $_POST['txtStation'];
+		$txt_branch = strtoupper($_POST['txtBranch']);
+		$txt_station = strtoupper($_POST['txtStation']);
 
 		$txt_type = $_POST['cmType'];
 		$txt_status = $_POST['cmStatus'];
@@ -25,6 +25,9 @@
 		$txt_invoicedate = $_POST['txtInvoicedate'];
 		$txt_comment = $_POST['txtComment'];
 		$txt_date = date('Y-m-d');
+
+		$date_update=date('Y-m-d H:i:s');
+		$user_update = $_SESSION["whoIs"];
 
 			// SUBIR FACTURAS
 		foreach($_FILES["archivo"]['tmp_name'] as $key => $tmp_name)
@@ -73,9 +76,9 @@
 		$txt_code = $txt_type.$idr;
 
 		$insertQuery = $conn->prepare('INSERT INTO `registry`
-		(`code`, `id_employee`, `name`, `lastname`, `position`, `branch`, `workstation`, `mail`, `phone`, `date`, `serial`, `product`, `brand`, `model`, `type`, `invoicenbr`, `invoicedate`, `status`, `comment`) 
+		(`code`, `id_employee`, `name`, `lastname`, `position`, `branch`, `workstation`, `mail`, `phone`, `date`, `serial`, `product`, `brand`, `model`, `type`, `invoicenbr`, `invoicedate`, `status`, `comment`,`date_update`,`user_update`) 
 		VALUES 
-		(:Code,:idEmp,:Name,:Lastname,:Position,:Branch,:Ws,:Mail,:Phone,:Date_,:Serial_,:Product,:Brand,:Model,:Type,:Invoicenbr,:Invoicedate,:Status,:Comment);');
+		(:Code,:idEmp,:Name,:Lastname,:Position,:Branch,:Ws,:Mail,:Phone,:Date_,:Serial_,:Product,:Brand,:Model,:Type,:Invoicenbr,:Invoicedate,:Status,:Comment,:Date_update,:User_update);');
 		$insertQuery->bindValue(':Code', $txt_code);
 		$insertQuery->bindValue(':idEmp', $txt_codemp);
 		$insertQuery->bindValue(':Name', utf8_encode($txt_name));
@@ -95,6 +98,8 @@
 		$insertQuery->bindValue(':Invoicedate', $txt_invoicedate);
 		$insertQuery->bindValue(':Status', $txt_status);
 		$insertQuery->bindValue(':Comment', $txt_comment);
+		$insertQuery->bindValue(':Date_update', $date_update);
+		$insertQuery->bindValue(':User_update', $user_update);
 		$insertQuery->execute();
 
 		if ($insertQuery) {
