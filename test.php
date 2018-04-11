@@ -12,25 +12,38 @@
 	include_once 'database/connection.php';
 	$conn = Connect();
 
-	$sql = "SELECT code FROM `registry` WHERE `registry`.`status`='A'";
+	$sql = "SELECT * FROM `registry` WHERE `registry`.`status`='A' AND `registry`.`type`='PC'";
 	$execSQL = $conn->query($sql);
 	?>
 		<div class="form-group"> 
-			<label class="col-xs-4 control-label">Equipos</label>
-			<div class="col-xs-5 selectContainer">
-	<?php
-	while ($row = $execSQL->fetch()){
-	    // echo "<input type='checkbox' code='students[]' value='".$row['code']."'>".$row['code'];
-	        ?>
-						<label class="custom-control custom-checkbox">
-						  <input type="checkbox" class="custom-control-input" name="<?php echo $row['code']; ?>" value="<?php echo $row['code']; ?>">
-						  <span class="custom-control-indicator"></span>
-						  <span class="custom-control-description"><?php echo $row['code']; ?></span>
-						</label>
-	        <?php
-	}
-	?>
-			</div>
+			<form action="test2.php" method="post">
+				<label class="col-xs-4 control-label">Equipos</label>
+				<div class="col-xs-5 selectContainer">
+		<?php
+		while ($row = $execSQL->fetch()){
+		    // echo "<input type='checkbox' code='students[]' value='".$row['code']."'>".$row['code'];
+		        ?>
+							<label class="custom-control custom-checkbox">
+							  <input type="checkbox" class="custom-control-input" name="computer_code[]" value="<?php echo $row['code']; ?>">
+							  <span class="custom-control-indicator"></span>
+							  <span class="custom-control-description"><?php echo $row['code']. " " . $row['name'] . " " . $row['lastname'] ; ?></span>
+							</label>
+		        <?php
+		}
+		?>		
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<small class="form-text text-muted">Fecha mantenimiento</small>
+						<input class="form-control" type="date" name="maintenance_date" id="maintenance_date">
+					</div>									
+				</div>	
+
+				<button type="submit" class="btn btn-primary btn-block" data-callback="onSubmit" name="btnSend" id="btnSend">
+				    Enviar  
+				    <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+				</button>
+			</form>
 		</div>
 	<?php
 

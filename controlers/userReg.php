@@ -7,13 +7,15 @@
 		include "../database/connection.php";
 		$conn = Connect();
 
-		$txt_nomina = $_POST['nomina'];
-		$txt_name = $_POST['nombres'];
-		$txt_lastname = $_POST['apellidos'];
-		$txt_user= $_POST['usuario'];
-		$txt_roll = $_POST['roll'];
-		$txt_pass1 = $_POST['password'];
-		$txt_pass2 = $_POST['password2'];
+		$txt_nomina = $_POST['txtID'];
+		$txt_name = ucwords(strtolower($_POST['txtName']));
+		$txt_position = strtoupper($_POST['txtPosition']);
+		$txt_branch = strtoupper($_POST['txtBranch']);
+		$txt_area = strtoupper($_POST['txtArea']);
+		$txt_user= $_POST['txtMail'];
+		$txt_roll = $_POST['txtRoll'];
+		$txt_pass1 = $_POST['txtPassword'];
+		$txt_pass2 = $_POST['txtPassword2'];
 
 		$txt_pass1 = hash('sha512',$txt_pass1);
 		$txt_pass2 = hash('sha512',$txt_pass2);
@@ -25,14 +27,16 @@
 
 		if ($errors=='') 
 		{
-			$insertData = $conn->prepare('INSERT INTO `user`(`login`, `pwd`, `employee_id`, `name`, `lastname`, `roll`) 
-											VALUES (:Login,:Pwd,:Nomina,:Name,:Lname,:Roll)');
+			$insertData = $conn->prepare('INSERT INTO `user`(`login`, `pwd`, `employee_id`, `employee_name`, `employee_position`, `employee_branch`, `employee_area`, `roll`) 
+											VALUES (:Login,:Pwd,:Nomina,:Name,:Position,:Branch,:Area,:Roll)');
 
 			$insertData->bindValue(':Login',$txt_user);
 			$insertData->bindValue(':Pwd',$txt_pass1);
 			$insertData->bindValue(':Nomina',$txt_nomina);
 			$insertData->bindValue(':Name',$txt_name);
-			$insertData->bindValue(':Lname',$txt_lastname);
+			$insertData->bindValue(':Position',$txt_position);
+			$insertData->bindValue(':Branch',$txt_branch);
+			$insertData->bindValue(':Area',$txt_area);
 			$insertData->bindValue(':Roll',$txt_roll);
 			$insertData->execute();
 

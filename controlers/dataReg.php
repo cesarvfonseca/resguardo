@@ -9,11 +9,10 @@
 		$txt_codemp = $_POST['txtCodeemp'];
 		$txt_phone = $_POST['txtPhone'];
 		$txt_name = $_POST['txtName'];
-		$txt_lastname = $_POST['txtlastName'];
 		$txt_position = $_POST['txtPosition'];
 		$txt_mail = $_POST['txtEmail'];
 		$txt_branch = strtoupper($_POST['txtBranch']);
-		$txt_station = strtoupper($_POST['txtStation']);
+		$txt_station = strtoupper($_POST['txtArea']);
 
 		$txt_type = $_POST['cmType'];
 		$txt_status = $_POST['cmStatus'];
@@ -76,13 +75,12 @@
 		$txt_code = $txt_type.$idr;
 
 		$insertQuery = $conn->prepare('INSERT INTO `registry`
-		(`code`, `id_employee`, `name`, `lastname`, `position`, `branch`, `workstation`, `mail`, `phone`, `date`, `serial`, `product`, `brand`, `model`, `type`, `invoicenbr`, `invoicedate`, `status`, `comment`,`date_update`,`user_update`) 
+		(`code`, `id_employee`, `employee_name`, `position`, `branch`, `workstation`, `mail`, `phone`, `date`, `serial`, `product`, `brand`, `model`, `type`, `invoicenbr`, `invoicedate`, `status`, `comment`,`date_update`,`user_update`) 
 		VALUES 
-		(:Code,:idEmp,:Name,:Lastname,:Position,:Branch,:Ws,:Mail,:Phone,:Date_,:Serial_,:Product,:Brand,:Model,:Type,:Invoicenbr,:Invoicedate,:Status,:Comment,:Date_update,:User_update);');
+		(:Code,:idEmp,:Name,:Position,:Branch,:Ws,:Mail,:Phone,:Date_,:Serial_,:Product,:Brand,:Model,:Type,:Invoicenbr,:Invoicedate,:Status,:Comment,:Date_update,:User_update);');
 		$insertQuery->bindValue(':Code', $txt_code);
 		$insertQuery->bindValue(':idEmp', $txt_codemp);
 		$insertQuery->bindValue(':Name', utf8_encode($txt_name));
-		$insertQuery->bindValue(':Lastname', utf8_encode($txt_lastname));
 		$insertQuery->bindValue(':Position', $txt_position);
 		$insertQuery->bindValue(':Branch', $txt_branch);
 		$insertQuery->bindValue(':Ws', $txt_station);

@@ -40,7 +40,7 @@ $font_colors = array('3' => '#FFFFFF');
 								<div class="col-4">
 									<div class="form-group">
 										<small class="form-text text-muted">Nombre(s)</small>
-										<input type="text" class="form-control form-control-sm" name="txtEmpName" value="<?php echo $row ["name"]." ". $row ["lastname"]; ?>" readonly>
+										<input type="text" class="form-control form-control-sm" name="txtEmpName" value="<?php echo $row ["employee_name"]; ?>" readonly>
 									</div>
 								</div>	
 

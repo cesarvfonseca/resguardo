@@ -8,8 +8,10 @@
 
 		$txt_id = $_POST['txtID'];
 		$txt_employeeid = $_POST['txtNomina'];
-		$txt_name = $_POST['txtName'];
-		$txt_lastname = $_POST['txtlastName'];
+		$txt_name = ucwords(strtolower($_POST['txtName']));
+		$txt_position = strtoupper($_POST['txtPosition']);
+		$txt_branch = strtoupper($_POST['txtBranch']);
+		$txt_area = strtoupper($_POST['txtArea']);
 		$txt_user= $_POST['txtUser'];
 		$txt_roll = $_POST['cmRol'];
 		$txt_pass1 = $_POST['txtPass1'];
@@ -25,14 +27,16 @@
 
 		if ($errors=='') 
 		{
-			$updateData = $conn->prepare('UPDATE `user` SET `login`=:Login,`pwd`=:Pwd,`employee_id`=:Employeeid,`name`=:Name,`lastname`=:Lname,`roll`=:Roll WHERE `id`=:ID');
+			$updateData = $conn->prepare('UPDATE `user` SET `login`=:Login,`pwd`=:Pwd,`employee_id`=:Employeeid,`employee_name`=:Name,`employee_position`=:Position,`employee_branch`=:Branch,`employee_area`=:Area,`roll`=:Roll WHERE `id`=:ID');
 
 			$updateData->bindValue(':ID',$txt_id);
 			$updateData->bindValue(':Login',$txt_user);
 			$updateData->bindValue(':Pwd',$txt_pass1);
 			$updateData->bindValue(':Employeeid',$txt_employeeid);
 			$updateData->bindValue(':Name',$txt_name);
-			$updateData->bindValue(':Lname',$txt_lastname);
+			$updateData->bindValue(':Position',$txt_position);
+			$updateData->bindValue(':Branch',$txt_branch);
+			$updateData->bindValue(':Area',$txt_area);
 			$updateData->bindValue(':Roll',$txt_roll);
 			$updateData->execute();
 

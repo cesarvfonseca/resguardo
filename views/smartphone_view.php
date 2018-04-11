@@ -40,7 +40,7 @@ $conn = Connect();
 		<?php } ?>
 
 	</div>
-	<div class="col-md-12">
+	<div class="col-md-12" id="spTable">
 		<div class="table table-sm table-bordered table-hover table-striped">
 			<table id="example" class="stripe row-border order-column" cellspacing="0" width="100%"> 
 				<thead class="thead-inverse">
@@ -66,7 +66,7 @@ $conn = Connect();
 				sp.`color`, sp.`brand`, sp.`model`, sp.`imei`, sp.`account`, sp.`phone_number`, sp.`status`, sp.`comment`, 
 				sp.`deliver_date`, sp.`update_time`, ac.`pwd` 
 				FROM `smartphone` AS sp 
-				INNER JOIN `accounts` AS ac 
+				LEFT JOIN `accounts` AS ac 
 				ON sp.`account` = ac.`account`";
 
 				if ($resultado = $conn->query($consulta)) 

@@ -8,7 +8,6 @@
 		$txt_codemp = $_POST['txtCodeemp'];
 		$txt_phone = $_POST['txtPhone'];
 		$txt_name = $_POST['txtName'];
-		$txt_lastname = $_POST['txtlastName'];
 		$txt_position = $_POST['txtPosition'];
 		$txt_mail = $_POST['txtEmail'];
 		$txt_branch = strtoupper($_POST['txtBranch']);
@@ -100,7 +99,7 @@
 	
 
 		$updateQuery = $conn->prepare('UPDATE `registry` SET 
-										`id_employee`=:idEmp, `name`=:Name,`lastname`=:Lastname, 
+										`id_employee`=:idEmp, `employee_name`=:Name, 
 										`position`=:Position, `branch`=:Branch,`workstation`=:Ws,
 										`mail`=:Mail, `phone`=:Phone, `date`=:Date_,`serial`=:Serial_,
 										`product`=:Product, `brand`=:Brand, `model`=:Model,`type`=:Type,
@@ -108,7 +107,6 @@
 										`comment`=:Comment WHERE `code`=:Code');
 		$updateQuery->bindValue(':idEmp', $txt_codemp);
 		$updateQuery->bindValue(':Name', ucwords(strtolower($txt_name)));
-		$updateQuery->bindValue(':Lastname', ucwords(strtolower($txt_lastname)));
 		$updateQuery->bindValue(':Position', ucwords(strtolower($txt_position)));
 		$updateQuery->bindValue(':Branch', $txt_branch);
 		$updateQuery->bindValue(':Ws', $txt_station);

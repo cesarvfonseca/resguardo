@@ -45,18 +45,12 @@ if ($execSelect->rowCount()>0) {
 								</div>								
 							</div>
 							<div class="row">
-								<div class="col-6">
+								<div class="col-12">
 									<div class="form-group">
-										<small class="form-text text-muted">Nombre(s)</small>
-										<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Nombres" value="<?php echo $row ["name"]; ?>">
+										<small class="form-text text-muted">Nombre del empleado</small>
+										<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Nombres" value="<?php echo $row ["employee_name"]; ?>">
 									</div>
-								</div>
-								<div class="col-6">
-									<div class="form-group">
-										<small class="form-text text-muted">Apellido(s)</small>
-										<input type="text" class="form-control" name="txtlastName" id="txtlastName" placeholder="Apellidos" value="<?php echo $row ["lastname"]; ?>">
-									</div>
-								</div>								
+								</div>							
 							</div>
 							<div class="row">
 								<div class="col-6">

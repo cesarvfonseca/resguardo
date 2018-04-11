@@ -1,6 +1,6 @@
 <div class="modal fade" id="addsp" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
-		<form class="form-horizontal" method="POST" action="controlers/sp/sp_new.php" enctype="multipart/form-data">
+		<form class="form-horizontal" method="POST" action="controlers/sp/sp_new.php" enctype="multipart/form-data" id="contact">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Añadir responsable</h5>
@@ -15,7 +15,7 @@
 								<h3 class="card-title">Datos del responsable</h3>
 								<div class="row">
 									<div class="col-6">
-									  <div class="form-group">
+									  <div class="form-group has-success">
 									  	<small class="form-text text-muted">Número de nomina</small>
 									  	<input  id="id" name="id" type="hidden" ></input>
 									    <input type="text" class="form-control" name="empcode" id="empcode" placeholder="Número de nomina">
@@ -106,7 +106,7 @@
 									<div class="col-6">
 									  <div class="form-group">
 									  	<small class="form-text text-muted">Cuenta de Google</small>
-									    <input readonly type="mail" class="form-control" name="spaccount" id="spaccount" placeholder="Correo de google">
+									    <input readonly type="email" class="form-control" name="spaccount" id="spaccount" placeholder="Correo de google">
 									  </div>
 									</div>
 									<div class="col-12">
@@ -121,7 +121,7 @@
 
 					</div>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer" id="contact_submit">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 					<button type="submit" class="btn btn-primary" name="btnAdd">Añadir usuario</button>
 				</div>
@@ -129,6 +129,3 @@
 		</form>
 	</div>
 </div>
-
-
-

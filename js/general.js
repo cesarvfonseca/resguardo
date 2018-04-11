@@ -1,7 +1,24 @@
 //PC'S Y LAPTOPS
-$('#editmq').on('show.bs.modal', function (event) {
+$('#info').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget) // Button that triggered the modal
-	  var recipient0 = button.data('codeemp')
+	  var recipient0 = button.data('empcode')
+	  var recipient1 = button.data('empphone')
+	  var recipient2 = button.data('empname')
+	  var recipient4 = button.data('empposition')
+	  var recipient5 = button.data('empmail')
+	  var recipient6 = button.data('empbranch')
+	  var recipient7 = button.data('emparea')
+	  var recipient8 = button.data('computercode')
+	  var recipient9 = button.data('computerbrand')
+	  var recipient10 = button.data('computermodel')
+	  var recipient11 = button.data('computerserial')
+	  var recipient12 = button.data('computerproduct')
+	  var recipient13 = button.data('computerstatus')
+	  var recipient14 = button.data('invoicenbr')
+	  var recipient15 = button.data('invoicedate')
+	  var recipient16 = button.data('computercomment')
+	  var recipient17 = button.data('computertype')
+	  var recipient18 = button.data('cartaresponsiva')
 
 
 	   // Extract info from data-* attributes
@@ -9,9 +26,29 @@ $('#editmq').on('show.bs.modal', function (event) {
 	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 
 	  var modal = $(this)		 
-	  modal.find('.modal-body #codeemp').val(recipient0)
-	 
+	  modal.find('.modal-body #empcode').val(recipient0)
+	  modal.find('.modal-body #empphone').val(recipient1)
+	  modal.find('.modal-body #empname').val(recipient2)
+	  modal.find('.modal-body #empposition').val(recipient4)
+	  modal.find('.modal-body #empmail').val(recipient5)
+	  modal.find('.modal-body #empbranch').val(recipient6)
+	  modal.find('.modal-body #emparea').val(recipient7)
+	  modal.find('.modal-body #computercode').val(recipient8)
+	  modal.find('.modal-body #computerbrand').val(recipient9)
+	  modal.find('.modal-body #computermodel').val(recipient10)
+	  modal.find('.modal-body #computerserial').val(recipient11)
+	  modal.find('.modal-body #computerproduct').val(recipient12)
+	  modal.find('.modal-body #computerstatus').val(recipient13)
+	  modal.find('.modal-body #invoicenbr').val(recipient14)
+	  modal.find('.modal-body #invoicedate').val(recipient15)
+	  modal.find('.modal-body #computercomment').val(recipient16)
+	  modal.find('.modal-body #computertype').val(recipient17)
+	  document.getElementById('cartaresponsiva').setAttribute('href', 'controlers/reader.php?file_name=' + recipient11 +'.jpg')
+	  document.getElementById('launchPDF').setAttribute('href', 'controlers/reader.php?file_name=' + recipient11 +'.pdf')
+	  document.getElementById('launchXML').setAttribute('href', 'controlers/reader.php?file_name=' + recipient11 +'.xml')
+	  document.getElementById('computercode').innerHTML = recipient8;
 	});
+
 
 //CUENTAS DE GOOGLE
 $('#gaccounts').on('show.bs.modal', function (event) {
@@ -70,6 +107,8 @@ $('#editsp').on('show.bs.modal', function (event) {
 	});
 
 $("#spstatus").val();
+$("#computerstatus").val();
+$("#computertype").val();
 // $("#spstatus option[value=0]").attr('selected', 'selected');
 
 //AÑADIR RESPONSABLE A SMARTPHONE
@@ -104,6 +143,8 @@ $('#addsp').on('show.bs.modal', function (event) {
 
 	});
 
+
+//USADO PARA CONTRASEÑAS
 $(document).ready(function() {
     $("#show_hide_password a").on('click', function(event) {
         event.preventDefault();

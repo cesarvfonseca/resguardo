@@ -16,7 +16,7 @@ if ($execSelect->rowCount()>0) {
 				<div class="col">
 					<div class="card card-outline-success mb-3">
 						<div class="card-block">
-							<h3 class="card-title">Datos de <?php echo $row ["name"] . ' ' . $row ["lastname"]; ?></h3>
+							<h3 class="card-title">Datos de <?php echo $row ["employee_name"]; ?></h3>
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group">
@@ -28,26 +28,40 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-4">
 									<div class="form-group">
 										<small class="form-text text-muted">Nomina</small>
-										<input type="text" class="form-control" name="txtNomina" id="txtNomina" placeholder="Numero de nomina" value="<?php echo $row ["employee_id"]; ?>">
+										<input type="text" class="form-control" name="txtNomina" id="txtNomina" placeholder="Numero de nomina del empleado" value="<?php echo $row ["employee_id"]; ?>">
 									</div>
 								</div>
-								<div class="col-4">
+								<div class="col-8">
 									<div class="form-group">
 										<small class="form-text text-muted">Nombre(s)</small>
-										<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Nombres" value="<?php echo $row ["name"]; ?>">
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="form-group">
-										<small class="form-text text-muted">Apellido(s)</small>
-										<input type="text" class="form-control" name="txtlastName" id="txtlastName" placeholder="Apellidos" value="<?php echo $row ["lastname"]; ?>">
+										<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Nombres del empleado" value="<?php echo $row ["employee_name"]; ?>">
 									</div>
 								</div>								
 							</div>
 							<div class="row">
+								<div class="col-4">
+									<div class="form-group">
+										<small class="form-text text-muted">Puesto</small>
+										<input type="text" class="form-control" name="txtPosition" id="txtPosition" placeholder="Puesto del empleado" value="<?php echo $row ["employee_position"]; ?>">
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group">
+										<small class="form-text text-muted">Sucursal</small>
+										<input type="text" class="form-control" name="txtBranch" id="txtBranch" placeholder="Sucursal del empleado" value="<?php echo $row ["employee_branch"]; ?>">
+									</div>
+								</div>	
+								<div class="col-4">
+									<div class="form-group">
+										<small class="form-text text-muted">Area</small>
+										<input type="text" class="form-control" name="txtArea" id="txtArea" placeholder="Area del empleado" value="<?php echo $row ["employee_area"]; ?>">
+									</div>
+								</div>							
+							</div>
+							<div class="row">
 								<div class="col-6">
 									<div class="form-group">
-										<small class="form-text text-muted">Usuario</small>
+										<small class="form-text text-muted">Correo</small>
 										<input type="text" class="form-control" name="txtUser" placeholder="Ingrese usuario" value="<?php echo $row ["login"]; ?>">
 									</div>
 								</div>

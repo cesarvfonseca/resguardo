@@ -14,8 +14,7 @@ if(isset($_GET['codeR'])){
 	while ($row = $execSelect->fetch()):
 		$id=$row ["code"];
 		$id_employee = $row ["id_employee"];
-		$employee_name = $row ["name"];
-		$employee_lastname = $row ["lastname"];
+		$employee_name = $row ["employee_name"];
 		$employee_mail = $row ["mail"];
 		$employee_position = $row ["position"];
 		$employee_branch = $row ["branch"];
@@ -33,8 +32,7 @@ if(isset($_GET['codeR'])){
 		$ncomment = $row["comment"];
 		$compUser;
 
-		$contenidoQR = 'Responsable: '.$employee_name . ' ' . $employee_lastname . ' Número de nomina:'.$nproduct.'Nomina:'.$id_employee.' Encargado:'.$employee_name.' '.$employee_lastname;
-		$contenidoQR = 'NS:'.$nserie.' NP:'.$nproduct.'Nomina:'.$id_employee.' Encargado:'.$employee_name.' '.$employee_lastname;
+		$contenidoQR = 'No.Serie:'.$nserie.' No. Producto:'.$nproduct.'Nomina:'.$id_employee.' Respansable:'.$employee_name;
 
 		if ($ntype=="MQ"){
 			$ntype="Laptop";
@@ -85,7 +83,7 @@ if(isset($_GET['codeR'])){
 					<table border="1" cellpadding="2">
 						<tr>
 							<td>Número de nomina: '.$id_employee.'</td>
-							<td>Nombres: '.$employee_name." ".$employee_lastname.'</td>
+							<td>Nombres: '.$employee_name.'</td>
 						</tr>
 						<tr>
 							<td>Puesto: '.$employee_position.'</td>
@@ -169,7 +167,7 @@ if(isset($_GET['codeR'])){
 						</tr>
 						<tr>
 							<td bgcolor="#B0B0B0" colspan="1"><p>Usuario </p></td>
-							<td colspan="3"><p>'.$employee_name." ".$employee_lastname.'</p></td>
+							<td colspan="3"><p>'.$employee_name.'</p></td>
 							<td bgcolor="#B0B0B0" colspan="1"><p>Equipo </p></td>
 							<td colspan="1"><p>'.$ntype.'</p></td>
 						</tr>
@@ -198,6 +196,22 @@ if(isset($_GET['codeR'])){
 							<td bgcolor="#B0B0B0" colspan="1"><p>ID </p></td>
 							<td colspan="2"><p>'.$id.'</p></td>
 						</tr>																																		
+					</table>
+
+					<p></p>
+					<p></p>
+					<hr>
+					<p></p>
+					<p></p> 
+
+					<table border="1" cellpadding="2" width="280" weight="180">
+						<tr align="center">
+							<td colspan="1">
+								<img valign="bottom" src="../img/LogoMQ.png" alt="imagenQR" height="50" width="100">
+							</td>
+							<td colspan="4"><h1>Equipo '.$compUser.preg_replace("/[^0-9]/", '', $id).'</h1></td>
+							<td colspan="1"><img src="../img/QR/'.$fileName.'" alt="imagenQR" height="80" width="80"></td>
+						</tr>																								
 					</table>
 					';
 	endwhile;

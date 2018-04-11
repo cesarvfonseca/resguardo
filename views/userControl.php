@@ -7,7 +7,7 @@ $mensaje='';
 $conn = Connect();
 
 $consulta = $conn -> prepare("
-	SELECT * FROM user limit 5");
+	SELECT * FROM user");
 
 $consulta ->execute();
 $consulta = $consulta ->fetchAll();
@@ -33,9 +33,11 @@ if(!$consulta){
 							<table class="table table-striped">
 								 <thead class="thead-inverse">
 									<th>Nomina</th>
-									<th>Nombres</th>
-									<th>Apellidos</th>
-		                            <th>Usuario</th>
+									<th>Nombre</th>
+		                            <th>Correo</th>
+		                            <th>Puesto</th>
+		                            <th>Sucursal</th>
+		                            <th>Area</th>
 									<th>Roll</th>
 		                            <th colspan="2">Opciones</th>
 								  </thead>
@@ -52,9 +54,11 @@ if(!$consulta){
 											$roll = 'Limitado';
 										}
 										  echo "<td>". $row['employee_id']. "</td>";
-										  echo "<td>". $row['name']. "</td>"; ?>
-		                            <?php echo "<td>". $row['lastname']. "</td>"; ?>
+										  echo "<td>". $row['employee_name']. "</td>"; ?>
 		                            <?php echo "<td>". $row['login']. "</td>"; ?>
+		                            <?php echo "<td>". $row['employee_position']. "</td>"; ?>
+		                            <?php echo "<td>". $row['employee_branch']. "</td>"; ?>
+		                            <?php echo "<td>". $row['employee_area']. "</td>"; ?>
 		                            <?php echo "<td>". $roll . "</td>"; ?>
 		                            <?php echo "<td class='centrar'>"."<a href='index.php?id=".$row['id']."' class='btn btn-sm btn-warning'><i class='fas fa-pen-square'> Editar</a>". "</td>"; ?>
 								  <?php echo "<td class='centrar'>"."<a href='index.php?idD=".$row['id']."' class='btn btn-sm btn-danger' onclick='return confirm('Seguro de eliminar?')'><i class='fas fa-minus-circle'></i> Eliminar</a>". "</td>"; ?>

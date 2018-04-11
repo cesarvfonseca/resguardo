@@ -123,7 +123,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary" name="btnEdit">Salvar datos</button>
+					<button type="submit" class="btn btn-primary" name="btnEdit" id="btnEdit">Salvar datos</button>
 				</div>
 			</div>
 		</form>

@@ -48,13 +48,18 @@
 		<div class="col-md-12">
 
 			<?php if ($_SESSION['level']=='0'){ ?>
-
-				<button class="btn btn-md btn-success" data-toggle="modal" data-target="#newRegistry">
+<!-- 				<button class="btn btn-md btn-success" data-toggle="modal" data-target="#newRegistry">
 					<i class="fas fa-plus-circle"></i>
 
 					 Agregar
 
-				</button>
+				</button> -->
+
+
+				<a href="index.php?h=5" class="btn btn-md btn-success">
+					<i class="fas fa-plus-circle"></i> 
+						Agregar Equipo
+				</a>
 
 			<?php }else{ ?>
 
@@ -88,7 +93,7 @@
 
 						<th>Nomina</th>
 
-						<th>Nombre</th>
+						<th>Nombres</th>
 
 						<th>Puesto</th>
 
@@ -130,7 +135,7 @@
 
 						<td><?php echo $row ["id_employee"]; ?></td>
 
-						<td><?php echo $row ["name"]." ".$row ["lastname"]; ?></td>
+						<td><?php echo $row ["employee_name"]; ?></td>
 
 						<td><?php echo $row ["position"]; ?></td>
 
@@ -163,9 +168,9 @@
 								<td>
 
 									<a href="index.php?vcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-info text-white" title="Modificar registro" target="_blank"><i class="fas fa-pen-square"></i></a>
-									<!-- <a class="btn btn-sm btn-info text-white" title="Modificar registro" data-toggle='modal' data-target='#editmq'
-										data-codeemp='<?php $row ["id_employee"];?>'
-									><i class="fas fa-pen-square"></i></a>-->
+<!-- 									 <a class="btn btn-sm btn-info text-white" title="Modificar registro" data-toggle='modal' data-target='#info'
+										data-empcode='<?php $row ["id_employee"];?>'
+									><i class="fas fa-pen-square"></i></a> -->
 
 									<a href="controlers/deleteRegistry.php?dcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-danger btn-eliminar" onclick="return confirm('Seguro de eliminar?')" title="Eliminar registro"><i class="fas fa-times-circle"></i></a>
 
@@ -185,13 +190,35 @@
 
 						?>
 
-						<td>
-
-							<a href="index.php?vcode=<?php echo $row['code'] ?>" id="<?php echo $r["code"];?>" class="btn btn-sm btn-info btn-editar" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
-
-						</td>
-
-
+							<!-- <a href="index.php?vcode=<?php echo $row['code'] ?>" id="<?php echo $r["code"];?>" class="btn btn-sm btn-info btn-editar" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
+						<?php  
+							echo "<td>";
+							echo		"
+										<a data-toggle='modal' data-target='#info' 
+											data-computerid = '" .$row["id"] ."' 
+											data-computercode = '" .$row["code"] ."' 
+											data-empcode = '" .$row["id_employee"] ."' 
+											data-empname = '" .$row["employee_name"] ."' 
+											data-empphone = '" .$row["phone"] ."' 
+											data-empmail = '" .$row["mail"] ."' 
+											data-empposition = '" .$row["position"] ."' 
+											data-empbranch = '" .$row["branch"] ."' 
+											data-emparea = '" .$row["workstation"] ."' 
+											data-computerbrand = '" .$row["brand"] ."' 
+											data-computermodel = '" .$row["model"] ."' 
+											data-computerserial = '" .$row["serial"] ."' 
+											data-computerproduct = '" .$row["product"] ."' 
+											data-computerstatus = '" .$row["status"] ."' 
+											data-invoicenbr = '" .$row["invoicenbr"] ."' 
+											data-invoicedate = '" .$row["invoicedate"] ."' 
+											data-computercomment = '" .$row["comment"] ."' 
+											data-computertype = '" .$row["type"] ."' 
+											data-cartaresponsiva = '".$row["serial"] ."'
+											class='btn btn-sm btn-info text-white'><i class='fas fa-eye'></i>
+										</a>
+										";
+							echo "</td>";
+						?>
 
 						<?php 
 
