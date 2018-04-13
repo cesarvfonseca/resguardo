@@ -37,9 +37,12 @@ if(isset($_GET['codeR'])){
 		if ($ntype=="MQ"){
 			$ntype="Laptop";
 			$compUser="MEXQ";
-		}else{
+		}elseif ($ntype=="PC") {
 			$ntype="Desktop";
 			$compUser="PC";
+		}elseif($ntype=="MF"){
+			$ntype="Impresora";
+			$compUser="N/A";
 		}
 
 

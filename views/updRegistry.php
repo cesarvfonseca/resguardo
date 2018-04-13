@@ -114,6 +114,7 @@ if ($execSelect->rowCount()>0) {
 										<select class="form-control" name="cmType">
 											<option <?php if ($row ["type"]=="MQ") echo 'selected' ?> value="MQ">Laptop</option>
 											<option <?php if ($row ["type"]=="PC") echo 'selected' ?>  value="PC">Desktop</option>
+											<option <?php if ($row ["type"]=="MF") echo 'selected' ?>  value="MF">Multifuncional / Impresora</option>
 											<option value="MQ">AIO</option>
 										</select>
 									</div>

@@ -94,6 +94,7 @@
 											<option value="MQ">Laptop</option>
 											<option value="PC">Desktop</option>
 											<option value="MQ">AIO</option>
+											<option value="MF">Multifuncional / Impresora</option>
 										</select>
 									</div>
 								</div>

@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<?php 
+	<?php 
 	
 	include_once 'database/connection.php';
 	$conn = Connect();
@@ -15,44 +15,59 @@
 	$sql = "SELECT * FROM `registry` WHERE `registry`.`status`='A' AND `registry`.`type`='PC'";
 	$execSQL = $conn->query($sql);
 	?>
-		<div class="form-group"> 
-			<form action="test2.php" method="post">
-				<label class="col-xs-4 control-label">Equipos</label>
-				<div class="col-xs-5 selectContainer">
-		<?php
-		while ($row = $execSQL->fetch()){
-		    // echo "<input type='checkbox' code='students[]' value='".$row['code']."'>".$row['code'];
-		        ?>
-							<label class="custom-control custom-checkbox">
-							  <input type="checkbox" class="custom-control-input" name="computer_code[]" value="<?php echo $row['code']; ?>">
-							  <span class="custom-control-indicator"></span>
-							  <span class="custom-control-description"><?php echo $row['code']. " " . $row['name'] . " " . $row['lastname'] ; ?></span>
-							</label>
-		        <?php
-		}
-		?>		
-				</div>
-				<div class="col-xs-6">
-					<div class="form-group">
-						<small class="form-text text-muted">Fecha mantenimiento</small>
-						<input class="form-control" type="date" name="maintenance_date" id="maintenance_date">
-					</div>									
-				</div>	
+	<div class="form-group"> 
+		<form action="test2.php" method="post">
+			<label class="col-xs-4 control-label">Equipos</label>
+			<div class="col-xs-5 selectContainer">
+				<?php
+				while ($row = $execSQL->fetch())
+				{
+					?>
+						<div class="col-xs-12">
+							<div class="card text-white bg-dark mb-2" style="max-width: 18rem;">
+								<div class="card-header"> 
+									<label class="custom-control custom-checkbox">
+										<input type="checkbox" class="custom-control-input" name="computer_code[]" value="<?php echo $row['code']; ?>">
+										<span class="custom-control-indicator"></span>
+										<span class="custom-control-description">Equipo <?php echo $row['code']; ?></span>
+									</label>
+								</div>
+								<div class="card-body">
+									<h5 class="card-title">Responsable</h5>
+									<p class="card-text">
+										<?php echo $row['employee_name']; ?>
+									</p>
+									<p class="card-text">
+										<?php echo $row['mail']; ?>
+									</p>
+								</div>
+							</div>
+						</div>
+					<?php
+				}
+				?>		
+			</div>
+			<div class="col-xs-6">
+				<div class="form-group">
+					<small class="form-text text-muted">Fecha mantenimiento</small>
+					<input class="form-control" type="date" name="maintenance_date" id="maintenance_date">
+				</div>									
+			</div>	
 
-				<button type="submit" class="btn btn-primary btn-block" data-callback="onSubmit" name="btnSend" id="btnSend">
-				    Enviar  
-				    <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-				</button>
-			</form>
-		</div>
+			<button type="submit" class="btn btn-primary btn-block" data-callback="onSubmit" name="btnSend" id="btnSend">
+				Enviar  	2
+				<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+			</button>
+		</form>
+	</div>
 	<?php
 
- ?>
+	?>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>‌​
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>‌​
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
- </body>
+</body>
 </html>

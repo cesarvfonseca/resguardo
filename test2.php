@@ -16,7 +16,7 @@
             if ($result = $conn->query($getData)) {
                 $row = $result->fetch();
                 $employeeCode = $row[2];
-                $employeeName = $row[3]." ".$row[4];
+                $employeeName = $row[3];
                 $employeeMail = $row[8];
             }
             
