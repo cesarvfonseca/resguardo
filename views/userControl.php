@@ -1,6 +1,6 @@
 <?php
-header('Content-Type: text/html; charset=UTF-8');     
-include_once 'database/connection.php';
+// header('Content-Type: text/html; charset=UTF-8');     
+// include_once 'database/connection.php';
 include 'views/modals/usrRegistry.php';
 include_once 'database/connection.php';
 $mensaje='';
@@ -44,12 +44,15 @@ if(!$consulta){
 								  <tr>
 								<?php foreach ($consulta as $row): ?>
 									<?php 
-										if ($row['roll']=='0') {
+										if ($row['roll']=='0') 
+										{
 											$roll = 'Administrador';
-										}elseif ($row['roll']=='1') 
+										}
+										elseif ($row['roll']=='1') 
 										{
 											$roll = 'Supervisor';
-										}elseif ($row['roll']=='3') 
+										}
+										elseif ($row['roll']=='3') 
 										{
 											$roll = 'Limitado';
 										}

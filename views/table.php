@@ -41,15 +41,19 @@ $empName = $_SESSION["whoIs"];
 	<div class="col-md-12">
 
 		<?php 
-			if ($_SESSION['level']=='0')
+			if ($_SESSION['level']=='0'){
 		?>
 
-			<a href="index.php?h=5" class="btn btn-md btn-success">
+			<a href="index.php?h=newRegistry" class="btn btn-md btn-success">
 				<i class="fas fa-plus-circle"></i> 
 				Agregar Equipo
 			</a>
 
 	</div>
+
+	<?php 
+		}
+	 ?>
 
 	<br>
 

@@ -1,5 +1,5 @@
 <?php 
-	header('Content-Type: text/html; charset=UTF-8');
+	// header('Content-Type: text/html; charset=UTF-8');
 	include_once 'database/connection.php';
 	include 'views/modals/newRegistry.php';
 	include 'views/modals/info.php';

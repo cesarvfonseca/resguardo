@@ -42,7 +42,7 @@ $empName = $_SESSION["whoIs"];
 
 						<br>
 
-						<table id="printersTable" class="stripe row-border order-column" cellspacing="0" width="100%"> 
+						<table id="example2" class="stripe row-border order-column" cellspacing="0" width="100%"> 
 
 							<thead class="thead-inverse">
 

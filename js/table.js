@@ -3,11 +3,7 @@
 } );
 
 $(document).ready(function() {
-    $('#printersTable').DataTable();
-} );
-
-    $(document).ready(function() {
-    $('#nokTable').DataTable();
+    $('#example2').DataTable();
 } );
 
     

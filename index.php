@@ -77,12 +77,12 @@
 				{
 					include('views/edit_support.php');//ACTUALIZA SOPORTE
 				}
-				else if ($h=='1') 
+				else if ($h=='record') 
 				{
 					include('views/history.php');
 					$h='';
 				}
-				else if ($h=='2') 
+				else if ($h=='userAdmin') 
 				{
 					include('views/userControl.php');
 					$h='';
@@ -92,14 +92,19 @@
 					include('controlers/userReg.php');
 					$h='';
 				}
-				else if ($h=='4') 
+				else if ($h=='smartP') 
 				{
 					include('views/smartphone_view.php');
 					$h='';
 				}
-				else if ($h=='5') 
+				else if ($h=='newRegistry') 
 				{
 					include('views/newRegistry.php');
+					$h='';
+				}
+				else if ($h=='support') 
+				{
+					include('views/support_table.php');
 					$h='';
 				}
 				else if (isset($_SESSION['usr_active']) || !empty($_SESSION['usr_active']))

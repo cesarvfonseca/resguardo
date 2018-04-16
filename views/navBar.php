@@ -26,10 +26,10 @@
       {
        ?>
       <li class="nav-item">
-        <a class="nav-link active bg-primary text-white" href="index.php?h=1" title="Historial de equipos" ><i class="fas fa-history"></i> Historial</a>
+        <a class="nav-link active bg-primary text-white" href="index.php?h=record" title="Historial de equipos" ><i class="fas fa-history"></i> Historial</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active bg-primary text-white" href="index.php?h=4" title="Smartphones"><i class="fas fa-mobile-alt"></i> Smartphones</a>
+        <a class="nav-link active bg-primary text-white" href="index.php?h=smartP" title="Smartphones"><i class="fas fa-mobile-alt"></i> Smartphones</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle  <?php echo $st ?> bg-primary text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,7 +37,8 @@
            Configuración
         </a>
         <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item bg-primary text-white" href="index.php?h=2"><i class="fas fa-users"></i> Administrar usuarios</a>
+          <a class="dropdown-item bg-primary text-white" href="index.php?h=userAdmin"><i class="fas fa-users"></i> Administrar usuarios</a>
+          <a class="dropdown-item bg-primary text-white" href="index.php?h=support"><i class="far fa-life-ring fa-spin"></i> Soporte</a>
           <a class="dropdown-item bg-primary text-white" href="#"><i class="fas fa-calendar-alt"></i> Mantenimiento de equipos</a>
         </div>
       </li>
