@@ -13,7 +13,7 @@
 			<SCRIPT LANGUAGE="javascript"> 
          		alert("Registro eliminado"); 
 	     	</SCRIPT> 
-	     	<META HTTP-EQUIV="Refresh" CONTENT="0; URL=../../index.php?h=4">
+	     	<META HTTP-EQUIV="Refresh" CONTENT="0; URL=../../index.php?h=smartP">
 		<?php
 	}
 	else
@@ -22,7 +22,7 @@
 				<SCRIPT LANGUAGE="javascript"> 
 	         		alert("No Tiene Permisos"); 
 		     	</SCRIPT> 
-		     	<META HTTP-EQUIV="Refresh" CONTENT="0; URL=../../index.php?h=4">
+		     	<META HTTP-EQUIV="Refresh" CONTENT="0; URL=../../index.php?h=smartP">
 			<?php
 		}		 
 

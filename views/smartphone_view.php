@@ -26,12 +26,16 @@ $conn = Connect();
 
 		</button>
 
-<!-- 		<button class="btn btn-md btn-primary" data-toggle="modal" data-target="#gaccounts">
+
+
+		<a href="index.php?h=gAccounts" class="btn btn-md btn-primary">
 			<i class="fas fa-at"></i>
 
 			Correos
 
-		</button> -->
+		</a>
+
+		<hr>
 
 		<?php }else{ ?>
 
@@ -47,7 +51,6 @@ $conn = Connect();
 					<tr>
 						<th>#</th>
 						<th>Codigo</th>
-						<!-- <th>Nomina</th> -->
 						<th>Responsable</th>
 						<th>Sucursal</th>
 						<th>Area</th>
@@ -61,7 +64,6 @@ $conn = Connect();
 					</tr>
 				</thead>			
 				<?php
-				// $consulta= "SELECT * FROM smartphone";
 				$consulta= "SELECT sp.`id`, sp.`code_smartphone`, sp.`employee_code`, sp.`employee_name`, sp.`branch`, sp.`area`, 
 				sp.`color`, sp.`brand`, sp.`model`, sp.`imei`, sp.`account`, sp.`phone_number`, sp.`status`, sp.`comment`, 
 				sp.`deliver_date`, sp.`update_time`, ac.`pwd` 

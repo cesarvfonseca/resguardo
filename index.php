@@ -107,6 +107,11 @@
 					include('views/support_table.php');
 					$h='';
 				}
+				else if ($h=='gAccounts') 
+				{
+					include('views/gaccounts.php');
+					$h='';
+				}
 				else if (isset($_SESSION['usr_active']) || !empty($_SESSION['usr_active']))
 				{
 					include('views/table.php');

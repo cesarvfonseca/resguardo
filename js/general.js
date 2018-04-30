@@ -107,6 +107,7 @@ $('#editsp').on('show.bs.modal', function (event) {
 	});
 
 $("#spstatus").val();
+$("#spaccount").val();
 $("#computerstatus").val();
 $("#computertype").val();
 // $("#spstatus option[value=0]").attr('selected', 'selected');
@@ -159,3 +160,20 @@ $(document).ready(function() {
         }
     });
 });
+
+
+//G ACCOUNTS
+//EDITAR
+$('#editGmail').on('show.bs.modal', function (event) {
+	  var button = $(event.relatedTarget) // Button that triggered the modal
+	  var recipient0 = button.data('id')
+	  var recipient1 = button.data('branch')
+	  var recipient2 = button.data('account')
+	  var recipient3 = button.data('pwd')
+
+	  var modal = $(this)		 
+	  modal.find('.modal-body #txtID').val(recipient0)
+	  modal.find('.modal-body #txtBranch').val(recipient1)
+	  modal.find('.modal-body #txtMail').val(recipient2)
+	  modal.find('.modal-body #pwd').val(recipient3)
+	});

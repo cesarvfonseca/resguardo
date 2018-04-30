@@ -97,7 +97,7 @@ $empName = $_SESSION["whoIs"];
 
 							<thead class="thead-inverse">
 
-								<!-- <th>#</th> -->
+								<th>#</th>
 
 								<th>Codigo</th>
 
@@ -131,12 +131,16 @@ $empName = $_SESSION["whoIs"];
 
 							<?php 
 
+							$count=1;
+
 							while ($row = $execSelect->fetch()):
 
 								?>
 
 							<tr style="background-color: <?php echo $status_colors[$row ["status"]];?>; color: <?php echo $font_colors[$row ["status"]];?>">
 
+								<td><?php echo $count ?></td>
+								
 								<td><?php echo $row ["code"]; ?></td>
 
 								<td><?php echo $row ["id_employee"]; ?></td>
@@ -244,6 +248,8 @@ $empName = $_SESSION["whoIs"];
 								</tr>
 
 								<?php 
+
+								$count++;
 
 								endwhile;
 

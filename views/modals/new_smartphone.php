@@ -99,8 +99,19 @@
 									<div class="col-6">
 									  <div class="form-group">
 									  	<small class="form-text text-muted">Cuenta de Google</small>
-									    <input type="mail" class="form-control" name="spaccount" id="spaccount" placeholder="Correo de google">
+									  	<select class="form-control" name="spaccount" id="spaccount">
+										<?php 
+									    $conn = Connect();
+										$sql = "SELECT * FROM `accounts` ORDER BY `accounts`.`account` ASC";
+										$execSQL = $conn->query($sql);
+										while ($row = $execSQL->fetch())
+										{
+									    	echo '<option value="'.$row['account'].'">'. $row['account'] .'</option>';
+										}
+									    ?>
+									    </select>
 									  </div>
+
 									</div>
 									<div class="col-12">
 										<div class="form-group">
@@ -122,6 +133,5 @@
 		</form>
 	</div>
 </div>
-
 
 

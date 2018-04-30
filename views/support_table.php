@@ -49,8 +49,6 @@ $conn = Connect();
 
 							<thead class="thead-inverse">
 
-								<!-- <th>#</th> -->
-
 								<th>Equipo</th>
 
 								<th>Responsable</th>
