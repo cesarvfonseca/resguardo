@@ -12,7 +12,7 @@
 	$deleteQuery->bindValue(':User_update', $user_update);
 	$deleteQuery->execute();
 	if ($deleteQuery) {
-			echo "<script>alert('Registro eliminado!');</script>";
+			echo "<script>alert('Registro ".$Dcode." eliminado!');</script>";
 			echo "<script> location.href='../'; </script>";	
 		}else{
 			echo "<script>alert('Hubo un error al momento de eliminar.');</script>";

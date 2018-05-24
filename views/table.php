@@ -1,7 +1,5 @@
 <?php 
 
-    // header('Content-Type: text/html; charset=UTF-8');     
-
 include_once 'database/connection.php';
 
 include 'views/modals/newRegistry.php';
@@ -59,10 +57,11 @@ $empName = $_SESSION["whoIs"];
 
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
 	  <li class="nav-item">
-	    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Equipos de computo</a>
+	    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-selected="true">Equipos de computo</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Multifuncionales</a>
+	    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-selected="false">Multifuncionales</a>
+	  </li>
 	</ul>
 
 	<div class="tab-content" id="nav-tabContent">
@@ -71,9 +70,9 @@ $empName = $_SESSION["whoIs"];
 			<?php 
 
 			if ($_SESSION['level']>'1') 
-				$stmSelect = "SELECT * FROM `registry` WHERE `registry`.`type`<>'MF' AND `registry`.`active`='1' AND id_employee = '$empID' ORDER BY `registry`.`date` DESC";
+				$stmSelect = "SELECT * FROM `registry` WHERE `registry`.`type`<>'MF' AND `registry`.`active`='1' AND id_employee = '$empID' ORDER BY `registry`.`date_update` DESC";
 			else
-				$stmSelect = "SELECT * FROM `registry` WHERE `registry`.`type`<>'MF' AND `registry`.`active`='1' ORDER BY `registry`.`date` DESC";
+				$stmSelect = "SELECT * FROM `registry` WHERE `registry`.`type`<>'MF' AND `registry`.`active`='1' ORDER BY `registry`.`status` ASC,`registry`.`date_update` DESC";
 
 			$execSelect = $conn->query($stmSelect);
 
@@ -104,8 +103,6 @@ $empName = $_SESSION["whoIs"];
 								<th>Nomina</th>
 
 								<th>Nombres</th>
-
-								<!-- <th>Puesto</th> -->
 
 								<th>Sucursal</th>
 
@@ -219,6 +216,7 @@ $empName = $_SESSION["whoIs"];
 										data-empcode = '" .$row["id_employee"] ."' 
 										data-empname = '" .$row["employee_name"] ."' 
 										data-empphone = '" .$row["phone"] ."' 
+										data-empdelivery = '" .$row["date"] ."' 
 										data-empmail = '" .$row["mail"] ."' 
 										data-empposition = '" .$row["position"] ."' 
 										data-empbranch = '" .$row["branch"] ."' 

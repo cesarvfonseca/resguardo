@@ -33,13 +33,13 @@
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Número de nomina</small>
-										<input type="text" class="form-control" name="txtCodeemp" id="txtCodeemp" autocomplete="off" placeholder="Número de nomina del empleado">
+										<input type="text" class="form-control" name="txtCodeemp" id="txtCodeemp" autocomplete="off" placeholder="Número de nomina del empleado" required>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Teléfono</small>
-										<input type="phone" class="form-control" name="txtPhone" id="txtPhone" placeholder="Teléfono de contacto">
+										<input type="phone" class="form-control" name="txtPhone" id="txtPhone" placeholder="Teléfono de contacto" required>
 									</div>
 								</div>								
 							</div>
@@ -47,7 +47,7 @@
 								<div class="col-12">
 									<div class="form-group">
 										<small class="form-text text-muted">Nombre del empleado</small>
-										<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Nombres del empleado">
+										<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Nombres del empleado" required>
 									</div>
 								</div>								
 							</div>
@@ -55,13 +55,13 @@
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Puesto</small>
-										<input type="text" class="form-control" name="txtPosition" id="txtPosition" placeholder="Puesto">
+										<input type="text" class="form-control" name="txtPosition" id="txtPosition" placeholder="Puesto" required>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Correo</small>
-										<input type="text" class="form-control" name="txtEmail" id="txtEmail" placeholder="Correo">
+										<input type="text" class="form-control" name="txtEmail" id="txtEmail" placeholder="Correo" required>
 									</div>
 								</div>								
 							</div>
@@ -69,16 +69,24 @@
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Sucursal</small>
-										<input type="text" class="form-control" name="txtBranch" id="txtBranch" placeholder="Sucursal">
+										<input type="text" class="form-control" name="txtBranch" id="txtBranch" placeholder="Sucursal" required>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Planta ó departamento</small>
-										<input type="text" class="form-control" name="txtArea" id="txtArea" placeholder="Planta / Departamento">
+										<input type="text" class="form-control" name="txtArea" id="txtArea" placeholder="Planta / Departamento" required>
 									</div>
 								</div>
-							</div>															
+							</div>	
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<small class="form-text text-muted">Fecha de entrega</small>
+										<input type="date" class="form-control" name="txtDelivery" id="txtDelivery" value="<?php echo date("Y-m-d");?>" required>
+									</div>
+								</div>
+							</div>														
 						</div>
 					</div>
 				</div>
@@ -113,13 +121,13 @@
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Marca</small>
-										<input type="text" class="form-control" name="txtBrand" placeholder="Marca">
+										<input type="text" class="form-control" name="txtBrand" placeholder="Marca" required>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Modelo</small>
-										<input type="text" class="form-control" name="txtModel" placeholder="Modelo">
+										<input type="text" class="form-control" name="txtModel" placeholder="Modelo" required>
 									</div>
 								</div>								
 							</div>
@@ -127,13 +135,13 @@
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">No. Serie</small>
-										<input type="text" class="form-control" name="txtSerie" placeholder="No. Serie">
+										<input type="text" class="form-control" name="txtSerie" placeholder="No. Serie" required>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">No. Producto</small>
-										<input type="text" class="form-control" name="txtProduct" placeholder="No. Producto">
+										<input type="text" class="form-control" name="txtProduct" placeholder="No. Producto" required>
 									</div>
 								</div>								
 							</div>
@@ -147,7 +155,7 @@
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Fecha factura</small>
-										<input class="form-control" type="date" name="txtInvoicedate">
+										<input class="form-control" type="date" name="txtInvoicedate" value="<?php echo date("Y-m-d");?>">
 									</div>									
 								</div>															
 							</div>
@@ -163,7 +171,7 @@
 								<div class="col-12">
 									<div class="form-group">
 										<small class="form-text text-muted">Comentarios</small>
-										<textarea class="form-control" name="txtComment" rows="3"></textarea>
+										<textarea class="form-control" name="txtComment" rows="5"></textarea>
 									</div>
 								</div>
 							</div>																			

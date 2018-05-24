@@ -12,7 +12,7 @@
 	include_once 'database/connection.php';
 	$conn = Connect();
 
-	$sql = "SELECT * FROM `registry` WHERE `registry`.`status`='A' AND `registry`.`type`='PC'";
+	$sql = "SELECT * FROM `registry` WHERE `registry`.`status`='A' AND `registry`.`branch`='CORPORATIVO'";
 	$execSQL = $conn->query($sql);
 	?>
 	<div class="form-group"> 
@@ -33,7 +33,6 @@
 									</label>
 								</div>
 								<div class="card-body">
-									<h5 class="card-title">Responsable</h5>
 									<p class="card-text">
 										<?php echo $row['employee_name']; ?>
 									</p>

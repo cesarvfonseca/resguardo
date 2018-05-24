@@ -61,14 +61,24 @@
 									  	<small class="form-text text-muted">Planta ó departamento</small>
 									    <input type="text" class="form-control" name="emparea" id="emparea" placeholder="Planta / Departamento" readonly>
 									  </div>
+									</div>									
+								</div>	
+								<div class="row">
+									<div class="col-12">
+										<div class="form-group">
+											<small class="form-text text-muted">Fecha de entrega</small>
+											<input type="date" class="form-control" name="txtdelivery" id="txtdelivery" readonly>
+										</div>
 									</div>
+								</div>
+								<div class="row">
 									<div class="col-12">
 										<a href="#" target="_blank" class="btn btn-primary btn-block" id="cartaresponsiva">Ver Carta Responsiva</a>
 										<hr>
 										<a href="#" target="_blank" class="btn btn-info btn-block" id="launchPDF">Ver PDF</a>
 										<a href="#" target="_blank" class="btn btn-success btn-block" id="launchXML">Ver XML</a>
-									</div>								
-								</div>															
+									</div>
+								</div>														
 							</div>
 						</div>	
 						<br>
@@ -137,7 +147,7 @@
 									<div class="col-6">
 									  <div class="form-group">
 									  	<small class="form-text text-muted">Fecha factura</small>
-										    <input class="form-control" type="date" value="1999-01-01" name="invoicedate" id="invoicedate" readonly>
+										    <input class="form-control" type="date" name="invoicedate" id="invoicedate" readonly>
 										</div>									
 									</div>															
 								</div>

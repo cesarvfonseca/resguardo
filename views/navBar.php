@@ -39,7 +39,7 @@
         <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item bg-primary text-white" href="index.php?h=userAdmin"><i class="fas fa-users"></i> Administrar usuarios</a>
           <a class="dropdown-item bg-primary text-white" href="index.php?h=support"><i class="far fa-life-ring fa-spin"></i> Soporte</a>
-          <a class="dropdown-item bg-primary text-white" href="#"><i class="fas fa-calendar-alt"></i> Mantenimiento de equipos</a>
+          <a class="dropdown-item bg-primary text-white" href="index.php?h=maintenance"><i class="fas fa-calendar-alt"></i> Mantenimiento de equipos</a>
         </div>
       </li>
       <?php 

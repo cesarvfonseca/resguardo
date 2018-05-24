@@ -112,6 +112,11 @@
 					include('views/gaccounts.php');
 					$h='';
 				}
+				else if ($h=='maintenance') 
+				{
+					include('views/maintenance.php');
+					$h='';
+				}
 				else if (isset($_SESSION['usr_active']) || !empty($_SESSION['usr_active']))
 				{
 					include('views/table.php');
@@ -123,7 +128,8 @@
 	</div>
 	<!-- <p>https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js</p> -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-	
+	<!-- CHAT -->
+	<!-- CHAT -->
     <script src="js/table.js" async defer></script>
     <script src="js/general.js" async defer></script>
     <script src="js/validate.js" async defer></script>

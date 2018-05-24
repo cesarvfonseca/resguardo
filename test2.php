@@ -17,7 +17,7 @@
                 $row = $result->fetch();
                 $employeeCode = $row[2];
                 $employeeName = $row[3];
-                $employeeMail = $row[8];
+                $employeeMail = $row[7];
             }
             
             $dateUpdate=date('Y-m-d H:i:s');

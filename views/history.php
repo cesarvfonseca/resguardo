@@ -6,7 +6,7 @@
 
 	$conn = Connect();
 
-	$stmQuery = "SELECT * FROM history ORDER BY fin_date desc,code";
+	$stmQuery = "SELECT * FROM `history` WHERE `names` <> '' ORDER BY fin_date desc,code";
 	$execQuery = $conn -> query($stmQuery);?>
 	
 	<div class="container-fluid">
@@ -21,6 +21,7 @@
 						<br>
 						<table id="example" class="table table-striped" >  
 						<thead class="thead-inverse">
+							<th>#</th>
 							<th>Codigo</th>
 							<th>Nomina</th>
 							<th>Nombres</th>
@@ -32,9 +33,11 @@
 							<th>Fecha de entrega</th>						
 						</thead>
 						<?php 
+							$count=1;
 							while ($r = $execQuery->fetch()):
 						 ?>	
 							<tr>
+								<td><?php echo $count ?></td>
 								<td><?php echo $r ["code"]; ?></td>
 								<td><?php echo $r ["id_employee"]; ?></td>
 								<td><?php echo $r ["names"]; ?></td>
@@ -46,6 +49,7 @@
 								<td><?php echo $r ["fin_date"]; ?></td>
 							</tr>
 							<?php 
+									$count++;
 								endwhile;
 							 ?>
 					</div>

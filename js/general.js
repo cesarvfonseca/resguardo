@@ -19,6 +19,8 @@ $('#info').on('show.bs.modal', function (event) {
 	  var recipient16 = button.data('computercomment')
 	  var recipient17 = button.data('computertype')
 	  var recipient18 = button.data('cartaresponsiva')
+	  var recipient19 = button.data('empdelivery')
+
 
 
 	   // Extract info from data-* attributes
@@ -43,6 +45,7 @@ $('#info').on('show.bs.modal', function (event) {
 	  modal.find('.modal-body #invoicedate').val(recipient15)
 	  modal.find('.modal-body #computercomment').val(recipient16)
 	  modal.find('.modal-body #computertype').val(recipient17)
+	  modal.find('.modal-body #txtdelivery').val(recipient19)
 	  document.getElementById('cartaresponsiva').setAttribute('href', 'controlers/reader.php?file_name=' + recipient11 +'.jpg')
 	  document.getElementById('launchPDF').setAttribute('href', 'controlers/reader.php?file_name=' + recipient11 +'.pdf')
 	  document.getElementById('launchXML').setAttribute('href', 'controlers/reader.php?file_name=' + recipient11 +'.xml')

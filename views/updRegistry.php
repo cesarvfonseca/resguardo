@@ -26,9 +26,9 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Número de nomina</small>
-										<input type="text" class="form-control" name="txtCodeemp" value="<?php echo $row ["id_employee"]; ?>">
+										<input type="text" class="form-control" name="txtCodeemp" value="<?php echo $row ["id_employee"]; ?>" required>
 										<input type="hidden" class="form-control" name="txt_rCode" value="<?php echo $row ["id_employee"]; ?>">
-										<input type="hidden" class="form-control" name="txt_rNames" value="<?php echo $row ["name"]." ".$row ["lastname"]; ?>">
+										<input type="hidden" class="form-control" name="txt_rNames" value="<?php echo $row ["employee_name"]; ?>">
 										<input type="hidden" class="form-control" name="txt_rMail" value="<?php echo $row ["mail"]; ?>">
 										<input type="hidden" class="form-control" name="txt_rPosition" value="<?php echo $row ["position"]; ?>">
 										<input type="hidden" class="form-control" name="txt_rBranch" value="<?php echo $row ["branch"]; ?>">
@@ -40,7 +40,7 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Teléfono</small>
-										<input type="phone" class="form-control" name="txtPhone" placeholder="Teléfono de contacto" value="<?php echo $row ["phone"]; ?>">
+										<input type="phone" class="form-control" name="txtPhone" placeholder="Teléfono de contacto" value="<?php echo $row ["phone"]; ?>" required>
 									</div>
 								</div>								
 							</div>
@@ -48,7 +48,7 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-12">
 									<div class="form-group">
 										<small class="form-text text-muted">Nombre del empleado</small>
-										<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Nombres" value="<?php echo $row ["employee_name"]; ?>">
+										<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Nombres" value="<?php echo $row ["employee_name"]; ?>" required>
 									</div>
 								</div>							
 							</div>
@@ -56,30 +56,42 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Puesto</small>
-										<input type="text" class="form-control" name="txtPosition" placeholder="Puesto" value="<?php echo $row ["position"]; ?>">
+										<input type="text" class="form-control" name="txtPosition" placeholder="Puesto" value="<?php echo $row ["position"]; ?>" required>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Correo</small>
-										<input type="text" class="form-control" name="txtEmail" placeholder="Correo" value="<?php echo $row ["mail"]; ?>">
+										<input type="text" class="form-control" name="txtEmail" placeholder="Correo" value="<?php echo $row ["mail"]; ?>" required>
 									</div>
 								</div>								
 							</div>
 							<div class="row">
+
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Sucursal</small>
-										<input type="text" class="form-control" name="txtBranch" placeholder="Sucursal" value="<?php echo $row ["branch"]; ?>">
+										<input type="text" class="form-control" name="txtBranch" placeholder="Sucursal" value="<?php echo $row ["branch"]; ?>" required>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Planta ó departamento</small>
-										<input type="text" class="form-control" name="txtStation" placeholder="Planta / Departamento" value="<?php echo $row ["workstation"]; ?>">
+										<input type="text" class="form-control" name="txtStation" placeholder="Planta / Departamento" value="<?php echo $row ["workstation"]; ?>" required>
 									</div>
 								</div>
+							</div>	
+							
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<small class="form-text text-muted">Fecha de entrega</small>
+										<input type="date" class="form-control" name="txtDelivery" id="txtDelivery" value="<?php echo $row ["date"];?>">
+									</div>
+								</div>
+							</div>	
 
+							<div class="row">
 								<div class="col-12">
 									<div class="form-group">
 										<label class="control-label text-muted">Adjunta carta responsiva</label>
@@ -88,15 +100,17 @@ if ($execSelect->rowCount()>0) {
 										</div>
 									</div>
 								</div>
+							</div>
 
+							<div class="row">
 								<div class="col-12">
 									<a href="controlers/reader.php?file_name=<?php echo $row ["serial"];?>.jpg" target="_blank" class="btn btn-warning btn-block">Ver Carta Responsiva</a>
 									<hr>
 									<a href="controlers/reader.php?file_name=<?php echo $row ["serial"];?>.pdf" target="_blank" class="btn btn-info btn-block">Ver PDF</a>
 									<a href="controlers/reader.php?file_name=<?php echo $row ["serial"];?>.xml" target="_blank" class="btn btn-success btn-block">Ver XML</a>
 								</div>
+							</div>
 
-							</div>															
 						</div>
 					</div>
 
@@ -134,13 +148,13 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Marca</small>
-										<input type="text" class="form-control" name="txtBrand" placeholder="Marca" value="<?php echo $row ["brand"]; ?>">
+										<input type="text" class="form-control" name="txtBrand" placeholder="Marca" value="<?php echo $row ["brand"]; ?>" required>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Modelo</small>
-										<input type="text" class="form-control" name="txtModel" placeholder="Modelo" value="<?php echo $row ["model"]; ?>">
+										<input type="text" class="form-control" name="txtModel" placeholder="Modelo" value="<?php echo $row ["model"]; ?>" required>
 									</div>
 								</div>								
 							</div>
@@ -148,13 +162,13 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">No. Serie</small>
-										<input type="text" class="form-control" name="txtSerie" placeholder="No. Serie" value="<?php echo $row ["serial"]; ?>">
+										<input type="text" class="form-control" name="txtSerie" placeholder="No. Serie" value="<?php echo $row ["serial"]; ?>" required>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">No. Producto</small>
-										<input type="text" class="form-control" name="txtProduct" placeholder="No. Producto" value="<?php echo $row ["product"]; ?>">
+										<input type="text" class="form-control" name="txtProduct" placeholder="No. Producto" value="<?php echo $row ["product"]; ?>" required>
 									</div>
 								</div>								
 							</div>
