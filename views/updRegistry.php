@@ -6,16 +6,31 @@
 	// echo "variable 4 =".$_REQUEST['texto']."<br>"; 
 $conn = Connect();
 $code = $_REQUEST['vcode'];
+
+$sql = "SELECT id_employee FROM registry WHERE id_employee<>'00000' GROUP BY id_employee ORDER BY id_employee";
+	$execSQL = $conn->query($sql);
+	$empId = array();
+	while ($row = $execSQL->fetch())
+	{
+		$employee_id = utf8_encode($row['id_employee']);
+		array_push($empId, $employee_id);//Guardar id del empleado
+	}
+
 $stmSelect = "SELECT * FROM registry WHERE code='$code'";
 $execSelect = $conn->query($stmSelect);
 if ($execSelect->rowCount()>0) {
+	include 'controlers/data.php';
 	?>
-	<form method="POST" action="controlers/dataUpdate.php" enctype="multipart/form-data">
+
+	<form method="POST" action="controlers/dataUpdate.php" enctype="multipart/form-data" id="updateRegistry">
 		<div class="row justify-content-md-center">
 			<h3 class="display-2">Modificar equipo <?php echo $code ?></h3>
 		</div>
 		<br>
-		<?php while ($row = $execSelect->fetch()): ?>
+		<?php 
+			while ($row = $execSelect->fetch()): 
+				$employee_branch = $row ["branch"];
+		?>
 		<div class="form">
 			<div class="row justify-content-md-center">
 				<div class="col">
@@ -26,7 +41,7 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Número de nomina</small>
-										<input type="text" class="form-control" name="txtCodeemp" value="<?php echo $row ["id_employee"]; ?>" required>
+										<input type="text" class="form-control" maxlength="5" name="txtCodeemp" id="txtCodeemp" value="<?php echo $row ["id_employee"]; ?>" required>
 										<input type="hidden" class="form-control" name="txt_rCode" value="<?php echo $row ["id_employee"]; ?>">
 										<input type="hidden" class="form-control" name="txt_rNames" value="<?php echo $row ["employee_name"]; ?>">
 										<input type="hidden" class="form-control" name="txt_rMail" value="<?php echo $row ["mail"]; ?>">
@@ -56,13 +71,13 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Puesto</small>
-										<input type="text" class="form-control" name="txtPosition" placeholder="Puesto" value="<?php echo $row ["position"]; ?>" required>
+										<input type="text" class="form-control" name="txtPosition" id="txtPosition" placeholder="Puesto" value="<?php echo $row ["position"]; ?>" required>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Correo</small>
-										<input type="text" class="form-control" name="txtEmail" placeholder="Correo" value="<?php echo $row ["mail"]; ?>" required>
+										<input type="text" class="form-control" name="txtEmail" id="txtEmail" placeholder="Correo" value="<?php echo $row ["mail"]; ?>" required>
 									</div>
 								</div>								
 							</div>
@@ -71,13 +86,23 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Sucursal</small>
-										<input type="text" class="form-control" name="txtBranch" placeholder="Sucursal" value="<?php echo $row ["branch"]; ?>" required>
+										<select class="form-control" name="txtBranch" id="txtBranch">
+										<option selected value="<?php echo $row["branch"] ?>"><?php echo $row["branch"]; ?></option>
+										<?php 
+											$sql = "SELECT `registry`.`branch` FROM `registry` WHERE `registry`.`branch` <> '' AND `registry`.`branch` <> '$employee_branch' GROUP BY `registry`.`branch` ORDER BY `registry`.`branch` ASC";
+											$execSQL = $conn->query($sql);
+											while ($r = $execSQL->fetch())
+											{
+										    	echo '<option value="'.$r['branch'].'">'. $r['branch'] .'</option>';
+											}
+									    ?>
+									    </select>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<small class="form-text text-muted">Planta ó departamento</small>
-										<input type="text" class="form-control" name="txtStation" placeholder="Planta / Departamento" value="<?php echo $row ["workstation"]; ?>" required>
+										<input type="text" class="form-control" name="txtStation" id="txtStation" placeholder="Planta / Departamento" value="<?php echo $row ["workstation"]; ?>" required>
 									</div>
 								</div>
 							</div>	
@@ -198,7 +223,7 @@ if ($execSelect->rowCount()>0) {
 								<div class="col-12">
 									<div class="form-group">
 										<small class="form-text text-muted">Comentarios</small>
-										<textarea class="form-control" name="txtComment" rows="5"><?php echo $row ["comment"]; ?></textarea>
+										<textarea class="form-control" name="txtComment" maxlength="300" rows="5"><?php echo $row ["comment"]; ?></textarea>
 									</div>
 								</div>
 							</div>																			
@@ -209,7 +234,9 @@ if ($execSelect->rowCount()>0) {
 			<br>
 			<div class="col">
 				<div class="card card-outline-info mb-3">
-					<button type="submit" class="btn btn-primary btn-lg btn-block" name="btnUpdate" id="btnUpdate">Modificar</button>
+					<button type="submit" class="btn btn-primary btn-lg btn-block" name="btnUpdate" id="btnUpdate"> Modificar datos <i class="fas fa-pen-square"></i></button>
+					<hr>
+					<a href="javascript:window.open('','_self').close();" class="btn btn-danger btn-lg btn-block"> Cancelar <i class="fas fa-times"></i></a>
 				</div>
 			</div>
 		</div>
@@ -220,3 +247,44 @@ if ($execSelect->rowCount()>0) {
 	<?php }else{ ?>
 	<p class="alert alert-warning">There isn´t data allow</p>
 	<?php } ?>
+
+<script type="text/javascript">
+
+		// var items = <?= json_encode($empId) ?>
+
+		// $('#txtCodeemp').autocomplete({
+		// 	source: items
+		// });
+
+		$(document).ready(function () {
+			var items = <?= json_encode($empId) ?>
+
+			$("#txtCodeemp").autocomplete({
+				source: items,
+				select: function (event, item) {
+					var params = 
+					{
+						equipo: item.item.value
+					};
+					$.get("controlers/service.php", params, function (response) {
+						var json = JSON.parse(response);
+						if (json.status == 200){
+							// $("#txtName").html(json.employee_name);
+							$("#txtName").val(json.employee_name);
+							$("#txtPhone").val(json.phone);
+							$("#txtPosition").val(json.position);
+							$("#txtEmail").val(json.mail);
+							$("#txtBranch").val(json.branch);
+							$("#txtStation").val(json.workstation);
+							// console.log(json.employee_name);
+							// $("#avatar").attr("src", json.icono);
+						}else{
+
+						}
+						// console.log(response);
+					}); // ajax
+				}
+			});
+		});
+
+	</script>

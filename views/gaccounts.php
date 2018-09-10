@@ -6,7 +6,7 @@ $mensaje='';
 $conn = Connect();
 
 $consulta = $conn -> prepare("
-	SELECT * FROM `accounts` ORDER BY `account` ASC");
+	SELECT * FROM `accounts` ORDER BY `accounts`.`branch` ASC,`accounts`.`update_date` DESC");
 
 $consulta ->execute();
 $consulta = $consulta ->fetchAll();

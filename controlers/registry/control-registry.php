@@ -1,28 +1,29 @@
 <?php  
 	session_start();
-	include "../database/connection.php";
+	include "../../database/connection.php";
 	$conn = Connect();
 
-	if (isset($_POST['btnUpdate'])) {
+	if (isset($_POST['btn_Update'])) 
+	{
 		$txt_codeRegistry = $_POST['txtcodeRegistry'];
-		$txt_codemp = $_POST['txtCodeemp'];
-		$txt_phone = $_POST['txtPhone'];
-		$txt_name = $_POST['txtName'];
-		$txt_position = $_POST['txtPosition'];
-		$txt_mail = $_POST['txtEmail'];
-		$txt_branch = strtoupper($_POST['txtBranch']);
-		$txt_station = strtoupper($_POST['txtStation']);
-		$txt_delivery = $_POST['txtDelivery'];
+		$txt_codemp = $_POST['empcode'];
+		$txt_phone = $_POST['empphone'];
+		$txt_name = $_POST['empname'];
+		$txt_position = $_POST['empposition'];
+		$txt_mail = $_POST['empmail'];
+		$txt_branch = strtoupper($_POST['empbranch']);
+		$txt_station = strtoupper($_POST['emparea']);
+		$txt_delivery = $_POST['txtdelivery'];
 
-		$txt_type = $_POST['cmType'];
-		$txt_status = $_POST['cmStatus'];
-		$txt_brand = $_POST['txtBrand'];
-		$txt_model = $_POST['txtModel'];
-		$txt_serial = $_POST['txtSerie'];
-		$txt_product = $_POST['txtProduct'];
-		$txt_invoicenbr = $_POST['txtInvoice'];
-		$txt_invoicedate = $_POST['txtInvoicedate'];
-		$txt_comment = $_POST['txtComment'];
+		$txt_type = $_POST['computertype'];
+		$txt_status = $_POST['computerstatus'];
+		$txt_brand = $_POST['computerbrand'];
+		$txt_model = $_POST['computermodel'];
+		$txt_serial = $_POST['computerserial'];
+		$txt_product = $_POST['computerproduct'];
+		$txt_invoicenbr = $_POST['invoicenbr'];
+		$txt_invoicedate = $_POST['invoicedate'];
+		$txt_comment = $_POST['computercomment'];
 		$txt_comment=mberegi_replace("[\n|\r|\n\r|\t||\x0B]", "",$txt_comment);
 		// $txt_date = date('Y-m-d');
 
@@ -47,7 +48,8 @@
 			foreach($_FILES["archivo"]['tmp_name'] as $key => $tmp_name)
 			{
 			//Validamos que el archivo exista
-				if($_FILES["archivo"]["name"][$key]) {
+				if($_FILES["archivo"]["name"][$key]) 
+				{
 					$filename = $_FILES["archivo"]["name"][$key]; //Obtenemos el nombre original del archivo
 		        	$ext = pathinfo($filename, PATHINFO_EXTENSION);
 					$filename = $_FILES["archivo"]["name"][$key]=$txt_serial.".".$ext; //Obtenemos el nombre original del archivo Y se cambia
@@ -57,7 +59,8 @@
 
 					
 					//Validamos si la ruta de destino existe, en caso de no existir la creamos
-					if(!file_exists($directorio)){
+					if(!file_exists($directorio))
+					{
 						mkdir($directorio, 0777,true);
 						// mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");	
 					}
@@ -67,7 +70,8 @@
 					
 					//Movemos y validamos que el archivo se haya cargado correctamente
 					//El primer campo es el origen y el segundo el destino
-					if(move_uploaded_file($source, $target_path)) {	
+					if(move_uploaded_file($source, $target_path)) 
+					{	
 						closedir($dir); //Cerramos el directorio de destino
 					}
 				}
@@ -78,7 +82,8 @@
 			foreach($_FILES["cResponsiva"]['tmp_name'] as $key => $tmp_name)
 			{
 			//Validamos que el archivo exista
-				if($_FILES["cResponsiva"]["name"][$key]) {
+				if($_FILES["cResponsiva"]["name"][$key]) 
+				{
 					$filename = $_FILES["cResponsiva"]["name"][$key]; //Obtenemos el nombre original del archivo
 		        	$ext = pathinfo($filename, PATHINFO_EXTENSION);
 					$filename = $_FILES["cResponsiva"]["name"][$key]=$txt_serial.".".$ext; //Obtenemos el nombre original del archivo Y se cambia
@@ -98,7 +103,8 @@
 					
 					//Movemos y validamos que el archivo se haya cargado correctamente
 					//El primer campo es el origen y el segundo el destino
-					if(move_uploaded_file($source, $target_path)) {	
+					if(move_uploaded_file($source, $target_path)) 
+					{	
 						closedir($dir); //Cerramos el directorio de destino
 					}
 				}
@@ -138,7 +144,8 @@
 
 			$updateQuery->closeCursor();
 
-			if (!(strcmp($txt_codemp,$txtCode)==0)) {
+			if (!(strcmp($txt_codemp,$txtCode)==0)) 
+			{
 				$insertQuery = $conn->prepare('INSERT INTO `history` VALUES (:_Code,:_idEmp,:_Name,:_Position,:_Mail,:_Branch,:_WS,:_initDate,:_finDate);');
 				$insertQuery->bindValue(':_Code', $txt_codeRegistry);
 				$insertQuery->bindValue(':_idEmp', $txtCode);
@@ -156,15 +163,16 @@
 
 			$conn = null;
 
-			if ($updateQuery) {
+			if ($updateQuery) 
+			{
 				?>
-				<script> swal("Hello world!"); </script>
+				<script src="../..js/sweet_alert.js" async defer></script>
 				<?php 
-				echo "<script>window.close();</script>";
-				echo "<br /><script language=javascript>reloadplanboard();</script>";
-			}else{
+				// echo "<script>alert('Registro del equipo ".$txt_codeRegistry." modificado exitosamente!');</script>";
+			}
+			else
+			{
 				echo "<script>alert('Hubo un error al momento de registrar.');</script>";
-				echo "<script>window.close();</script>";
 			}
 		}
 	}

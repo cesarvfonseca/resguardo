@@ -11,7 +11,8 @@
             <input type="password" class="form-control mr-sm-2" name="txtPassword" placeholder="Contraseña">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-success my-sm-0" name="btnLogin">Entrar <i class="fas fa-sign-in-alt"></i></button>
+            <button type="submit" class="btn btn-success my-sm-0" id="btnLogin" name="btnLogin">Entrar <i class="fas fa-sign-in-alt"></i></button>
+            <input type="hidden" id="type" value="login">
         </div>
     </form>               
   </div>

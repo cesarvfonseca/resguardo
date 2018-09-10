@@ -2,9 +2,7 @@
 
 include_once 'database/connection.php';
 
-include 'views/modals/newRegistry.php';
-
-include('modals/edit_mq.php');
+// include 'views/modals/updRegistry.php';
 
 include 'views/modals/info.php';
 
@@ -183,18 +181,49 @@ $empName = $_SESSION["whoIs"];
 									<td>
 
 										<a href="index.php?vcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-info text-white" title="Modificar registro" target="_blank"><i class="fas fa-pen-square"></i></a>
-	<!-- 									 <a class="btn btn-sm btn-info text-white" title="Modificar registro" data-toggle='modal' data-target='#info'
-											data-empcode='<?php $row ["id_employee"];?>'
-											><i class="fas fa-pen-square"></i></a> -->
+										
 
+										<!-- Editar desde modalWindow -->
 											
 
-											<a href="views/report.php?codeR=<?php echo $row ['code']; ?>" name="create_pdf" class="btn btn-sm btn-success" title="Carta responsiva" target="_blank"><i class="fas fa-file-pdf"></i></a>
+										<!-- <?php  
+										echo "
+												<a data-toggle='modal' data-target='#updRegistry' 
+													data-computerid = '" .$row["id"] ."' 
+													data-computercode = '" .$row["code"] ."' 
+													data-empcode = '" .$row["id_employee"] ."' 
+													data-empname = '" .$row["employee_name"] ."' 
+													data-empphone = '" .$row["phone"] ."' 
+													data-empdelivery = '" .$row["date"] ."' 
+													data-empmail = '" .$row["mail"] ."' 
+													data-empposition = '" .$row["position"] ."' 
+													data-empbranch = '" .$row["branch"] ."' 
+													data-emparea = '" .$row["workstation"] ."' 
+													data-computerbrand = '" .$row["brand"] ."' 
+													data-computermodel = '" .$row["model"] ."' 
+													data-computerserial = '" .$row["serial"] ."' 
+													data-computerproduct = '" .$row["product"] ."' 
+													data-computerstatus = '" .$row["status"] ."' 
+													data-invoicenbr = '" .$row["invoicenbr"] ."' 
+													data-invoicedate = '" .$row["invoicedate"] ."' 
+													data-computercomment = '" .$row["comment"] ."' 
+													data-computertype = '" .$row["type"] ."' 
+													data-cartaresponsiva = '".$row["serial"] ."'
+													class='btn btn-sm btn-info text-white'><i class='fas fa-pen-square'></i>
+												</a>
+											 ";
+										?> -->	
 
-											<a href="index.php?computer_code=<?php echo $row ['code']; ?>" name="create_pdf" class="btn btn-sm btn-warning" title="Soporte técnico" target="_blank"><i class="fas fa-shield-alt"></i></a> 
+										<!-- Editar desde modalWindow -->
 
-											<a href="controlers/deleteRegistry.php?dcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-danger btn-eliminar" onclick="return confirm('Seguro de eliminar?')" title="Eliminar registro"><i class="fas fa-times-circle"></i></a>
-										</td>
+
+										<a href="views/report.php?codeR=<?php echo $row ['code']; ?>" name="create_pdf" class="btn btn-sm btn-success" title="Carta responsiva" target="_blank"><i class="fas fa-file-pdf"></i></a>
+
+										<a href="index.php?computer_code=<?php echo $row ['code']; ?>" name="create_pdf" class="btn btn-sm btn-warning" title="Soporte técnico" target="_blank"><i class="fas fa-shield-alt"></i></a> 
+
+										<a href="controlers/deleteRegistry.php?dcode=<?php echo $row['code'] ?>" class="btn btn-sm btn-danger btn-eliminar" onclick="return confirm('Seguro de eliminar?')" title="Eliminar registro"><i class="fas fa-times-circle"></i></a>
+										
+									</td>
 
 									<?php 
 
@@ -204,40 +233,32 @@ $empName = $_SESSION["whoIs"];
 
 									{ 
 
-										?>
-
-										<!-- <a href="index.php?vcode=<?php echo $row['code'] ?>" id="<?php echo $r["code"];?>" class="btn btn-sm btn-info btn-editar" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
-										<?php  
+  
 										echo "<td>";
-										echo		"
-										<a data-toggle='modal' data-target='#info' 
-										data-computerid = '" .$row["id"] ."' 
-										data-computercode = '" .$row["code"] ."' 
-										data-empcode = '" .$row["id_employee"] ."' 
-										data-empname = '" .$row["employee_name"] ."' 
-										data-empphone = '" .$row["phone"] ."' 
-										data-empdelivery = '" .$row["date"] ."' 
-										data-empmail = '" .$row["mail"] ."' 
-										data-empposition = '" .$row["position"] ."' 
-										data-empbranch = '" .$row["branch"] ."' 
-										data-emparea = '" .$row["workstation"] ."' 
-										data-computerbrand = '" .$row["brand"] ."' 
-										data-computermodel = '" .$row["model"] ."' 
-										data-computerserial = '" .$row["serial"] ."' 
-										data-computerproduct = '" .$row["product"] ."' 
-										data-computerstatus = '" .$row["status"] ."' 
-										data-invoicenbr = '" .$row["invoicenbr"] ."' 
-										data-invoicedate = '" .$row["invoicedate"] ."' 
-										data-computercomment = '" .$row["comment"] ."' 
-										data-computertype = '" .$row["type"] ."' 
-										data-cartaresponsiva = '".$row["serial"] ."'
-										class='btn btn-sm btn-info text-white'><i class='fas fa-eye'></i>
-										</a>
-										";
+											echo		"
+												<a data-toggle='modal' data-target='#info' 
+												data-computerid = '" .$row["id"] ."' 
+												data-computercode = '" .$row["code"] ."' 
+												data-empcode = '" .$row["id_employee"] ."' 
+												data-empname = '" .$row["employee_name"] ."' 
+												data-empphone = '" .$row["phone"] ."' 
+												data-empdelivery = '" .$row["date"] ."' 
+												data-empmail = '" .$row["mail"] ."' 
+												data-empposition = '" .$row["position"] ."' 
+												data-empbranch = '" .$row["branch"] ."' 
+												data-emparea = '" .$row["workstation"] ."' 
+												data-computerbrand = '" .$row["brand"] ."' 
+												data-computermodel = '" .$row["model"] ."' 
+												data-computerserial = '" .$row["serial"] ."' 
+												data-computerproduct = '" .$row["product"] ."' 
+												data-computerstatus = '" .$row["status"] ."' 
+												data-invoicenbr = '" .$row["invoicenbr"] ."' 
+												data-invoicedate = '" .$row["invoicedate"] ."' 
+												data-computercomment = '" .$row["comment"] ."' 
+												data-computertype = '" .$row["type"] ."' 
+												data-cartaresponsiva = '".$row["serial"] ."'
+												class='btn btn-sm btn-info text-white'><i class='fas fa-eye'></i>";
 										echo "</td>";
-										?>
-
-										<?php 
 
 									} 
 

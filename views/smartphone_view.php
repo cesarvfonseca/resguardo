@@ -60,6 +60,7 @@ $conn = Connect();
 						<th>IMEI</th>
 						<th>Cuenta</th>
 						<th>Telefono</th>
+						<th>Alta</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>			
@@ -69,15 +70,17 @@ $conn = Connect();
 				sp.`deliver_date`, sp.`update_time`, ac.`pwd` 
 				FROM `smartphone` AS sp 
 				LEFT JOIN `accounts` AS ac 
-				ON sp.`account` = ac.`account`";
+				ON sp.`account` = ac.`account` ORDER BY `sp`.`status` DESC, `sp`.`update_time` DESC";
+
 
 				if ($resultado = $conn->query($consulta)) 
 				{
+					$count=1;
 					while ($fila = $resultado->fetch()) 
 					{					
 						echo "<tr>";
 						echo "	
-								<td>$fila[0]</td>
+								<td>$count</td>
 								<td>
 									<a class='btn btn-sm btn-default text-primary' title='Añadir responsable del equipo' data-toggle='modal' data-target='#addsp'
 									data-id ='" .$fila[0] ."'
@@ -109,6 +112,7 @@ $conn = Connect();
 									</a>
 								</td>
 								<td>$fila[11]</td>
+								<td>$fila[14]</td>
 							 ";	
 							echo "<td>";
 							echo		"<a data-toggle='modal' data-target='#editsp' 
@@ -134,6 +138,7 @@ $conn = Connect();
 							  	
 
 						echo "</tr>";
+						$count++;
 					}
 				}
 				?>

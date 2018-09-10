@@ -22,7 +22,7 @@ $empName = $_SESSION["whoIs"];
 			if ($_SESSION['level']>'1') 
 				$stmSelect = "SELECT * FROM `registry` WHERE `registry`.`type`='MF' AND `registry`.`active`='1' AND id_employee = '$empID' ORDER BY `registry`.`date` DESC";
 			else
-				$stmSelect = "SELECT * FROM `registry` WHERE `registry`.`type`='MF' AND `registry`.`active`='1' ORDER BY `registry`.`date` DESC";
+				$stmSelect = "SELECT * FROM `registry` WHERE `registry`.`type`='MF' AND `registry`.`active`='1' ORDER BY `registry`.`status` ASC,`registry`.`date_update` DESC";
 
 			$execSelect = $conn->query($stmSelect);
 
@@ -45,6 +45,8 @@ $empName = $_SESSION["whoIs"];
 						<table id="example2" class="stripe row-border order-column" cellspacing="0" width="100%"> 
 
 							<thead class="thead-inverse">
+
+								<th>#</th>
 
 								<th>Codigo</th>
 
@@ -78,12 +80,16 @@ $empName = $_SESSION["whoIs"];
 
 							<?php 
 
+							$count=1;
+
 							while ($row = $execSelect->fetch()):
 
 								?>
 
 							<tr style="background-color: <?php echo $status_colors[$row ["status"]];?>; color: <?php echo $font_colors[$row ["status"]];?>">
 
+
+								<td><?php echo $count; ?></td>
 
 								<td><?php echo $row ["code"]; ?></td>
 
@@ -193,6 +199,8 @@ $empName = $_SESSION["whoIs"];
 								</tr>
 
 								<?php 
+
+								$count++;
 
 								endwhile;
 

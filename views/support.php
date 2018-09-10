@@ -117,7 +117,7 @@ $font_colors = array('3' => '#FFFFFF');
 								<div class="card mb-3">
 									<button type="submit" class="btn btn-info btn-block" name="btnSave" id="btnSave">Guardar <i class="fas fa-save"></i></button>
 									<br>
-									<a href="javascript:window.open('','_self').close();" class="btn btn-sm btn-danger">Cerrar <i class="fas fa-times"></i></a>
+									<a href="javascript:window.open('','_self').close();" class="btn btn-danger">Cerrar <i class="fas fa-times"></i></a>
 								</div>
 							</div>
 
