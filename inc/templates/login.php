@@ -1,34 +1,27 @@
 <div class="row">
-    <div class="section">
-        <div class="col m4"></div>
-        <form class="col m4" role="form" autocomplete="off" id="loginForm" method="POST">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="section">
             <div class="card">
-                <div class="row card-panel">
-                    <div class="card-image">
-                        <img src="https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&h=350" alt="" class="responsive-img">
-                        <span class="card-title">Acceso al sistema</span>
+                <img class="card-img-top" src="https://images.pexels.com/photos/1619227/pexels-photo-1619227.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" height="340" width="200" alt="Card image cap">
+                <div class="card-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="txtUser">Usuario</label>
+                        <input type="text" class="form-control" id="txtUser" aria-describedby="emailHelp" placeholder="Ingresar su usuario">
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                     </div>
-                    <hr>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input type="text" id="txtUser" class="validate">
-                        <label for="txtUser">Ingresar usuario</label>
+                    <div class="form-group">
+                        <label for="txtPwd">Clave</label>
+                        <input type="password" class="form-control" id="txtPwd" placeholder="Ingresar su contraseña">
                     </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">vpn_key</i>
-                        <input type="password" id="txtPwd" class="validate">
-                        <label for="txtPwd">Ingresar clave</label>
-                    </div>
-                    <div class="col s12">
-                        <button class="btn waves-effect waves-light btn-block green" type="submit" id="btnEntrar">
-                            Entrar
-                            <input type="hidden" id="type" value="login">
-                        </button>
-
-                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="btnEntrar">Ingresar
+                        <input type="hidden" id="type" value="login">
+                    </button>
+                </form>
                 </div>
             </div>
-        </form>
-        <div class="col m4"></div>
+        </div>
     </div>
+    <div class="col-md-3"></div>
 </div>

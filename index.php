@@ -10,7 +10,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <title>Resguardo MEXQ</title>
-    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <head>
@@ -34,4 +33,5 @@
     </div>
         <?php include 'inc/templates/footer.php' ?> 
   </body>
+
 </html>

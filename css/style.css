@@ -1,5 +1,12 @@
 body{
-    background-color:ghostwhite;
+    background-color:darkgray;
+    margin:0;
+    padding:0; 
+    box-sizing:border-box; 
+}
+
+th{
+    color: aliceblue;
 }
 
 #mp{
