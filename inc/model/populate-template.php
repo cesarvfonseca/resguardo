@@ -14,7 +14,10 @@ switch ($section){
         break;
     case 'printers':
         $title = 'de Impresoras.';
-        break;   
+        break;  
+    case 'newcomputer':
+    $title = 'Nuevo Equipo de Computo';
+        break; 
     default:
         $title = null;     
         break;   

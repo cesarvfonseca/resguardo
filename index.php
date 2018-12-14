@@ -22,9 +22,9 @@
                 case 'main-page':
                   include 'inc/templates/main.php'; 
                   break;
-                case 'computers' || 'smartphone' || 'printers':
+                case 'computers' || 'smartphone' || 'printers' || 'newcomputer':
                   include 'inc/templates/table_template.php'; 
-                  break;                    
+                  break;                                     
                 default:
                   include 'inc/templates/login.php';      
                   break;   
