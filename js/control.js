@@ -87,11 +87,17 @@ if (window.location.href.indexOf("?request=computers") > -1) {
         // COLUMNA ACCION
         row.append($("<td class='text-center'>"
                 + "<a tabindex='0' class='btn btn-sm btn-primary' id='btnEdit' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
-                + "<a tabindex='1' class='btn btn-sm btn-warning btnHelp mx-1' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
-                + "<a tabindex='1' class='btn btn-sm btn-danger btnEliminar' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
+                + "<a tabindex='1' class='btn btn-sm btn-warning mx-1' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
+                + "<a tabindex='1' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
                 + "</td>"));
-
+                
+        // Borrar Registros
+        $(".btnDelete").click(function(){
+            // eliminarRegistros($(this));
+            console.log('test');
+        });
     }
+        
 
 }
 
@@ -128,7 +134,8 @@ $('#btnsaveComputer').click(function(){
         deviceSerie = document.querySelector('#ipSerie').value,
         deviceProduct = document.querySelector('#ipProduct').value,
         invoiceNumber = document.querySelector('#ipInvoicenbr').value,
-        invoiceDate = document.querySelector('#ipInvoicedate').value;
+        invoiceDate = document.querySelector('#ipInvoicedate').value,
+        deviceComment = document.querySelector('#ipComment').value;
 
         var invoiceAttach = document.getElementById('ipAttach');
         var fileAttach =invoiceAttach.files[0];
@@ -169,6 +176,7 @@ $('#btnsaveComputer').click(function(){
             dataComputer.append('deviceProduct', deviceProduct);
             dataComputer.append('invoiceNumber', invoiceNumber);
             dataComputer.append('invoiceDate', invoiceDate);
+            dataComputer.append('deviceComment', deviceComment);
             dataComputer.append('fileAttach', fileAttach);
             dataComputer.append('jobType', jobType);
 
@@ -179,31 +187,33 @@ $('#btnsaveComputer').click(function(){
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
                     console.log(respuesta);
-                    // if (respuesta.estado === 'correcto') {
-                    //     swal({
-                    //             title: 'Guardado exitoso!',
-                    //             text: 'Guardado de la información exitoso!',
-                    //             type: 'success'
-                    //         })
-                    //         .then(resultado => {
-                    //                 if(resultado.value) {
-                    //                     location.reload();
-                    //                 }
-                    //             })
-                    // } else {
-                    //     // Hubo un error
-                    //     swal({
-                    //         title: 'Error!',
-                    //         text: 'Hubo un error',
-                    //         type: 'error'
-                    //     })
-                    // }
+                    if (respuesta.estado === 'OK') {
+                        var destination = respuesta.log;
+                        swal({
+                                title: 'Guardado exitoso!',
+                                text: 'Guardado de la información exitoso!',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                    if(resultado.value) {
+                                        location.reload();
+                                        window.location.href = 'index.php?request='+destination;
+                                    }
+                                })
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
                 }
             }            
         }
 });
 
-//BUSQUEDA DE INFROMACION
+//BUSQUEDA DE INFORMACION
 $('#search').keyup(function(){
     var txtSearch = this.value,
         action = 'query';

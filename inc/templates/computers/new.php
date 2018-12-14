@@ -115,9 +115,9 @@
                                 </div>
                                 <select class="custom-select" id="igStatus">
                                     <option selected>Elige el status de equipo...</option>
-                                    <option value="1">Activo</option>
-                                    <option value="2">Baja</option>
-                                    <option value="3">En soporte</option>
+                                    <option value="A">Activo</option>
+                                    <option value="I">Baja</option>
+                                    <option value="X">En soporte</option>
                                 </select>
                             </div>
                         </div>
@@ -197,6 +197,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-comment-dots"></i></span>
+                                </div>
+                                <textarea class="form-control" id="ipComment" aria-label="With textarea" placeholder="Comentarios adicionales"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    
 
                 </div>
             </div>
