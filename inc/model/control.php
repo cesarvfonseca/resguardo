@@ -72,14 +72,12 @@
             $stmnt -> execute();
             $rowCount = $stmnt -> rowCount();
             if($rowCount > 0){
-                // echo $rowCount;
                 $respuesta = array(
                     'estado' => 'OK',
                     'data' => $rowCount,
                     'log' => 'computers'
                 );
             } else {
-                // echo $rowCount;
                 $respuesta = array(
                     'estado' => 'ERROR',
                     'data' => $rowCount,
@@ -87,10 +85,38 @@
                 );
             }
             echo json_encode($respuesta);
+            
+            break;
+        case 'deleteComputer':
+            // die(json_encode($_POST));
+            $deviceCode = $_POST['deviceCode'];
+            $user_update='cvalenciano';
+            $date_update=date('Y-m-d H:i:s');
 
+            $updateDevice = 'UPDATE `registry` SET `active` = 0, `date_update` = ?, `user_update` = ?  WHERE code = ?';
+            $stmnt = $conn -> prepare($updateDevice);
+            $stmnt -> bindParam(1, $date_update);
+            $stmnt -> bindParam(2, $user_update);
+            $stmnt -> bindParam(3, $deviceCode);
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'estado' => 'OK',
+                    'data' => $rowCount,
+                    'log' => 'computers'
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al eliminar el registro'
+                );
+            }
+            echo json_encode($respuesta);
             break;
         default:
-        $title = '';     
+        // $title = '';     
         break;
     }
 ?>

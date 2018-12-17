@@ -16,12 +16,6 @@ $('#link_3').click(function(){
     $(location).attr('href',url);
 });
 
-$('#btnnewComputer').click(function(){
-    console.log('Link 3');
-    var url = "index.php?request=newcomputer";
-    $(location).attr('href',url);
-});
-
 if (window.location.href.indexOf("?request=computers") > -1) {
     console.log('Computers page');
     var action  = 'registry';
@@ -47,7 +41,6 @@ if (window.location.href.indexOf("?request=computers") > -1) {
     xmlhr.send(dataTable);
 
     function computersTable(rowInfo){
-        // var tittle = $("<th");
         
         var st = rowInfo.status,
             estado = '';
@@ -63,7 +56,7 @@ if (window.location.href.indexOf("?request=computers") > -1) {
         
         $("#dataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
         // NUMERO DE EQUIPO
-        row.append($("<td class='text-muted'>" + rowInfo.code + " </td>"));
+        row.append($("<td class='text-muted trCode'>" + rowInfo.code + " </td>"));
         // NOMINA DEL EMPLEADO
         row.append($("<td> " + rowInfo.id_employee + " </td>"));
         // NOMBRE DEL EMPLEADO
@@ -86,34 +79,95 @@ if (window.location.href.indexOf("?request=computers") > -1) {
         row.append($("<td>" + rowInfo.invoicenbr + "</td>"));    
         // COLUMNA ACCION
         row.append($("<td class='text-center'>"
-                + "<a tabindex='0' class='btn btn-sm btn-primary' id='btnEdit' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
-                + "<a tabindex='1' class='btn btn-sm btn-warning mx-1' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
-                + "<a tabindex='1' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
+                + "<a tabindex='0' class='btn btn-sm btn-primary btnEdit' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
+                + "<a tabindex='1' class='btn btn-sm btn-warning mx-2 btnHelp' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
+                + "<a tabindex='2' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
                 + "</td>"));
                 
-        // Borrar Registros
-        $(".btnDelete").click(function(){
-            // eliminarRegistros($(this));
-            console.log('test');
+        $(".btnDelete").unbind().click(function() {
+            deleteComputer($(this));
         });
+
+        $(".btnEdit").unbind().click(function() {
+            var url = "index.php?request=editcomputer";
+            $(location).attr('href',url);
+        });
+
     }
         
 
-}
-
-if (window.location.href.indexOf("?request=smartphone") > -1) {
-    console.log('Smartphone page');
-
-}
-
-if (window.location.href.indexOf("?request=printers") > -1) {
-    console.log('Printers page');
 }
 
 if (window.location.href.indexOf("?request=newcomputer") > -1) {
     console.log('New Computer');
 
 }
+
+// ELIMINAR EQUIPO DE COMPUTO
+function deleteComputer (computerRow){    
+    var jobType = 'deleteComputer',
+        deviceCode = computerRow.closest("tr").find(".trCode").text(); 
+    console.log(deviceCode);
+
+    Swal({
+        title: 'Eliminar equipo de computo',
+        text: '¿Estas seguro de eliminar este registro?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si, borrar!'
+      }).then((result) => {
+        if (result.value) {
+            var dataComputer = new FormData();
+            dataComputer.append('jobType', jobType);
+            dataComputer.append('deviceCode', deviceCode);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataComputer);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    console.log(respuesta);
+                    computerRow.parents("tr").remove();//ELIMINAR LINEA DEL REGISTRO BORRADO
+                    if (respuesta.estado === 'OK') {
+                        Swal(
+                            'Registro eliminado!',
+                            'El registro ' + deviceCode + 'fue eliminado exitosamente.',
+                            'success'
+                        )
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }
+            
+            
+        }
+      })
+}
+
+$('#btnNew').click(function(){
+    var type = $(this).data('type');
+    console.info(type);
+    switch (type){
+        case 'computers':
+            var url = "index.php?request=newcomputer";
+            $(location).attr('href',url);
+            break;
+        case 'printers':
+            newPrinter();
+            break;
+        default:
+            break;            
+    }
+});
 
 //GUARDAR EQUIPO DE COMPUTO
 $('#btnsaveComputer').click(function(){
@@ -212,32 +266,99 @@ $('#btnsaveComputer').click(function(){
             }            
         }
 });
+//GUARDAR EQUIPO DE COMPUTO
+
+//EDITAR EQUIPO DE COMPUTO
+
+//EDITAR EQUIPO DE COMPUTO
 
 //BUSQUEDA DE INFORMACION
-$('#search').keyup(function(){
-    var txtSearch = this.value,
-        action = 'query';
-    // console.log(txtSearch);
-    $('#dataTable').empty();
-    var searchData = new FormData();
-        searchData.append('txtSearch',txtSearch);
-        searchData.append('action',action);
-        var xmlhr = new XMLHttpRequest();
-        xmlhr.open('POST', 'inc/model/data-service.php', true);
-        xmlhr.onload = function(){
+$(document).ready(function(){
+    $("#searchBox").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#dataTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
+if (window.location.href.indexOf("?request=smartphone") > -1) {
+    console.log('Smartphone page');
+
+}
+
+//IMPRESORAS
+if (window.location.href.indexOf("?request=printers") > -1) {
+    console.log('Printers page');
+    var action  = 'printers';
+    var dataTable = new FormData();
+    dataTable.append('action', action);
+    var xmlhr = new XMLHttpRequest();
+    xmlhr.open('POST', 'inc/model/data-service.php', true);
+    xmlhr.onload = function(){
         if (this.status === 200) {
           var respuesta = JSON.parse(xmlhr.responseText);
-          console.log(respuesta);
+        //   console.log(respuesta);
           if (respuesta.status === 'OK') {
             var informacion = respuesta.data;
             // console.log(informacion);
             for(var i in informacion){
-                computersTable(informacion[i]);
+                printersTable(informacion[i]);
             }     
           } else if(respuesta.status === 'error'){
             var informacion = respuesta.data;
           }
         }
         }
-        xmlhr.send(searchData);        
-});
+    xmlhr.send(dataTable);
+
+    function printersTable(rowInfo){
+        
+        var st = rowInfo.status,
+            estado = '';
+        
+        if(st === 'A'){
+            estado = "table-secondary";
+        } else if(st === 'I'){
+            estado = "table-danger";
+        } else if(st === 'X'){
+            estado = "table-warning";
+        }
+        var row = $("<tr class='" + estado + "'>");
+        
+        $("#dataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+        // NUMERO DE EQUIPO
+        row.append($("<td class='text-muted trCode'>" + rowInfo.code + " </td>"));
+        // NOMINA DEL EMPLEADO
+        row.append($("<td> " + rowInfo.id_employee + " </td>"));
+        // NOMBRE DEL EMPLEADO
+        row.append($("<td> " + rowInfo.employee_name + " </td>"));
+        // TIPO DE SUCURSAL
+        row.append($("<td> " + rowInfo.branch + " </td>"));
+        // COLUMNA DEPARTAMENTO
+        row.append($("<td>" + rowInfo.workstation + "</td>"));
+        // COLUMNA MARCA
+        row.append($("<td>" + rowInfo.brand + "</td>"));
+        // COLUMNA MODELO
+        row.append($("<td>" + rowInfo.model + "</td>"));
+        // COLUMNA # SERIE
+        row.append($("<td>" + rowInfo.serial + "</td>"));
+        // COLUMNA # PRODUCTO
+        row.append($("<td>" + rowInfo.product + "</td>"));
+        // COLUMNA FECHA
+        row.append($("<td>" + rowInfo.date + "</td>"));
+        // COLUMNA # FACTURA
+        row.append($("<td>" + rowInfo.invoicenbr + "</td>"));    
+        // COLUMNA ACCION
+        row.append($("<td class='text-center'>"
+                + "<a tabindex='0' class='btn btn-sm btn-primary' id='btnEdit' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
+                + "<a tabindex='1' class='btn btn-sm btn-warning mx-1' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
+                + "<a tabindex='2' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
+                + "</td>"));
+                
+        $(".btnDelete").unbind().click(function() {
+            deleteComputer($(this));
+        });
+
+    }    
+}

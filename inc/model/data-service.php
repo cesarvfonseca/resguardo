@@ -20,6 +20,20 @@
             // print_r($rows);
             echo json_encode($respuesta);
             break;
+        case 'printers':
+            // echo 'impresoras';
+            $query = 'SELECT * FROM `registry` 
+            WHERE `registry`.`type`="MF" AND `registry`.`active`="1"
+            ORDER BY `registry`.`status` ASC,`registry`.`date_update` DESC;"';
+            $stmt = $conn -> prepare($query);
+            $stmt -> execute();
+            $rows = $stmt -> fetchAll();
+            $respuesta = array(
+            'status' => 'OK',
+            'data' => $rows
+            );
+            echo json_encode($respuesta);                
+            break;
     case 'query':
             $txt_search = $_POST['txtSearch'];
             // die(json_encode($_POST));
