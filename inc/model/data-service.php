@@ -51,6 +51,29 @@
             );
             echo json_encode($respuesta);
             break;
+    case 'queryDevice':
+            // die(json_encode($_POST));
+            $deviceCode = $_POST['deviceCode'];
+            $query = "SELECT * FROM `registry` WHERE `registry`.`code` = ?";
+            $stmnt = $conn -> prepare($query);
+            $stmnt -> bindParam(1, $deviceCode);
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            $rows = $stmnt -> fetchAll();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'status' => 'OK',
+                    'data' => $rows
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al recuperar los datos.'
+                );
+            }
+            echo json_encode($respuesta);
+            break;
     default:
         $title = '';     
         break;

@@ -5,7 +5,7 @@
         <h5 class="card-title">Equipos de computo</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <div class="card-action center">
-          <a class="btn btn-primary btn-block" id="link_1">Entrar</a>
+          <a class="btn btn-primary btn-block text-white" id="link_1">Entrar <i class="fas fa-angle-right"></i></a>
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@
         <h5 class="card-title">Smartphones</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <div class="card-action center">
-          <a class="btn btn-primary btn-block" id="link_2">Entrar</a>
+          <a class="btn btn-primary btn-block text-white" id="link_2">Entrar <i class="fas fa-angle-right"></i></a>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
         <h5 class="card-title">Impresoras</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <div class="card-action center">
-          <a class="btn btn-primary btn-block" id="link_3">Entrar</a>
+          <a class="btn btn-primary btn-block text-white" id="link_3">Entrar <i class="fas fa-angle-right"></i></a>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
           <h5 class="card-title">Historial</h5>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           <div class="card-action center">
-            <a class="btn btn-primary btn-block" id="link_">Entrar</a>
+            <a class="btn btn-primary btn-block text-white" id="link_">Entrar</a>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@
           <h5 class="card-title">Administrar</h5>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           <div class="card-action center">
-            <a class="btn btn-primary btn-block" id="link_">Entrar</a>
+            <a class="btn btn-primary btn-block text-white" id="link_">Entrar</a>
           </div>
         </div>
       </div>      

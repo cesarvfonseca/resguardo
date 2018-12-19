@@ -6,6 +6,8 @@
     </div>
 </div>
 
+<hr>
+
 <?php if(!(substr($section, 0, 3) === 'new' || substr($section, 0, 4) == 'edit')): ?>
 
 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -20,13 +22,15 @@
 <div class="row">
     <div class="col-md-9">
         <a class="btn btn-success text-white" id="btnNew" data-type="<?php echo $section ?>" title="Nuevo registro">
-        <i class="fas fa-plus-circle">
-        </i> Nuevo equipo </a>
+        Nuevo equipo
+        <i class="fas fa-plus"></i>
+        <!-- <i class="fas fa-plus-square"></i> -->
+        </a>
     </div>
     <div class="col-md-3">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">Buscar</span>
+                <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-search"></i></span>
             </div>
             <input type="text" class="form-control" aria-label="Sizing example input" id="searchBox" aria-describedby="inputGroup-sizing-default">
         </div>
@@ -68,5 +72,7 @@
 <?php elseif ($section == 'editcomputer'): ?>
     <?php include 'computers/edit.php' ?>  
 <?php elseif ($section == 'printers'): ?>
-    <?php include 'printers/printers_view.php' ?>   
+    <?php include 'printers/printers_view.php' ?>
+<?php elseif ($section == 'newprinter'): ?>
+    <?php include 'printers/new.php' ?>  
 <?php endif; ?>

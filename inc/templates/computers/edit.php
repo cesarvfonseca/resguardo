@@ -1,5 +1,4 @@
-<h1 class="display3">Editar Equipo de Computo</h1>
-<form action="">
+<form action="" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-6">
             <div class="card text-white text-center bg-dark mb-3">
@@ -83,7 +82,26 @@
                                 <input type="date" class="form-control" id="ipDate" value="<?php echo date("Y-m-d");?>">
                             </div>
                         </div>
-                    </div> 
+                    </div>
+
+                    <blockquote>
+                        <footer class="blockquote-footer">Carta Responsiva</footer>
+                    </blockquote>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-camera"></i></span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="ipResponsive" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="ipResponsive">Carta Responsiva</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <br>                                                        
                 </div>
             </div>
@@ -180,20 +198,25 @@
                             </div>
                         </div>
                     </div>
-
-                    <blockquote>
-                        <footer class="blockquote-footer">Adjuntar Factura</footer>
-                    </blockquote>
                     
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
+                            <div class="input-group-prepend">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-parachute-box"></i></span>
+                                </div>                        
+                                <input type="text" class="form-control" id="ipSupplier" placeholder="Proveedor">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-file-pdf"></i></span>
                                 </div>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="ipAttach" aria-describedby="inputGroupFileAddon01">
-                                    <label class="custom-file-label" for="ipAttach">Buscar PDF</label>
+                                    <label class="custom-file-label" for="ipAttach">Adjuntar Factura PDF</label>
                                 </div>
                             </div>
                         </div>
@@ -219,10 +242,20 @@
 
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="btnsaveComputer">Guardar Información</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="btnEditcomputer">Modificar Información <i class="fas fa-edit"></i></button>
+            <hr>
+            <a href="javascript:history.back();" class="btn btn-danger btn-lg btn-block">Cancelar <i class="fas fa-times"></i></a>
         </div>
     </div>
     
     <br>
+    <input type="hidden" class="form-control" id="ipdeviceCode" readonly>
+    <input type="hidden" class="form-control" id="ipEmployeecode_" readonly>
+    <input type="hidden" class="form-control" id="ipEmployeename_" readonly>
+    <input type="hidden" class="form-control" id="ipPosition_" readonly>
+    <input type="hidden" class="form-control" id="ipMail_" readonly>
+    <input type="hidden" class="form-control" id="ipBranch_" readonly>
+    <input type="hidden" class="form-control" id="ipWorkstation_" readonly>
+    <input type="hidden" class="form-control" id="ipDate_" readonly>
 
 </form>

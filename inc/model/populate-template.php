@@ -21,6 +21,9 @@ switch ($section){
     case 'editcomputer':
         $title = 'Editar Equipo de Computo';
         break;
+    case 'newprinter':
+        $title = 'Nueva Multifuncional';
+        break;
     default:
         $title = null;     
         break;   
