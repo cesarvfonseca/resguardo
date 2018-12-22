@@ -1,4 +1,4 @@
-<form action="" enctype="multipart/form-data">
+<form action="">
     <div class="row">
         <div class="col-md-6">
             <div class="card text-white text-center bg-dark mb-3">
@@ -82,7 +82,7 @@
                                 <input type="date" class="form-control" id="ipDate" value="<?php echo date("Y-m-d");?>">
                             </div>
                         </div>
-                    </div>
+                    </div> 
 
                     <blockquote>
                         <footer class="blockquote-footer">Carta Responsiva</footer>
@@ -114,36 +114,24 @@
                 <div class="card-body">
 
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <div class="input-group-prepend">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-desktop"></i></span>
-                                </div>                        
-                                <select class="custom-select" id="igType">
-                                    <option selected>Elige el tipo de equipo...</option>
-                                    <option value="MQ">Laptop</option>
-                                    <option value="PC">Escritorio</option>
-                                    <option value="MQ">All In One</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
+
+                        <div class="form-group col-md-4">
                             <div class="input-group-prepend">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-check-square"></i></span>
                                 </div>
                                 <select class="custom-select" id="igStatus">
-                                    <option selected>Elige el status de equipo...</option>
+                                    <option selected>Estatus de equipo...</option>
                                     <option value="A">Activo</option>
                                     <option value="I">Baja</option>
                                     <option value="X">En soporte</option>
                                 </select>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <input type="hidden" value="MF" id="igType" disabled>
+
+                        <div class="form-group col-md-4">
                             <div class="input-group-prepend">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fab fa-bandcamp"></i></span>
@@ -151,7 +139,8 @@
                                 <input type="text" class="form-control" id="ipBrand" placeholder="Marca del equipo">
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
+
+                        <div class="form-group col-md-4">
                             <div class="input-group-prepend">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-laptop"></i></span>
@@ -159,6 +148,7 @@
                                 <input type="text" class="form-control" id="ipModel" placeholder="Modelo del equipo">
                             </div>
                         </div>
+
                     </div>
 
                     <div class="form-row">
@@ -198,8 +188,9 @@
                             </div>
                         </div>
                     </div>
-                    
+                  
                     <div class="form-row">
+
                         <div class="form-group col-md-6">
                             <div class="input-group-prepend">
                                 <div class="input-group-prepend">
@@ -208,7 +199,7 @@
                                 <input type="text" class="form-control" id="ipSupplier" placeholder="Proveedor">
                             </div>
                         </div>
-                        
+
                         <div class="form-group col-md-6">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -231,16 +222,7 @@
                                 <textarea class="form-control" id="ipComment" aria-label="With textarea" placeholder="Comentarios adicionales"></textarea>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <a href="#" class="btn btn-outline-info btn-block" type="button" id="showPDF">Ver Factura</a>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <a href="#" class="btn btn-outline-success btn-block" type="button" id="showIMG">Ver Carta responsiva</a>
-                        </div>
-                    </div>                    
+                    </div>                   
 
                 </div>
             </div>
@@ -249,13 +231,14 @@
 
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="btnEditcomputer">Modificar Información <i class="fas fa-edit"></i></button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="btnEditcomputer"> Actualizar Información <i class="fas fa-save"></i></button>
             <hr>
-            <a href="javascript:history.back();" class="btn btn-danger btn-lg btn-block">Cancelar <i class="fas fa-times"></i></a>
+            <a href="javascript:history.back();" class="btn btn-danger btn-lg btn-block"> Cancelar <i class="fas fa-times"></i></a>
         </div>
     </div>
     
     <br>
+
     <input type="hidden" class="form-control" id="ipdeviceCode" readonly>
     <input type="hidden" class="form-control" id="ipEmployeecode_" readonly>
     <input type="hidden" class="form-control" id="ipEmployeename_" readonly>

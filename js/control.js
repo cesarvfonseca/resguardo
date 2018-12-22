@@ -131,35 +131,6 @@ if (window.location.href.indexOf("?request=editcomputer") > -1) {
         }
     }
 
-    function editDevice(rowInfo){
-        $('#ipdeviceCode').val(rowInfo.code);
-        $('#ipEmployeecode').val(rowInfo.id_employee);
-        $('#ipEmployeecode_').val(rowInfo.id_employee);
-        $('#ipPhone').val(rowInfo.phone);
-        $('#ipEmployeename').val(rowInfo.employee_name);
-        $('#ipEmployeename_').val(rowInfo.employee_name);
-        $('#ipPosition').val(rowInfo.position);
-        $('#ipPosition_').val(rowInfo.position);
-        $('#ipMail').val(rowInfo.mail);
-        $('#ipMail_').val(rowInfo.mail);
-        $('#ipBranch').val(rowInfo.branch);
-        $('#ipBranch_').val(rowInfo.branch);
-        $('#ipWorkstation').val(rowInfo.workstation);
-        $('#ipWorkstation_').val(rowInfo.workstation);
-        $('#ipDate').val(rowInfo.date);
-        $('#ipDate_').val(rowInfo.date);
-        $('#igType').val(rowInfo.type);
-        $('#igStatus').val(rowInfo.status);
-        $('#ipBrand').val(rowInfo.brand);
-        $('#ipModel').val(rowInfo.model);
-        $('#ipSerie').val(rowInfo.serial);
-        $('#ipProduct').val(rowInfo.product);
-        $('#ipInvoicenbr').val(rowInfo.invoicenbr);
-        $('#ipInvoicedate').val(rowInfo.invoicedate);
-        $('#ipSupplier').val(rowInfo.supplier);
-        $('#ipComment').val(rowInfo.comment);
-    }
-
     $( "#ipBranch" ).autocomplete({
         source: function(request, response) {
             $.getJSON(
@@ -182,14 +153,42 @@ if (window.location.href.indexOf("?request=editcomputer") > -1) {
 
 }
 
+function editDevice(rowInfo){
+    $('#ipdeviceCode').val(rowInfo.code);
+    $('#ipEmployeecode').val(rowInfo.id_employee);
+    $('#ipEmployeecode_').val(rowInfo.id_employee);
+    $('#ipPhone').val(rowInfo.phone);
+    $('#ipEmployeename').val(rowInfo.employee_name);
+    $('#ipEmployeename_').val(rowInfo.employee_name);
+    $('#ipPosition').val(rowInfo.position);
+    $('#ipPosition_').val(rowInfo.position);
+    $('#ipMail').val(rowInfo.mail);
+    $('#ipMail_').val(rowInfo.mail);
+    $('#ipBranch').val(rowInfo.branch);
+    $('#ipBranch_').val(rowInfo.branch);
+    $('#ipWorkstation').val(rowInfo.workstation);
+    $('#ipWorkstation_').val(rowInfo.workstation);
+    $('#ipDate').val(rowInfo.date);
+    $('#ipDate_').val(rowInfo.date);
+    $('#igType').val(rowInfo.type);
+    $('#igStatus').val(rowInfo.status);
+    $('#ipBrand').val(rowInfo.brand);
+    $('#ipModel').val(rowInfo.model);
+    $('#ipSerie').val(rowInfo.serial);
+    $('#ipProduct').val(rowInfo.product);
+    $('#ipInvoicenbr').val(rowInfo.invoicenbr);
+    $('#ipInvoicedate').val(rowInfo.invoicedate);
+    $('#ipSupplier').val(rowInfo.supplier);
+    $('#ipComment').val(rowInfo.comment);
+}
+
 // ELIMINAR EQUIPO DE COMPUTO
 function deleteComputer (computerRow){    
     var jobType = 'deleteComputer',
         deviceCode = computerRow.closest("tr").find(".trCode").text(); 
-    console.log(deviceCode);
-
+    // console.log(deviceCode);
     Swal({
-        title: 'Eliminar equipo de computo',
+        title: 'Eliminar el registro',
         text: '¿Estas seguro de eliminar este registro?',
         type: 'warning',
         showCancelButton: true,
@@ -350,9 +349,13 @@ $('#btnsaveComputer').click(function(){
 });
 //NUEVO EQUIPO DE COMPUTO
 
+// $('#btneditComputer_').click(function(){
+//     console.log('EDITAR YA');
+// });
+
 //EDITAR EQUIPO DE COMPUTO
 $('#btnEditcomputer').click(function(){
-    console.log('EDITAR EQUIPO DE COMPUTO');
+    // console.log('EDITAR EQUIPO DE COMPUTO');
     var jobType = 'editComputer',
         deviceCode = document.querySelector('#ipdeviceCode').value,
         employeeCode = document.querySelector('#ipEmployeecode').value,
@@ -446,7 +449,7 @@ $('#btnEditcomputer').click(function(){
                         var destination = respuesta.log;
                         swal({
                                 title: 'Modificación exitosa!',
-                                text: 'Modificación de la información exitoso!',
+                                text: 'Modificación de la información exitosa!',
                                 type: 'success'
                             })
                             .then(resultado => {
@@ -549,7 +552,7 @@ if (window.location.href.indexOf("?request=printers") > -1) {
         row.append($("<td>" + rowInfo.invoicenbr + "</td>"));    
         // COLUMNA ACCION
         row.append($("<td class='text-center'>"
-                + "<a tabindex='0' class='btn btn-sm btn-primary' id='btnEdit' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
+                + "<a tabindex='0' class='btn btn-sm btn-primary btnEdit' data-code='"+rowInfo.code+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
                 + "<a tabindex='1' class='btn btn-sm btn-warning mx-1' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
                 + "<a tabindex='2' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
                 + "</td>"));
@@ -558,5 +561,51 @@ if (window.location.href.indexOf("?request=printers") > -1) {
             deleteComputer($(this));
         });
 
+        $(".btnEdit").unbind().click(function() {
+            var deviceCode = $((this)).data('code'),
+                url = "index.php?request=editprinter";
+            // console.info(deviceCode);
+            localStorage.setItem('deviceCode', deviceCode);//GUARAR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
+            $(location).attr('href',url);
+        });
+
     }    
 }
+
+if (window.location.href.indexOf("?request=editprinter") > -1) {
+    console.log('Edit Printer');
+    var jobType = 'queryDevice';
+    var deviceCode = localStorage.getItem('deviceCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    localStorage.removeItem('deviceCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    // console.info(deviceCode);
+    var dataComputer = new FormData();
+    dataComputer.append('action', jobType);
+    dataComputer.append('deviceCode', deviceCode);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'inc/model/data-service.php', true);
+    xhr.send(dataComputer);
+    xhr.onload = function(){
+        if (this.status === 200) {
+            var respuesta = JSON.parse(xhr.responseText);
+            console.log(respuesta);
+            if (respuesta.status === 'OK') {
+                var informacion = respuesta.data;
+                for(var i in informacion){
+                    editDevice(informacion[i]);
+                }
+            }
+        }
+    }
+}
+
+//VER PDF
+$("#showPDF").unbind().click(function() {
+    var deviceSerie = document.getElementById('ipSerie').value,
+        // // url = "inc/assets/invoices/"+deviceSerie+"/"+deviceSerie+'.pdf',
+        // url = "inc/assets/invoices/"+deviceSerie+"/"+deviceSerie+".pdf",
+        // jobType = 'readPDF';
+
+        // window.open(url, '_blank', 'fullscreen=yes');
+    
+});
+//VER PDF

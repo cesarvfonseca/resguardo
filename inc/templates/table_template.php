@@ -75,4 +75,6 @@
     <?php include 'printers/printers_view.php' ?>
 <?php elseif ($section == 'newprinter'): ?>
     <?php include 'printers/new.php' ?>  
+<?php elseif ($section == 'editprinter'): ?>
+    <?php include 'printers/edit.php' ?> 
 <?php endif; ?>

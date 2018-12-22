@@ -33,6 +33,8 @@
             $deviceUpdate = date('Y-m-d H:i:s');
             $userControl = 'cvalenciano';
 
+            $route = ($deviceType == 'MF') ? 'printers' : 'computers';
+
             if(isset($_FILES["fileAttach"]["name"])){
                 $directorio = '../assets/invoices/'.$deviceSerie;
                 $targetDir = $directorio."/";       
@@ -83,7 +85,7 @@
                 $respuesta = array(
                     'estado' => 'OK',
                     'data' => $rowCount,
-                    'log' => 'computers'
+                    'log' => $route
                 );
             } else {
                 $respuesta = array(
@@ -117,6 +119,8 @@
             $invoiceDate = $_POST['invoiceDate'];
             $deviceSupplier = $_POST['deviceSupplier'];
             $deviceComment = $_POST['deviceComment'];
+
+            $route = ($deviceType == 'MF') ? 'printers' : 'computers';
 
             $deviceUpdate = date('Y-m-d H:i:s');
             $userControl = 'cvalenciano';
@@ -204,7 +208,7 @@
                 $respuesta = array(
                     'estado' => 'OK',
                     'data' => $rowCount,
-                    'log' => 'computers'
+                    'log' => $route
                 );
             } else {
                 $respuesta = array(
@@ -221,6 +225,9 @@
             $deviceCode = $_POST['deviceCode'];
             $user_update='cvalenciano';
             $date_update=date('Y-m-d H:i:s');
+            $deviceType = substr($deviceCode, 0, 2);
+
+            $route = ($deviceType == 'MF') ? 'printers' : 'computers';
 
             $updateDevice = 'UPDATE `registry` SET `active` = 0, `date_update` = ?, `user_update` = ?  WHERE code = ?';
             $stmnt = $conn -> prepare($updateDevice);
@@ -233,7 +240,7 @@
                 $respuesta = array(
                     'estado' => 'OK',
                     'data' => $rowCount,
-                    'log' => 'computers'
+                    'log' => $route
                 );
             } else {
                 $respuesta = array(
@@ -244,8 +251,12 @@
             }
             echo json_encode($respuesta);
             break;
-        default:
-        $title = '';     
+        $respuesta = array(
+            'estado' => 'ERROR',
+            'data' => 'Sin Información',
+            'log' => 'Error al solicitar información'
+        );
+        echo json_encode($respuesta);    
         break;
     }
 ?>
