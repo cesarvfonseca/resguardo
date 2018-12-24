@@ -222,7 +222,16 @@
                                 <textarea class="form-control" id="ipComment" aria-label="With textarea" placeholder="Comentarios adicionales"></textarea>
                             </div>
                         </div>
-                    </div>                   
+                    </div> 
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <a href="" class="btn btn-outline-info btn-block" type="button" target="_blank" id="showPDF">Ver Factura</a>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <a href="" class="btn btn-outline-success btn-block" type="button" target="_blank" id="showIMG">Ver Carta responsiva</a>
+                        </div>
+                    </div>                  
 
                 </div>
             </div>

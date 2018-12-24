@@ -180,6 +180,8 @@ function editDevice(rowInfo){
     $('#ipInvoicedate').val(rowInfo.invoicedate);
     $('#ipSupplier').val(rowInfo.supplier);
     $('#ipComment').val(rowInfo.comment);
+    document.querySelector('#showPDF').setAttribute('href', 'inc/model/reader.php?type=pdf&deviceSerie='+rowInfo.serial);
+    document.querySelector('#showIMG').setAttribute('href', 'inc/model/reader.php?type=jpg&deviceSerie='+rowInfo.serial);
 }
 
 // ELIMINAR EQUIPO DE COMPUTO
@@ -598,14 +600,3 @@ if (window.location.href.indexOf("?request=editprinter") > -1) {
     }
 }
 
-//VER PDF
-$("#showPDF").unbind().click(function() {
-    var deviceSerie = document.getElementById('ipSerie').value,
-        // // url = "inc/assets/invoices/"+deviceSerie+"/"+deviceSerie+'.pdf',
-        // url = "inc/assets/invoices/"+deviceSerie+"/"+deviceSerie+".pdf",
-        // jobType = 'readPDF';
-
-        // window.open(url, '_blank', 'fullscreen=yes');
-    
-});
-//VER PDF

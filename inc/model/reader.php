@@ -2,25 +2,10 @@
 error_reporting(0);
 ini_set('display_errors', 0);
 $path = "../assets/invoices/";
-$filex = $_REQUEST["deviceSerie"];
+$filex = $_REQUEST["type"];
 $filename = $_REQUEST["deviceSerie"];
-$fileExt = substr($filename, -3);
-$nSerie = $fileExt;
 
-// if ($fileExt=='pdf') 
-// {
-// 	$nSerie = str_replace('.pdf', '', $filex);
-// }
-// else if ($fileExt=='xml')
-// {
-// 	$nSerie = str_replace('.xml', '', $filex);
-// }
-// else if ($fileExt=='jpg')
-// {
-// 	$nSerie = str_replace('.jpg', '', $filex);
-// }
-
-$dir = $path.$nSerie."/";
+$dir = $path.$filename."/";
 
 $files = scandir($dir);
 
@@ -31,22 +16,25 @@ if(!file_exists($dir))
 }
 else
 {
+	// echo "existe";
+	// echo "<p>";
+	// echo $dir.$filename.".".$filex;
 	rsort($files);
 	foreach($files as $file)
 	{
-	  	if ($fileExt=="pdf") 
+	  	if ($filex=="pdf") 
 	  	{
 		  	header('Content-type: application/pdf');
-			@readfile($dir.$filex);
+			@readfile($dir.$filename.".".$filex);
 	  	}
-	  	if ($fileExt=="xml") 
+	  	if ($filex=="xml") 
 	  	{
-	  		header('Location:'.$dir.$filex);
+	  		header('Location:'.$dir.$filename.".".$filex);
 	  	}
-	  	if ($fileExt=="jpg") 
+	  	if ($filex=="jpg") 
 	  	{
-	  		 header('content-type: image/'.$fileExt);
-  			 readfile($dir.$filex);
+	  		 header('content-type: image/'.$filex);
+  			 readfile($dir.$filename.".".$filex);
 	  	}
 	}
 }
