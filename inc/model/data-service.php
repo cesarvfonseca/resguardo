@@ -20,6 +20,18 @@
             // print_r($rows);
             echo json_encode($respuesta);
             break;
+        case 'smartphones':
+            // echo 'smart';
+            $query = 'SELECT * FROM `smartphone` ORDER BY `smartphone`.`id` DESC,`smartphone`.`update_time` DESC;"';
+            $stmt = $conn -> prepare($query);
+            $stmt -> execute();
+            $rows = $stmt -> fetchAll();
+            $respuesta = array(
+            'status' => 'OK',
+            'data' => $rows
+            );
+            echo json_encode($respuesta);                
+            break;
         case 'printers':
             // echo 'impresoras';
             $query = 'SELECT * FROM `registry` 
@@ -34,7 +46,7 @@
             );
             echo json_encode($respuesta);                
             break;
-    case 'query':
+        case 'query':
             $txt_search = $_POST['txtSearch'];
             // die(json_encode($_POST));
             $query = "SELECT * FROM `registry`
@@ -51,7 +63,7 @@
             );
             echo json_encode($respuesta);
             break;
-    case 'queryDevice':
+        case 'queryDevice':
             // die(json_encode($_POST));
             $deviceCode = $_POST['deviceCode'];
             $query = "SELECT * FROM `registry` WHERE `registry`.`code` = ?";
@@ -74,8 +86,31 @@
             }
             echo json_encode($respuesta);
             break;
-    default:
-        $title = '';     
-        break;
+        case 'querySmartphone':
+            // die(json_encode($_POST));
+            $deviceCode = $_POST['deviceCode'];
+            $query = "SELECT * FROM `smartphone` WHERE `smartphone`.`id` = ?";
+            $stmnt = $conn -> prepare($query);
+            $stmnt -> bindParam(1, $deviceCode);
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            $rows = $stmnt -> fetchAll();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'status' => 'OK',
+                    'data' => $rows
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al recuperar los datos.'
+                );
+            }
+            echo json_encode($respuesta);
+            break;
+        default:
+            $title = '';     
+            break;
     }
 ?>

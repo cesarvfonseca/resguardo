@@ -6,8 +6,6 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script src="js/plugins/jquery.gdocsviewer.min.js"></script>
-
 <?php if (empty($request)){ ?>
     <script src="js/forms.js"></script>
 <?php } else { ?>

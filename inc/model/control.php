@@ -251,12 +251,39 @@
             }
             echo json_encode($respuesta);
             break;
-        $respuesta = array(
-            'estado' => 'ERROR',
-            'data' => 'Sin Información',
-            'log' => 'Error al solicitar información'
-        );
-        echo json_encode($respuesta);    
+        case 'deleteSmartphone':
+            // die(json_encode($_POST));
+            $deviceCode = $_POST['deviceCode'];
+
+            $route = 'smartphone';
+
+            $deleteDevice = 'DELETE FROM `smartphone` WHERE id = ?';
+            $stmnt = $conn -> prepare($deleteDevice);
+            $stmnt -> bindParam(1, $deviceCode);
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'estado' => 'OK',
+                    'data' => $rowCount,
+                    'log' => $route
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al eliminar el registro'
+                );
+            }
+            echo json_encode($respuesta);
+            break;
+        default:
+            $respuesta = array(
+                'estado' => 'ERROR',
+                'data' => 'Sin Información',
+                'log' => 'Error al solicitar información'
+            );
+            echo json_encode($respuesta);    
         break;
     }
 ?>

@@ -214,7 +214,7 @@ function deleteComputer (computerRow){
                     if (respuesta.estado === 'OK') {
                         Swal(
                             'Registro eliminado!',
-                            'El registro ' + deviceCode + 'fue eliminado exitosamente.',
+                            'El registro ' + deviceCode + ' fue eliminado exitosamente.',
                             'success'
                         )
                     } else {
@@ -243,6 +243,10 @@ $('#btnNew').click(function(){
             break;
         case 'printers':
             var url = "index.php?request=newprinter";
+            $(location).attr('href',url);
+            break;
+        case 'smartphone':
+            var url = "index.php?request=newsmartphone";
             $(location).attr('href',url);
             break;
         default:
@@ -350,10 +354,6 @@ $('#btnsaveComputer').click(function(){
         }
 });
 //NUEVO EQUIPO DE COMPUTO
-
-// $('#btneditComputer_').click(function(){
-//     console.log('EDITAR YA');
-// });
 
 //EDITAR EQUIPO DE COMPUTO
 $('#btnEditcomputer').click(function(){
@@ -487,7 +487,175 @@ $(document).ready(function(){
 
 if (window.location.href.indexOf("?request=smartphone") > -1) {
     console.log('Smartphone page');
+    var action  = 'smartphones';
+    var dataTable = new FormData();
+    dataTable.append('action', action);
+    var xmlhr = new XMLHttpRequest();
+    xmlhr.open('POST', 'inc/model/data-service.php', true);
+    xmlhr.onload = function(){
+        if (this.status === 200) {
+          var respuesta = JSON.parse(xmlhr.responseText);
+        //   console.log(respuesta);
+          if (respuesta.status === 'OK') {
+            var informacion = respuesta.data;
+            // console.log(informacion);
+            for(var i in informacion){
+                smartTable(informacion[i]);
+            }     
+          } else if(respuesta.status === 'error'){
+            var informacion = respuesta.data;
+          }
+        }
+        }
+    xmlhr.send(dataTable);
 
+    function smartTable(rowInfo){
+        
+        var st = rowInfo.status,
+            estado = '';
+        
+        if(st === '1'){
+            estado = "table-secondary";
+        } else if(st === '0'){
+            estado = "table-danger";
+        }
+        var row = $("<tr class='" + estado + "'>");
+        
+        $("#dataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+        // NUMERO DE EQUIPO
+        row.append($("<td class='text-muted trID' style='display:none;'>" + rowInfo.id + " </td>"));
+        row.append($("<td class='text-muted trCode'>" + rowInfo.code_smartphone + " </td>"));
+        // NOMINA DEL EMPLEADO
+        row.append($("<td> " + rowInfo.employee_code + " </td>"));
+        // NOMBRE DEL EMPLEADO
+        row.append($("<td> " + rowInfo.employee_name + " </td>"));
+        // TIPO DE SUCURSAL
+        row.append($("<td> " + rowInfo.branch + " </td>"));
+        // COLUMNA DEPARTAMENTO
+        row.append($("<td>" + rowInfo.area + "</td>"));
+        // COLUMNA MARCA
+        row.append($("<td>" + rowInfo.brand + "</td>"));
+        // COLUMNA MODELO
+        row.append($("<td>" + rowInfo.model + "</td>"));
+        // COLUMNA # SERIE
+        row.append($("<td>" + rowInfo.imei + "</td>"));
+        // COLUMNA # PRODUCTO
+        row.append($("<td>" + rowInfo.account + "</td>"));
+        // COLUMNA FECHA
+        row.append($("<td>" + rowInfo.phone_number + "</td>"));
+        // COLUMNA # FACTURA
+        row.append($("<td>" + rowInfo.deliver_date + "</td>"));    
+        // COLUMNA ACCION
+        row.append($("<td class='text-center'>"
+                + "<a tabindex='0' class='btn btn-sm btn-primary mx-1 btnEdit' data-code='"+rowInfo.id+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
+                // + "<a tabindex='1' class='btn btn-sm btn-warning mx-1' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
+                + "<a tabindex='2' class='btn btn-sm btn-danger mx-1 btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
+                + "</td>"));
+                
+        $(".btnDelete").unbind().click(function() {
+            deleteSmartphone($(this));
+            // console.log('fsdfsdf');
+        });
+
+        $(".btnEdit").unbind().click(function() {
+            var deviceCode = $((this)).data('code'),
+                url = "index.php?request=editsmartphone";
+            console.info(deviceCode);
+            localStorage.setItem('deviceCode', deviceCode);//GUARAR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
+            $(location).attr('href',url);
+        });
+
+    }
+}
+
+// ELIMINAR SMARTPHONE
+function deleteSmartphone (computerRow){    
+    var jobType = 'deleteSmartphone',
+        deviceCode = computerRow.closest("tr").find(".trCode").text().trim(), 
+        deviceID = computerRow.closest("tr").find(".trID").text().trim(); 
+    Swal({
+        title: 'Eliminar el registro',
+        text: '¿Estas seguro de eliminar este registro?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si, borrar!'
+      }).then((result) => {
+        if (result.value) {
+            var dataComputer = new FormData();
+            dataComputer.append('jobType', jobType);
+            dataComputer.append('deviceCode', deviceID);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataComputer);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    computerRow.parents("tr").remove();//ELIMINAR LINEA DEL REGISTRO BORRADO
+                    if (respuesta.estado === 'OK') {
+                        Swal(
+                            'Registro eliminado!',
+                            'El registro ' + deviceCode + ' fue eliminado exitosamente.',
+                            'success'
+                            )
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }
+        }
+    })
+}
+
+//EDITAR
+if (window.location.href.indexOf("?request=editsmartphone") > -1) {
+    console.log('Edit Smartphone');
+    var jobType = 'querySmartphone';
+    var deviceCode = localStorage.getItem('deviceCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    localStorage.removeItem('deviceCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    // console.info(deviceCode);
+    var dataComputer = new FormData();
+    dataComputer.append('action', jobType);
+    dataComputer.append('deviceCode', deviceCode);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'inc/model/data-service.php', true);
+    xhr.send(dataComputer);
+    xhr.onload = function(){
+        if (this.status === 200) {
+            var respuesta = JSON.parse(xhr.responseText);
+            console.log(respuesta);
+            if (respuesta.status === 'OK') {
+                var informacion = respuesta.data;
+                for(var i in informacion){
+                    editSmartphone(informacion[i]);
+                }
+            }
+        }
+    }
+}
+
+function editSmartphone(rowInfo){
+    $('#ipdeviceCode').val(rowInfo.code_smartphone);
+    $('#ipEmployeecode').val(rowInfo.employee_code);
+    $('#ipPhone').val(rowInfo.phone_number);
+    $('#ipEmployeename').val(rowInfo.employee_name);
+    $('#ipBranch').val(rowInfo.branch);
+    $('#ipWorkstation').val(rowInfo.area);
+    $('#ipDate').val(rowInfo.deliver_date);
+    $('#igStatus').val(rowInfo.status);
+    $('#ipColour').val(rowInfo.color);
+    $('#ipBrand').val(rowInfo.brand);
+    $('#ipModel').val(rowInfo.model);
+    $('#ipIMEI').val(rowInfo.imei);
+    $('#ipAccount').val(rowInfo.account);
+    $('#ipComment').val(rowInfo.comment);
 }
 
 //IMPRESORAS

@@ -12,6 +12,12 @@ switch ($section){
     case 'smartphone':
         $title = 'de Smartphones.';
         break;
+    case 'newsmartphone':
+        $title = 'Nuevo Smartphone.';
+        break;        
+    case 'editsmartphone':
+        $title = 'editar Smartphone.';
+        break;        
     case 'printers':
         $title = 'de Impresoras.';
         break;  

@@ -40,33 +40,7 @@
 <?php endif; ?>
 
 <?php if ($section == 'computers'): ?>
-
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped table-bordered table-hover table-sm">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Codigo</th>
-                        <th scope="col">Nomina</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Sucursal</th>
-                        <th scope="col">Area</th>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Modelo</th>
-                        <th scope="col">No. Serie</th>
-                        <th scope="col">No. Parte</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">No. Factura</th>
-                        <th style="width: 8%;" scope="col">Accion</th>
-                    </tr>
-                </thead>
-                <tbody id="dataTable">
-                    
-                </tbody>
-            </table>
-        </div>
-    </div>
-
+    <?php include 'computers/computers_view.php' ?>
 <?php elseif ($section == 'newcomputer'): ?>
     <?php include 'computers/new.php' ?>
 <?php elseif ($section == 'editcomputer'): ?>
@@ -77,4 +51,10 @@
     <?php include 'printers/new.php' ?>  
 <?php elseif ($section == 'editprinter'): ?>
     <?php include 'printers/edit.php' ?> 
+<?php elseif ($section == 'smartphone'): ?>
+    <?php include 'smartphones/smartphones_view.php' ?> 
+<?php elseif ($section == 'newsmartphone'): ?>
+    <?php include 'smartphones/new.php' ?>
+<?php elseif ($section == 'editsmartphone'): ?>
+    <?php include 'smartphones/edit.php' ?>
 <?php endif; ?>
