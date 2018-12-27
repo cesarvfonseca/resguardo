@@ -21,9 +21,8 @@
 <div class="row">
     <div class="col-md-9">
         <a class="btn btn-success text-white" id="btnNew" data-type="<?php echo $section ?>" title="Nuevo registro">
-        Nuevo equipo
+            Nuevo equipo
         <i class="fas fa-plus"></i>
-        <!-- <i class="fas fa-plus-square"></i> -->
         </a>
     </div>
     <div class="col-md-3">
@@ -58,4 +57,6 @@
     <?php include 'smartphones/edit.php' ?>
 <?php elseif ($section == 'modifysmartphone'): ?>
     <?php include 'smartphones/modify.php' ?>
+<?php elseif ($section == 'history'): ?>
+    <?php include 'history/history_view.php' ?>
 <?php endif; ?>

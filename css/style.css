@@ -8,6 +8,17 @@ body{
 th{
     color: aliceblue;
 }
+img{
+    padding: 2%;
+}
+
+.btnLogout{
+    float: right;
+}
+
+.container-fluid{
+    padding: 2%;
+}
 
 #mp{
     color: aqua;

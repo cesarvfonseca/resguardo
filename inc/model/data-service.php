@@ -32,6 +32,19 @@
             );
             echo json_encode($respuesta);                
             break;
+        case 'oldRegistry':
+            // die(json_encode($_POST));
+            $query = 'SELECT * FROM `history` WHERE names <> "" ORDER BY fin_date desc,code';
+            $stmt = $conn -> prepare($query);
+            $stmt -> execute();
+            $rows = $stmt -> fetchAll();
+            $respuesta = array(
+                'status' => 'OK',
+                'data' => $rows
+            );
+            // print_r($rows);
+            echo json_encode($respuesta);
+            break;
         case 'printers':
             // echo 'impresoras';
             $query = 'SELECT * FROM `registry` 

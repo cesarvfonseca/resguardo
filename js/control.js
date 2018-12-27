@@ -16,6 +16,12 @@ $('#link_3').click(function(){
     $(location).attr('href',url);
 });
 
+$('#link_4').click(function(){
+    console.log('Link 4');
+    var url = "index.php?request=history";
+    $(location).attr('href',url);
+});
+
 if (window.location.href.indexOf("?request=computers") > -1) {
     console.log('Computers page');
     var action  = 'registry';
@@ -1030,3 +1036,59 @@ if (window.location.href.indexOf("?request=editprinter") > -1) {
     }
 }
 
+
+// ---------------------- HISTORIAL DE EQUIPO DE COMPUTO ------------------------------------------------ //
+
+if (window.location.href.indexOf("?request=history") > -1) {
+    console.log('History page');
+    var action  = 'oldRegistry';
+    console.info(action);
+    var hTable = new FormData();
+    hTable.append('action', action);
+    var xmlhr = new XMLHttpRequest();
+    xmlhr.open('POST', 'inc/model/data-service.php', true);
+    xmlhr.onload = function(){
+        if (this.status === 200) {
+          var respuesta = JSON.parse(xmlhr.responseText);
+          console.log(respuesta);
+          if (respuesta.status === 'OK') {
+            var informacion = respuesta.data;
+            // console.log(informacion);
+            for(var i in informacion){
+                historyTable(informacion[i]);
+            }     
+          } else if(respuesta.status === 'error'){
+            var informacion = respuesta.data;
+          }
+        }
+        }
+    xmlhr.send(hTable);
+
+    function historyTable(rowInfo){
+        
+        var row = $("<tr class='table-secondary'>");
+        
+        $("#dataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+        // NUMERO DE EQUIPO
+        row.append($("<td class='text-muted trCode'>" + rowInfo.code + " </td>"));
+        // NOMINA DEL EMPLEADO
+        row.append($("<td> " + rowInfo.id_employee + " </td>"));
+        // NOMBRE DEL EMPLEADO
+        row.append($("<td> " + rowInfo.names + " </td>"));
+        // TIPO DE SUCURSAL
+        row.append($("<td> " + rowInfo.position + " </td>"));
+        // COLUMNA DEPARTAMENTO
+        row.append($("<td>" + rowInfo.mail + "</td>"));
+        // COLUMNA MARCA
+        row.append($("<td>" + rowInfo.branch + "</td>"));
+        // COLUMNA MODELO
+        row.append($("<td>" + rowInfo.workstation + "</td>"));
+        // COLUMNA # SERIE
+        row.append($("<td>" + rowInfo.init_date + "</td>"));
+        // COLUMNA # PRODUCTO
+        row.append($("<td>" + rowInfo.fin_date + "</td>"));
+        
+    }
+        
+
+}

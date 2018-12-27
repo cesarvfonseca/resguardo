@@ -5,6 +5,8 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<link rel="shortcut icon" href="img/icoMQ.ico">
+
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand">
@@ -13,17 +15,18 @@
   <?php if (empty($request)){  ?>
     <a class="nav-item nav-link disabled">Resguardo de Equipos MEXQ</a>
     <?php } else {?>
-    <?php $usuario_nombre = 'Hitomi';?>
+    <?php $usuario_nombre = $_SESSION['usuario_nombre'];?>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
+    <div class="navbar-nav float-right">
       <a class="nav-item nav-link active" href="index.php?request=main-page">Menu <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="#">Equipos de computo</a>
       <a class="nav-item nav-link" href="#">Smartphones</a>
       <a class="nav-item nav-link" href="#">Impresoras</a>
       <a class="nav-item nav-link disabled" href="#">Bienvenido (a): <?php echo $usuario_nombre; ?></a>
+      <a class="nav-item nav-link btn btn-danger btnLogout" type="button">Salir</a>
     </div>
   </div>
   <?php } ?>

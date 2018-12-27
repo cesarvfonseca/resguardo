@@ -36,6 +36,9 @@ switch ($section){
     case 'editprinter':
         $title = 'Editar Multifuncional';
         break;
+    case 'history':
+        $title = 'del historial de equipo de equipos';
+        break;
     default:
         $title = null;     
         break;   
