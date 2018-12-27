@@ -15,7 +15,7 @@
                     <th scope="col">Correo Google</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Fecha</th>
-                    <th style="width: 6%;" scope="col">Accion</th>
+                    <th style="width: 8%;" scope="col">Accion</th>
                 </tr>
             </thead>
             <tbody id="dataTable">

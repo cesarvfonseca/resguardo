@@ -17,7 +17,10 @@ switch ($section){
         break;        
     case 'editsmartphone':
         $title = 'editar Smartphone.';
-        break;        
+        break;  
+    case 'modifysmartphone':
+        $title = 'añadir responsable de smartphone';
+        break;      
     case 'printers':
         $title = 'de Impresoras.';
         break;  

@@ -251,6 +251,188 @@
             }
             echo json_encode($respuesta);
             break;
+        case 'newSmartphone':
+            // die(json_encode($_POST));
+            $employeeCode = $_POST['employeeCode'];
+            $employeePhone = $_POST['employeePhone'];
+            $employeeName = $_POST['employeeName'];
+            $employeeBranch = $_POST['employeeBranch'];
+            $employeeWorkstation = $_POST['employeeWorkstation'];
+            $deliveryDate = $_POST['deliveryDate'];
+            $deviceStatus = $_POST['deviceStatus'];
+            $deviceBrand = $_POST['deviceBrand'];
+            $deviceModel = $_POST['deviceModel'];
+            $deviceIMEI = $_POST['deviceIMEI'];
+            $deviceColor = $_POST['deviceColor'];
+            $deviceAccount = $_POST['deviceAccount'];
+            $deviceComment = $_POST['deviceComment'];
+            $deviceUpdate = date('Y-m-d H:i:s');
+            $userControl = 'cvalenciano';
+
+            $route = 'smartphone';
+
+            $lastRecord = "SELECT SUBSTRING(code_smartphone,3,10)+1 as record from smartphone ORDER BY id DESC LIMIT 1";
+            $stmnt_ = $conn->query($lastRecord);
+            while ($row = $stmnt_ -> fetch()):
+                $last_record = $row["record"];
+            endwhile;
+            $deviceRecord = 'SP'.$last_record;
+
+            $insert = 'INSERT INTO `smartphone`(`code_smartphone`, `employee_code`, `employee_name`, `branch`, `area`, `color`, `brand`, `model`, `imei`, `account`, `phone_number`, `status`, `comment`, `deliver_date`, `update_time`,`user_update`) VALUES 
+                            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);';
+            $stmnt = $conn -> prepare($insert);
+            $stmnt -> bindParam(1, $deviceRecord);
+            $stmnt -> bindParam(2, $employeeCode);
+            $stmnt -> bindParam(3, $employeeName);
+            $stmnt -> bindParam(4, $employeeBranch);
+            $stmnt -> bindParam(5, $employeeWorkstation);
+            $stmnt -> bindParam(6, $deviceColor);
+            $stmnt -> bindParam(7, $deviceBrand);
+            $stmnt -> bindParam(8, $deviceModel);
+            $stmnt -> bindParam(9, $deviceIMEI);
+            $stmnt -> bindParam(10, $deviceAccount);
+            $stmnt -> bindParam(11, $employeePhone);
+            $stmnt -> bindParam(12, $deviceStatus);
+            $stmnt -> bindParam(13, $deviceComment);
+            $stmnt -> bindParam(14, $deliveryDate);
+            $stmnt -> bindParam(15, $deviceUpdate);
+            $stmnt -> bindParam(16, $userControl);
+
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'estado' => 'OK',
+                    'data' => $rowCount,
+                    'log' => $route
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al eliminar el registro'
+                );
+            }
+            echo json_encode($respuesta);
+            break;
+        case 'modSmartphone':
+            // die(json_encode($_POST));
+            $deviceCode = $_POST['deviceCode'];
+            $employeeCode = $_POST['employeeCode'];
+            $employeePhone = $_POST['employeePhone'];
+            $employeeName = $_POST['employeeName'];
+            $employeeBranch = $_POST['employeeBranch'];
+            $employeeWorkstation = $_POST['employeeWorkstation'];
+            $deliveryDate = $_POST['deliveryDate'];
+            $deviceStatus = $_POST['deviceStatus'];
+            $deviceBrand = $_POST['deviceBrand'];
+            $deviceModel = $_POST['deviceModel'];
+            $deviceIMEI = $_POST['deviceIMEI'];
+            $deviceColor = $_POST['deviceColor'];
+            $deviceAccount = $_POST['deviceAccount'];
+            $deviceComment = $_POST['deviceComment'];
+            $deviceUpdate = date('Y-m-d H:i:s');
+            $userControl = 'cvalenciano';
+
+            $route = 'smartphone';
+
+            $insert = 'INSERT INTO `smartphone`(`code_smartphone`, `employee_code`, `employee_name`, `branch`, `area`, `color`, `brand`, `model`, `imei`, `account`, `phone_number`, `status`, `comment`, `deliver_date`, `update_time`,`user_update`) VALUES 
+                            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);';
+            $stmnt = $conn -> prepare($insert);
+            $stmnt -> bindParam(1, $deviceCode);
+            $stmnt -> bindParam(2, $employeeCode);
+            $stmnt -> bindParam(3, $employeeName);
+            $stmnt -> bindParam(4, $employeeBranch);
+            $stmnt -> bindParam(5, $employeeWorkstation);
+            $stmnt -> bindParam(6, $deviceColor);
+            $stmnt -> bindParam(7, $deviceBrand);
+            $stmnt -> bindParam(8, $deviceModel);
+            $stmnt -> bindParam(9, $deviceIMEI);
+            $stmnt -> bindParam(10, $deviceAccount);
+            $stmnt -> bindParam(11, $employeePhone);
+            $stmnt -> bindParam(12, $deviceStatus);
+            $stmnt -> bindParam(13, $deviceComment);
+            $stmnt -> bindParam(14, $deliveryDate);
+            $stmnt -> bindParam(15, $deviceUpdate);
+            $stmnt -> bindParam(16, $userControl);
+
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'estado' => 'OK',
+                    'data' => $rowCount,
+                    'log' => $route
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al eliminar el registro'
+                );
+            }
+            echo json_encode($respuesta);
+            break;
+        case 'editSmartphone':
+            // die(json_encode($_POST));
+            $deviceID = $_POST['deviceID'];
+            $employeeCode = $_POST['employeeCode'];
+            $employeePhone = $_POST['employeePhone'];
+            $employeeName = $_POST['employeeName'];
+            $employeeBranch = $_POST['employeeBranch'];
+            $employeeWorkstation = $_POST['employeeWorkstation'];
+            $deliveryDate = $_POST['deliveryDate'];
+            $deviceStatus = $_POST['deviceStatus'];
+            $deviceBrand = $_POST['deviceBrand'];
+            $deviceModel = $_POST['deviceModel'];
+            $deviceIMEI = $_POST['deviceIMEI'];
+            $deviceColor = $_POST['deviceColor'];
+            $deviceAccount = $_POST['deviceAccount'];
+            $deviceComment = $_POST['deviceComment'];
+            $deviceUpdate = date('Y-m-d H:i:s');
+            $userControl = 'cvalenciano';
+
+            $route = 'smartphone';
+
+            $update = 'UPDATE `smartphone` SET `employee_code`= ? ,`employee_name`= ? ,`branch`= ? ,`area`= ? ,`color`= ?,
+                        `brand`= ?,`model`= ?,`imei`= ?,`account`= ?,`phone_number`= ?,`status`= ?,
+                        `comment`= ?,`deliver_date`= ?,`update_time`= ?,`user_update`= ? WHERE `id`= ?';
+            $stmnt = $conn->prepare($update);
+                        
+            $stmnt -> bindParam(1, $employeeCode);
+            $stmnt -> bindParam(2, $employeeName);
+            $stmnt -> bindParam(3, $employeeBranch);
+            $stmnt -> bindParam(4, $employeeWorkstation);
+            $stmnt -> bindParam(5, $deviceColor);
+            $stmnt -> bindParam(6, $deviceBrand);
+            $stmnt -> bindParam(7, $deviceModel);
+            $stmnt -> bindParam(8, $deviceIMEI);
+            $stmnt -> bindParam(9, $deviceAccount);
+            $stmnt -> bindParam(10, $employeePhone);
+            $stmnt -> bindParam(11, $deviceStatus);
+            $stmnt -> bindParam(12, $deviceComment);
+            $stmnt -> bindParam(13, $deliveryDate);
+            $stmnt -> bindParam(14, $deviceUpdate);
+            $stmnt -> bindParam(15, $userControl);
+            $stmnt -> bindParam(16, $deviceID);
+
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'estado' => 'OK',
+                    'data' => $rowCount,
+                    'log' => $route
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al eliminar el registro'
+                );
+            }
+            echo json_encode($respuesta);
+            break;
         case 'deleteSmartphone':
             // die(json_encode($_POST));
             $deviceCode = $_POST['deviceCode'];

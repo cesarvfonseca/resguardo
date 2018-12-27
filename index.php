@@ -22,7 +22,7 @@
                 case 'main-page':
                   include 'inc/templates/main.php'; 
                   break;
-                case 'computers' || 'printers' || 'newcomputer' || 'editcomputer' || 'editprinter' || 'smartphone' || 'newsmartphone' || 'editmartphone':
+                case 'computers' || 'printers' || 'newcomputer' || 'editcomputer' || 'editprinter' || 'smartphone' || 'newsmartphone' || 'editsmartphone' || 'modifysmartphone':
                   include 'inc/templates/table_template.php'; 
                   break;                                     
                 default:

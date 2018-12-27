@@ -12,7 +12,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="ipEmployeecode" placeholder="Número de nomina">
+                                <input type="text" class="form-control" id="ipEmployeecode_" placeholder="Número de nomina">
+                                <input type="hidden" class="form-control" id="ipdeviceCode">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
@@ -30,7 +31,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="ipEmployeename" placeholder="Nombre del responsable">
+                                <input type="text" class="form-control" id="ipEmployeename_" placeholder="Nombre del responsable">
                             </div>
                         </div>
                     </div>
@@ -61,7 +62,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                 </div>
-                                <input type="date" class="form-control" id="ipDate" value="<?php echo date("Y-m-d");?>">
+                                <input type="date" class="form-control" id="ipDate_" value="<?php echo date("Y-m-d");?>">
                             </div>
                         </div>
                     </div> 
@@ -83,7 +84,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-check-square"></i></span>
                                 </div>
-                                <select class="custom-select" id="igStatus">
+                                <select class="custom-select" id="igStatus" disabled>
                                     <option selected>Estatus de equipo...</option>
                                     <option value="1">Activo</option>
                                     <option value="0">Baja</option>
@@ -96,7 +97,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-brush"></i></span>
                                 </div>                        
-                                <input type="text" class="form-control" id="ipColour" placeholder="Color del equipo">
+                                <input type="text" class="form-control" id="ipColour" placeholder="Color del equipo" disabled>
                             </div>
                         </div>
 
@@ -108,7 +109,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fab fa-bandcamp"></i></span>
                                 </div>                        
-                                <input type="text" class="form-control" id="ipBrand" placeholder="Marca del equipo">
+                                <input type="text" class="form-control" id="ipBrand" placeholder="Marca del equipo" disabled>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
@@ -116,7 +117,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="ipModel" placeholder="Modelo del equipo">
+                                <input type="text" class="form-control" id="ipModel" placeholder="Modelo del equipo" disabled>
                             </div>
                         </div>
                     </div>
@@ -127,7 +128,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>                        
-                                <input type="text" class="form-control" id="ipIMEI" placeholder="Número IMEI">
+                                <input type="text" class="form-control" id="ipIMEI" placeholder="Número IMEI" disabled>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
@@ -135,7 +136,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="ipAccount" placeholder="Cuenta de Google">
+                                <input type="text" class="form-control" id="ipAccount" placeholder="Cuenta de Google" disabled>
                             </div>
                         </div>
                     </div>  
@@ -146,7 +147,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-comment-dots"></i></span>
                                 </div>
-                                <textarea class="form-control" id="ipComment" aria-label="With textarea" placeholder="Comentarios adicionales"></textarea>
+                                <textarea class="form-control" id="ipComment" aria-label="With textarea" placeholder="Comentarios adicionales" disabled></textarea>
                             </div>
                         </div>
                     </div>                   
@@ -157,7 +158,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="btnsaveSmartphone"> Guardar Información <i class="fas fa-save"></i></button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="btnmodSmartphone"> Guardar Información <i class="fas fa-save"></i></button>
             <hr>
             <a href="javascript:history.back();" class="btn btn-danger btn-lg btn-block"> Cancelar <i class="fas fa-times"></i></a>
         </div>

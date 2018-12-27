@@ -548,13 +548,20 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
         // COLUMNA ACCION
         row.append($("<td class='text-center'>"
                 + "<a tabindex='0' class='btn btn-sm btn-primary mx-1 btnEdit' data-code='"+rowInfo.id+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
-                // + "<a tabindex='1' class='btn btn-sm btn-warning mx-1' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
+                + "<a tabindex='1' class='btn btn-sm btn-success mx-1 btnAdd' data-id='"+rowInfo.id+"' role='button' title='Añadir responsable'><i class='fas fa-plus-circle'></i></a>" 
                 + "<a tabindex='2' class='btn btn-sm btn-danger mx-1 btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
                 + "</td>"));
                 
         $(".btnDelete").unbind().click(function() {
             deleteSmartphone($(this));
-            // console.log('fsdfsdf');
+        });
+
+        $(".btnAdd").unbind().click(function() {
+            var deviceID = $((this)).data('id'),
+                url = "index.php?request=modifysmartphone";
+            console.info(deviceID);
+            localStorage.setItem('deviceID', deviceID);//GUARAR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
+            $(location).attr('href',url);
         });
 
         $(".btnEdit").unbind().click(function() {
@@ -568,10 +575,307 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
     }
 }
 
+//NUEVO SMARTPHONE
+$('#btnsaveSmartphone').click(function(){
+    // console.log('NUEVO SMARTPHONE');
+    var jobType = 'newSmartphone',
+        employeeCode = document.querySelector('#ipEmployeecode').value,
+        employeePhone = document.querySelector('#ipPhone').value,
+        employeeName = document.querySelector('#ipEmployeename').value,
+        employeeBranch = document.querySelector('#ipBranch').value,
+        employeeWorkstation = document.querySelector('#ipWorkstation').value,
+        deliveryDate = document.querySelector('#ipDate').value,
+        deviceStatus = document.querySelector('#igStatus').value,
+        deviceColor = document.querySelector('#ipColour').value,
+        deviceBrand = document.querySelector('#ipBrand').value,
+        deviceModel = document.querySelector('#ipModel').value,
+        deviceIMEI = document.querySelector('#ipIMEI').value,
+        deviceAccount = document.querySelector('#ipAccount').value,
+        deviceComment = document.querySelector('#ipComment').value;
+
+
+    if  (
+        employeeCode.trim() === '' || employeePhone.trim() === '' ||
+        employeeName.trim() === '' || employeeBranch.trim() === '' ||
+        employeeWorkstation.trim() === '' || deliveryDate.trim() === '' ||
+        deviceStatus.trim() === '' || deviceColor.trim() === '' ||
+        deviceBrand.trim() === '' || deviceModel.trim() === '' ||
+        deviceIMEI.trim() === '' || deviceAccount.trim() === ''
+        ){
+            swal({
+                type: 'error',
+                title: 'Error!',
+                text: 'Todos los campos son obligatorios!'
+            })
+        } else {
+            var dataDevice = new FormData();
+            dataDevice.append('employeeCode', employeeCode);
+            dataDevice.append('employeePhone', employeePhone);
+            dataDevice.append('employeeName', employeeName);
+            dataDevice.append('employeeBranch', employeeBranch);
+            dataDevice.append('employeeWorkstation', employeeWorkstation);
+            dataDevice.append('deliveryDate', deliveryDate);
+            dataDevice.append('deviceColor', deviceColor);
+            dataDevice.append('deviceStatus', deviceStatus);
+            dataDevice.append('deviceBrand', deviceBrand);
+            dataDevice.append('deviceModel', deviceModel);
+            dataDevice.append('deviceIMEI', deviceIMEI);
+            dataDevice.append('deviceAccount', deviceAccount);
+            dataDevice.append('deviceComment', deviceComment);
+            dataDevice.append('jobType', jobType);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataDevice);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    console.log(respuesta);
+                    if (respuesta.estado === 'OK') {
+                        var destination = respuesta.log;
+                        swal({
+                                title: 'Guardado exitoso!',
+                                text: 'Guardado de la información exitoso!',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                    if(resultado.value) {
+                                        location.reload();
+                                        window.location.href = 'index.php?request='+destination;
+                                    }
+                                })
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }            
+        }
+});
+//NUEVO SMARTPHONE
+
+//EDITAR SMARTPHONE
+if (window.location.href.indexOf("?request=editsmartphone") > -1 || window.location.href.indexOf("?request=modifysmartphone") > -1) {
+    console.log('Edit Smartphone');
+    var jobType = 'querySmartphone';
+    var deviceCode = localStorage.getItem('deviceCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    // console.info(deviceCode);
+    var dataComputer = new FormData();
+    dataComputer.append('action', jobType);
+    dataComputer.append('deviceCode', deviceCode);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'inc/model/data-service.php', true);
+    xhr.send(dataComputer);
+    xhr.onload = function(){
+        if (this.status === 200) {
+            var respuesta = JSON.parse(xhr.responseText);
+            console.log(respuesta);
+            if (respuesta.status === 'OK') {
+                var informacion = respuesta.data;
+                for(var i in informacion){
+                    editSmartphone(informacion[i]);
+                }
+            }
+        }
+    }
+}
+
+function editSmartphone(rowInfo){
+    $('#ipdeviceCode').val(rowInfo.code_smartphone);
+    $('#ipEmployeecode').val(rowInfo.employee_code);
+    $('#ipPhone').val(rowInfo.phone_number);
+    $('#ipEmployeename').val(rowInfo.employee_name);
+    $('#ipBranch').val(rowInfo.branch);
+    $('#ipWorkstation').val(rowInfo.area);
+    $('#ipDate').val(rowInfo.deliver_date);
+    $('#igStatus').val(rowInfo.status);
+    $('#ipColour').val(rowInfo.color);
+    $('#ipBrand').val(rowInfo.brand);
+    $('#ipModel').val(rowInfo.model);
+    $('#ipIMEI').val(rowInfo.imei);
+    $('#ipAccount').val(rowInfo.account);
+    $('#ipComment').val(rowInfo.comment);
+}
+
+$('#btneditSmartphone').click(function(){
+    // console.log('EDITAR SMARTPHONE');
+    var jobType = 'editSmartphone',
+        employeeCode = document.querySelector('#ipEmployeecode').value,
+        employeePhone = document.querySelector('#ipPhone').value,
+        employeeName = document.querySelector('#ipEmployeename').value,
+        employeeBranch = document.querySelector('#ipBranch').value,
+        employeeWorkstation = document.querySelector('#ipWorkstation').value,
+        deliveryDate = document.querySelector('#ipDate').value,
+        deviceStatus = document.querySelector('#igStatus').value,
+        deviceColor = document.querySelector('#ipColour').value,
+        deviceBrand = document.querySelector('#ipBrand').value,
+        deviceModel = document.querySelector('#ipModel').value,
+        deviceIMEI = document.querySelector('#ipIMEI').value,
+        deviceAccount = document.querySelector('#ipAccount').value,
+        deviceComment = document.querySelector('#ipComment').value,
+        deviceID = localStorage.getItem('deviceCode');
+
+    if  (
+        employeeCode.trim() === '' || employeePhone.trim() === '' ||
+        employeeName.trim() === '' || employeeBranch.trim() === '' ||
+        employeeWorkstation.trim() === '' || deliveryDate.trim() === '' ||
+        deviceStatus.trim() === '' || deviceColor.trim() === '' ||
+        deviceBrand.trim() === '' || deviceModel.trim() === '' ||
+        deviceIMEI.trim() === '' || deviceAccount.trim() === ''
+        ){
+            swal({
+                type: 'error',
+                title: 'Error!',
+                text: 'Todos los campos son obligatorios!'
+            })
+        } else {
+            var dataDevice = new FormData();
+            dataDevice.append('deviceID', deviceID);
+            dataDevice.append('employeeCode', employeeCode);
+            dataDevice.append('employeePhone', employeePhone);
+            dataDevice.append('employeeName', employeeName);
+            dataDevice.append('employeeBranch', employeeBranch);
+            dataDevice.append('employeeWorkstation', employeeWorkstation);
+            dataDevice.append('deliveryDate', deliveryDate);
+            dataDevice.append('deviceColor', deviceColor);
+            dataDevice.append('deviceStatus', deviceStatus);
+            dataDevice.append('deviceBrand', deviceBrand);
+            dataDevice.append('deviceModel', deviceModel);
+            dataDevice.append('deviceIMEI', deviceIMEI);
+            dataDevice.append('deviceAccount', deviceAccount);
+            dataDevice.append('deviceComment', deviceComment);
+            dataDevice.append('jobType', jobType);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataDevice);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    console.log(respuesta);
+                    // localStorage.removeItem('deviceCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+                    if (respuesta.estado === 'OK') {
+                        var destination = respuesta.log;
+                        swal({
+                                title: 'Guardado exitoso!',
+                                text: 'Guardado de la información exitoso!',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                    if(resultado.value) {
+                                        location.reload();
+                                        window.location.href = 'index.php?request='+destination;
+                                    }
+                                })
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }            
+        }
+});
+
+//EDITAR SMARTPHONE
+
+//NUEVO RESPONSABLE SMARTPHONE
+$('#btnmodSmartphone').click(function(){
+    // console.log('NUEVO SMARTPHONE');
+    var jobType = 'modSmartphone',
+        deviceCode = document.querySelector('#ipdeviceCode').value,
+        employeeCode = document.querySelector('#ipEmployeecode_').value,
+        employeePhone = document.querySelector('#ipPhone').value,
+        employeeName = document.querySelector('#ipEmployeename_').value,
+        employeeBranch = document.querySelector('#ipBranch').value,
+        employeeWorkstation = document.querySelector('#ipWorkstation').value,
+        deliveryDate = document.querySelector('#ipDate_').value,
+        deviceStatus = document.querySelector('#igStatus').value,
+        deviceColor = document.querySelector('#ipColour').value,
+        deviceBrand = document.querySelector('#ipBrand').value,
+        deviceModel = document.querySelector('#ipModel').value,
+        deviceIMEI = document.querySelector('#ipIMEI').value,
+        deviceAccount = document.querySelector('#ipAccount').value,
+        deviceComment = document.querySelector('#ipComment').value;
+
+
+    if  (
+        employeeCode.trim() === '' || employeePhone.trim() === '' ||
+        employeeName.trim() === '' || employeeBranch.trim() === '' ||
+        employeeWorkstation.trim() === '' || deliveryDate.trim() === '' ||
+        deviceStatus.trim() === '' || deviceColor.trim() === '' ||
+        deviceBrand.trim() === '' || deviceModel.trim() === '' ||
+        deviceIMEI.trim() === '' || deviceAccount.trim() === ''
+        ){
+            swal({
+                type: 'error',
+                title: 'Error!',
+                text: 'Todos los campos son obligatorios!'
+            })
+        } else {
+            var dataDevice = new FormData();
+            dataDevice.append('deviceCode', deviceCode);
+            dataDevice.append('employeeCode', employeeCode);
+            dataDevice.append('employeePhone', employeePhone);
+            dataDevice.append('employeeName', employeeName);
+            dataDevice.append('employeeBranch', employeeBranch);
+            dataDevice.append('employeeWorkstation', employeeWorkstation);
+            dataDevice.append('deliveryDate', deliveryDate);
+            dataDevice.append('deviceColor', deviceColor);
+            dataDevice.append('deviceStatus', deviceStatus);
+            dataDevice.append('deviceBrand', deviceBrand);
+            dataDevice.append('deviceModel', deviceModel);
+            dataDevice.append('deviceIMEI', deviceIMEI);
+            dataDevice.append('deviceAccount', deviceAccount);
+            dataDevice.append('deviceComment', deviceComment);
+            dataDevice.append('jobType', jobType);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataDevice);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    console.log(respuesta);
+                    if (respuesta.estado === 'OK') {
+                        var destination = respuesta.log;
+                        swal({
+                                title: 'Guardado exitoso!',
+                                text: 'Guardado de la información exitoso!',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                    if(resultado.value) {
+                                        location.reload();
+                                        window.location.href = 'index.php?request='+destination;
+                                    }
+                                })
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }            
+        }
+});
+//NUEVO RESPONSABLE SMARTPHONE
+
+
 // ELIMINAR SMARTPHONE
 function deleteSmartphone (computerRow){    
     var jobType = 'deleteSmartphone',
-        deviceCode = computerRow.closest("tr").find(".trCode").text().trim(), 
+        deviceCode = computerRow.closest("tr").find(".trCode").text().trim(),
         deviceID = computerRow.closest("tr").find(".trID").text().trim(); 
     Swal({
         title: 'Eliminar el registro',
@@ -614,49 +918,7 @@ function deleteSmartphone (computerRow){
     })
 }
 
-//EDITAR
-if (window.location.href.indexOf("?request=editsmartphone") > -1) {
-    console.log('Edit Smartphone');
-    var jobType = 'querySmartphone';
-    var deviceCode = localStorage.getItem('deviceCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
-    localStorage.removeItem('deviceCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
-    // console.info(deviceCode);
-    var dataComputer = new FormData();
-    dataComputer.append('action', jobType);
-    dataComputer.append('deviceCode', deviceCode);
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'inc/model/data-service.php', true);
-    xhr.send(dataComputer);
-    xhr.onload = function(){
-        if (this.status === 200) {
-            var respuesta = JSON.parse(xhr.responseText);
-            console.log(respuesta);
-            if (respuesta.status === 'OK') {
-                var informacion = respuesta.data;
-                for(var i in informacion){
-                    editSmartphone(informacion[i]);
-                }
-            }
-        }
-    }
-}
 
-function editSmartphone(rowInfo){
-    $('#ipdeviceCode').val(rowInfo.code_smartphone);
-    $('#ipEmployeecode').val(rowInfo.employee_code);
-    $('#ipPhone').val(rowInfo.phone_number);
-    $('#ipEmployeename').val(rowInfo.employee_name);
-    $('#ipBranch').val(rowInfo.branch);
-    $('#ipWorkstation').val(rowInfo.area);
-    $('#ipDate').val(rowInfo.deliver_date);
-    $('#igStatus').val(rowInfo.status);
-    $('#ipColour').val(rowInfo.color);
-    $('#ipBrand').val(rowInfo.brand);
-    $('#ipModel').val(rowInfo.model);
-    $('#ipIMEI').val(rowInfo.imei);
-    $('#ipAccount').val(rowInfo.account);
-    $('#ipComment').val(rowInfo.comment);
-}
 
 //IMPRESORAS
 if (window.location.href.indexOf("?request=printers") > -1) {

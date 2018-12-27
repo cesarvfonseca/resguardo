@@ -7,8 +7,7 @@
 </div>
 
 <hr>
-
-<?php if(!(substr($section, 0, 3) === 'new' || substr($section, 0, 4) == 'edit')): ?>
+<?php if(!(substr($section, 0, 3) === 'new' || substr($section, 0, 4) == 'edit' || substr($section, 0, 4) == 'modi')): ?>
 
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong>Bienvenido!</strong> a la nueva plataforma de resguardo MEXQ.
@@ -57,4 +56,6 @@
     <?php include 'smartphones/new.php' ?>
 <?php elseif ($section == 'editsmartphone'): ?>
     <?php include 'smartphones/edit.php' ?>
+<?php elseif ($section == 'modifysmartphone'): ?>
+    <?php include 'smartphones/modify.php' ?>
 <?php endif; ?>

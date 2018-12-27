@@ -157,7 +157,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="btnsaveComputer"> Guardar Información <i class="fas fa-save"></i></button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="btneditSmartphone"> Actualizar Información <i class="fas fa-edit"></i></button>
             <hr>
             <a href="javascript:history.back();" class="btn btn-danger btn-lg btn-block"> Cancelar <i class="fas fa-times"></i></a>
         </div>
