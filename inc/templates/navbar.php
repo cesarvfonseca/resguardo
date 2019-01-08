@@ -12,7 +12,7 @@
   <a class="navbar-brand">
     <img src="img/mexq_logo.png" width="150" alt="Logo MEXQ" class="responsive-img">
   </a>
-  <?php if (empty($request)){  ?>
+  <?php if (!isset($_SESSION['login']) || empty($_SESSION['login'])){  ?>
     <a class="nav-item nav-link disabled">Resguardo de Equipos MEXQ</a>
     <?php } else {?>
     <?php $usuario_nombre = $_SESSION['usuario_nombre'];?>
@@ -26,7 +26,7 @@
       <a class="nav-item nav-link" href="#">Smartphones</a>
       <a class="nav-item nav-link" href="#">Impresoras</a>
       <a class="nav-item nav-link disabled" href="#">Bienvenido (a): <?php echo $usuario_nombre; ?></a>
-      <a class="nav-item nav-link btn btn-danger btnLogout" type="button">Salir</a>
+      <a class="nav-item nav-link btn btn-danger" type="button" id="btnSalir"> Cerrar Sesión <i class="fas fa-sign-out-alt"></i></a>
     </div>
   </div>
   <?php } ?>

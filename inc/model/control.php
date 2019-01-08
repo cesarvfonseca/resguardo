@@ -459,6 +459,19 @@
             }
             echo json_encode($respuesta);
             break;
+        case 'salir':
+            // die(json_encode($_POST));
+            session_start();
+            session_destroy();
+            $_SESSION = array();   
+            $respuesta = array (
+                'estado' => 'OK',
+                'tipo' => 'success',
+                'mensaje' => 'Sesión finalizada',
+                'informacion' => 'Su sesión fue cerrada exitosamente.'
+            );
+            echo json_encode($respuesta);
+            break;
         default:
             $respuesta = array(
                 'estado' => 'ERROR',

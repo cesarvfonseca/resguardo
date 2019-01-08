@@ -22,6 +22,10 @@ $('#link_4').click(function(){
     $(location).attr('href',url);
 });
 
+$('#btnSalir').click(function(){
+    cerrarSesion();
+});
+
 if (window.location.href.indexOf("?request=computers") > -1) {
     console.log('Computers page');
     var action  = 'registry';
@@ -241,7 +245,7 @@ function deleteComputer (computerRow){
 
 $('#btnNew').click(function(){
     var type = $(this).data('type');
-    console.info(type);
+    // console.info(type);
     switch (type){
         case 'computers':
             var url = "index.php?request=newcomputer";
@@ -1092,3 +1096,44 @@ if (window.location.href.indexOf("?request=history") > -1) {
         
 
 }
+
+/***CERRAR SESION***/
+function cerrarSesion(){
+    console.log('Cerrar sesion');
+    var jobType = 'salir';
+    var cerrar_sesion = new FormData();
+    cerrar_sesion.append('jobType', jobType);
+    var xmlhr = new XMLHttpRequest();
+    xmlhr.open( 'POST', 'inc/model/control.php', true );
+    xmlhr.onload = function(){
+        if (this.status === 200){
+            var respuesta = JSON.parse(xmlhr.responseText);
+            console.log(respuesta);
+            var tipo = respuesta.tipo,
+                        titulo = respuesta.mensaje,
+                        mensaje = respuesta.informacion;
+                        swal({
+                            type: tipo,
+                            title: titulo,
+                            text: mensaje,
+                            timer: 1800,
+                            showConfirmButton: false,
+                            backdrop: `
+                                rgba(13, 63, 114, 0.6)
+                                center top
+                                no-repeat
+                            `
+                        }).then(function(){ 
+                            location.reload();
+                        })
+        } else {
+            swal({
+                title: 'Error!',
+                text: 'Hubo un error',
+                type: 'error'
+            })            
+        }
+    }
+    xmlhr.send(cerrar_sesion);
+}
+/***CERRAR SESION***/

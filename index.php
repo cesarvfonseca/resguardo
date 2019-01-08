@@ -1,4 +1,5 @@
 <?php
+    session_start();
   	if (empty($_REQUEST['request']))
 		  $request = null;
     else
@@ -18,16 +19,23 @@
     </head>
     <div class="container-fluid">
         <?php 
-              switch ($request){
-                case 'main-page':
-                  include 'inc/templates/main.php'; 
-                  break;
-                case 'computers' || 'printers' || 'newcomputer' || 'editcomputer' || 'editprinter' || 'smartphone' || 'newsmartphone' || 'editsmartphone' || 'modifysmartphone' || 'history':
-                  include 'inc/templates/table_template.php'; 
-                  break;                                     
-                default:
-                  include 'inc/templates/login.php';      
-                  break;   
+              if (!isset($_SESSION['usuario_nombre']) || empty($_SESSION['usuario_nombre']))
+              {
+                include 'inc/templates/login.php';
+              }
+              else
+              {
+                switch ($request){
+                  case 'main-page':
+                    include 'inc/templates/main.php'; 
+                    break;
+                  case 'computers' || 'printers' || 'newcomputer' || 'editcomputer' || 'editprinter' || 'smartphone' || 'newsmartphone' || 'editsmartphone' || 'modifysmartphone' || 'history':
+                    include 'inc/templates/table_template.php'; 
+                    break;                                     
+                  default:
+                    include 'inc/templates/login.php';      
+                    break;   
+                }
               }
         ?> 
     </div>
