@@ -22,6 +22,12 @@ $('#link_4').click(function(){
     $(location).attr('href',url);
 });
 
+$('#link_5').click(function(){
+    console.log('Link 5');
+    var url = "index.php?request=maint";
+    $(location).attr('href',url);
+});
+
 $('#btnSalir').click(function(){
     cerrarSesion();
 });
@@ -113,7 +119,6 @@ if (window.location.href.indexOf("?request=computers") > -1) {
 
 if (window.location.href.indexOf("?request=newcomputer") > -1) {
     console.log('New Computer');
-
 }
 
 if (window.location.href.indexOf("?request=editcomputer") > -1) {
@@ -1137,3 +1142,213 @@ function cerrarSesion(){
     xmlhr.send(cerrar_sesion);
 }
 /***CERRAR SESION***/
+
+/** MANTENIMIENTOS **/
+
+if (window.location.href.indexOf("?request=maintControl") > -1) {
+    console.log('Maintenance page');
+    var action  = 'maintenance';
+    var dataTable = new FormData();
+    dataTable.append('action', action);
+    var xmlhr = new XMLHttpRequest();
+    xmlhr.open('POST', 'inc/model/data-service.php', true);
+    xmlhr.onload = function(){
+        if (this.status === 200) {
+          var respuesta = JSON.parse(xmlhr.responseText);
+          console.log(respuesta);
+          if (respuesta.status === 'OK') {
+            var informacion = respuesta.data;
+            // console.log(informacion);
+            for(var i in informacion){
+                maintenanceTable(informacion[i]);
+            }     
+          } else if(respuesta.status === 'error'){
+            var informacion = respuesta.data;
+          }
+        }
+        }
+    xmlhr.send(dataTable);
+
+    function maintenanceTable(rowInfo){
+        
+        var st = rowInfo.maint_status,
+            estado = '',
+            txtEstado = '';
+        
+        if(st === '0'){
+            estado = 'table-danger';
+            txtEstado = 'No realizado';
+        } else if(st === '1'){
+            estado = 'table-success';
+            txtEstado = 'Realizado';
+        } else if(st === '3'){
+            estado = "table-warning";
+            txtEstado = 'En proceso';
+        }
+        var row = $("<tr class='" + estado + "'>");
+        
+        $("#dataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+        // NUMERO DE EQUIPO
+        row.append($("<td class='text-muted trCode'>" + rowInfo.id + " </td>"));
+        // NOMINA DEL EMPLEADO
+        row.append($("<td> " + rowInfo.code + " </td>"));
+        // NOMBRE DEL EMPLEADO
+        row.append($("<td> " + rowInfo.scheduled_date + " </td>"));
+        // TIPO DE SUCURSAL
+        row.append($("<td> " + rowInfo.accomplished_date + " </td>"));
+        // COLUMNA DEPARTAMENTO
+        row.append($("<td>" + txtEstado + "</td>"));
+        // COLUMNA ACCION
+        row.append($("<td class='text-center'>"
+                    + "<a tabindex='0' class='btn btn-sm btn-primary btnEdit' data-code='"+rowInfo.code+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
+                    + "<a tabindex='1' class='btn btn-sm btn-warning mx-2 btnHelp' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
+                    + "<a tabindex='2' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
+                    + "</td>"));
+                
+        // $(".btnDelete").unbind().click(function() {
+        //     deleteComputer($(this));
+        // });
+
+        // $(".btnEdit").unbind().click(function() {
+        //     var deviceCode = $((this)).data('code'),
+        //         url = "index.php?request=editcomputer";
+        //     // console.info(deviceCode);
+        //     localStorage.setItem('deviceCode', deviceCode);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
+        //     $(location).attr('href',url);
+        // });
+
+    }
+
+}
+
+$('#btn_sked').click(function(){
+    // console.log('Programar Manteimiento anual');
+    var url = "index.php?request=skedMaint";
+    $(location).attr('href',url);
+});
+
+$('#btn_toChoose').click(function(){
+    // console.log('Programar Manteimiento anual');
+    var url = "index.php?request=chooseMaint";
+    var scheduled_date = document.querySelector('#ip_scheduled').value;
+    localStorage.setItem('scheduledDate', scheduled_date);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
+    $(location).attr('href',url);
+});
+
+if (window.location.href.indexOf("?request=chooseMaint") > -1) {
+    console.log('Choose computer');
+    var action = 'queryMaint';
+    var scheduled_date = localStorage.getItem('scheduledDate'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    var schYear = scheduled_date.substring(0, 4),
+        schMonth = scheduled_date.substring(5, 7);
+    document.getElementById('txtscheduledDate').innerHTML = scheduled_date;
+    var dataMaint = new FormData();
+    dataMaint.append('action', action);
+    dataMaint.append('year', schYear);
+    dataMaint.append('month', schMonth);
+    var xmlhr = new XMLHttpRequest();
+    xmlhr.open( 'POST', 'inc/model/data-service.php', true );
+    xmlhr.onload = function(){
+        if (this.status === 200){
+            var respuesta = JSON.parse(xmlhr.responseText);
+            // console.log(respuesta);
+            if (respuesta.status === 'OK') {
+                var informacion = respuesta.data;
+                // console.log(informacion);
+                for(var i in informacion){
+                    populateFields(informacion[i]);
+                }     
+                } else if(respuesta.status === 'error'){
+                    var informacion = respuesta.data;
+                }         
+        }
+    }
+    xmlhr.send(dataMaint);
+
+    function populateFields(rowInfo){
+
+        // console.log(rowInfo.code);
+
+        var div = document.createElement('div');
+
+        div.className = 'row';
+
+        div.innerHTML = 
+            '<input class="form-check-input" type="checkbox" name="computerCode[]" value="'+rowInfo.code+'" id="'+rowInfo.code+'">'+
+            '<label class="form-check-label" for="'+rowInfo.code+'">'+rowInfo.code + ' - ' + rowInfo.employee_name+'</label>';
+            
+        document.getElementById('computerList').appendChild(div);
+                
+    }
+}
+
+
+$('#btnSelecteditems').click(function(){
+    // console.log('Seleccionar items');
+    localStorage.removeItem('scheduledDate'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    var jobType = 'newMaint';
+    var items = document.getElementsByName('computerCode[]');
+    var len = items.length;
+    var itemList = [];
+    for (var i=0; i<len; i++) {
+        items[i].checked?itemList.push(items[i].value):'';
+        
+    }
+    var dataList = itemList.join(',');
+    console.log(dataList);
+
+    var datanewMaint = new FormData();
+    datanewMaint.append('jobType', jobType);
+    datanewMaint.append('data', dataList);
+    datanewMaint.append('date', scheduled_date);
+    var xmlhr = new XMLHttpRequest();
+    xmlhr.open( 'POST', 'inc/model/control.php', true );
+    xmlhr.onload = function(){
+        if (this.status === 200){
+            var respuesta = JSON.parse(xmlhr.responseText);
+            console.log(respuesta);
+            if (respuesta.status === 'OK') {
+                var log = respuesta.log,
+                    route = respuesta.route;
+                swal({
+                        title: 'Guardado exitoso!',
+                        text: log,
+                        type: 'success'
+                    })
+                    .then(resultado => {
+                            if(resultado.value) {
+                                location.reload();
+                                window.location.href = 'index.php?request='+route;
+                            }
+                        })
+                } else if(respuesta.status === 'ERROR'){
+                    var log = respuesta.log,
+                        route = respuesta.route;
+                    swal({
+                            title: 'Error en la operación',
+                            text: log,
+                            type: 'error'
+                        })
+                        .then(resultado => {
+                                if(resultado.value) {
+                                    location.reload();
+                                    window.location.href = 'index.php?request='+route;
+                                }
+                            })
+                }         
+        }
+    }
+    xmlhr.send(datanewMaint);
+
+});
+
+/**CONTROL DE MANTENIMIENTOS */
+
+$('#btn_maintControl').click(function(){
+    // console.log('Control Manteimiento anual');
+    var url = "index.php?request=maintControl";
+    $(location).attr('href',url);
+});
+
+
+/** MANTENIMIENTOS **/

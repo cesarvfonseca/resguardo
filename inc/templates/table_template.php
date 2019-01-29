@@ -59,4 +59,6 @@
     <?php include 'smartphones/modify.php' ?>
 <?php elseif ($section == 'history'): ?>
     <?php include 'history/history_view.php' ?>
+<?php elseif ($section == 'maintControl'): ?>
+    <?php include 'maint/maint_view.php' ?>
 <?php endif; ?>

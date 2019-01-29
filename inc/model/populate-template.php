@@ -1,10 +1,6 @@
 <?php
 //EQUIPOS DE COMPUTO
 $section = $_REQUEST['request'];
-if($section == 'equipos'){
-    $title = 'de equipos de computo.';
-}
-
 switch ($section){
     case 'computers':
         $title = 'de equipos de Computo.';
@@ -38,6 +34,9 @@ switch ($section){
         break;
     case 'history':
         $title = 'del historial de equipo de equipos';
+        break;
+    case 'maintControl':
+        $title = 'Mantenimiento de equipos';
         break;
     default:
         $title = null;     

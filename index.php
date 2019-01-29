@@ -29,9 +29,18 @@
                   case 'main-page':
                     include 'inc/templates/main.php'; 
                     break;
-                  case 'computers' || 'printers' || 'newcomputer' || 'editcomputer' || 'editprinter' || 'smartphone' || 'newsmartphone' || 'editsmartphone' || 'modifysmartphone' || 'history':
+                  case 'maint':
+                    include 'inc/templates/maint/menu.php'; 
+                    break;
+                  case 'chooseMaint':
+                    include 'inc/templates/maint/sked_choose.php'; 
+                    break;
+                  case 'skedMaint':
+                    include 'inc/templates/maint/sked_maint.php'; 
+                    break;
+                  case 'computers' || 'printers' || 'newcomputer' || 'editcomputer' || 'editprinter' || 'smartphone' || 'newsmartphone' || 'editsmartphone' || 'modifysmartphone' || 'history' || 'maintControl':
                     include 'inc/templates/table_template.php'; 
-                    break;                                     
+                    break;      
                   default:
                     include 'inc/templates/login.php';      
                     break;   

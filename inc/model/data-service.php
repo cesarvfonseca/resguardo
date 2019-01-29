@@ -122,6 +122,42 @@
             }
             echo json_encode($respuesta);
             break;
+        case 'maintenance':
+            // die(json_encode($_POST));
+            $query = 'SELECT * FROM `maint`';
+            $stmt = $conn -> prepare($query);
+            $stmt -> execute();
+            $rows = $stmt -> fetchAll();
+            $respuesta = array(
+                'status' => 'OK',
+                'data' => $rows
+            );
+            // print_r($rows);
+            echo json_encode($respuesta);
+            break;
+        case 'queryMaint':
+            // die(json_encode($_POST));
+            // $deviceCode = $_POST['deviceCode'];
+            $query = "SELECT r.code,r.employee_name FROM `maint` m RIGHT JOIN `registry` r ON m.code = r.code WHERE r.branch='CORPORATIVO' AND r.type = 'PC'";
+            $stmnt = $conn -> prepare($query);
+            // $stmnt -> bindParam(1, $deviceCode);
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            $rows = $stmnt -> fetchAll();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'status' => 'OK',
+                    'data' => $rows
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al recuperar los datos.'
+                );
+            }
+            echo json_encode($respuesta);
+            break;
         default:
             $title = '';     
             break;

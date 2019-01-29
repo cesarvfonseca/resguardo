@@ -2,7 +2,7 @@
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
-    
+    session_start();
     include '../function/connection.php';
     $conn = Connect();
     $conn -> query("SET NAMES utf8");
@@ -31,7 +31,7 @@
             $invoiceDate = $_POST['invoiceDate'];
             $deviceComment = $_POST['deviceComment'];
             $deviceUpdate = date('Y-m-d H:i:s');
-            $userControl = 'cvalenciano';
+            $userControl = $_SESSION['usuario_activo'];
 
             $route = ($deviceType == 'MF') ? 'printers' : 'computers';
 
@@ -123,7 +123,7 @@
             $route = ($deviceType == 'MF') ? 'printers' : 'computers';
 
             $deviceUpdate = date('Y-m-d H:i:s');
-            $userControl = 'cvalenciano';
+            $userControl = $_SESSION['usuario_activo'];
 
             //GET OLD DATA
             $old_employeeCode = $_POST['employeeCode_'];
@@ -267,7 +267,7 @@
             $deviceAccount = $_POST['deviceAccount'];
             $deviceComment = $_POST['deviceComment'];
             $deviceUpdate = date('Y-m-d H:i:s');
-            $userControl = 'cvalenciano';
+            $userControl = $_SESSION['usuario_activo'];
 
             $route = 'smartphone';
 
@@ -332,7 +332,7 @@
             $deviceAccount = $_POST['deviceAccount'];
             $deviceComment = $_POST['deviceComment'];
             $deviceUpdate = date('Y-m-d H:i:s');
-            $userControl = 'cvalenciano';
+            $userControl = $_SESSION['usuario_activo'];
 
             $route = 'smartphone';
 
@@ -390,7 +390,7 @@
             $deviceAccount = $_POST['deviceAccount'];
             $deviceComment = $_POST['deviceComment'];
             $deviceUpdate = date('Y-m-d H:i:s');
-            $userControl = 'cvalenciano';
+            $userControl = $_SESSION['usuario_activo'];
 
             $route = 'smartphone';
 
@@ -457,6 +457,54 @@
                     'log' => 'Error al eliminar el registro'
                 );
             }
+            echo json_encode($respuesta);
+            break;
+        case 'newMaint':
+            // die(json_encode($_POST));
+            $maintDate = $_POST['date'];
+            $dataList = $_POST['data']; 
+            $maintStatus = 0;
+            $maintNotes = '';
+            $userControl = $_SESSION['usuario_activo'];
+
+            $tags = explode(',',$dataList);
+
+            foreach($tags as $element)
+            {
+                // echo $element.'<br/>';
+                $insert = 'INSERT INTO `maint`(`code`, `scheduled_date`, `accomplished_date`, `maint_status`, `maint_notes`, `maint_user_notes`,`uptade_user`) VALUES 
+                            (?,?,?,?,?,?,?);';
+                
+                $stmnt = $conn -> prepare($insert);
+                $stmnt -> bindParam(1, $element);
+                $stmnt -> bindParam(2, $maintDate);
+                $stmnt -> bindParam(3, $maintDate);
+                $stmnt -> bindParam(4, $maintStatus);
+                $stmnt -> bindParam(5, $maintNotes);
+                $stmnt -> bindParam(6, $maintNotes);
+                $stmnt -> bindParam(7, $userControl);     
+                
+                $stmnt -> execute();
+                
+            }
+                        
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'status' => 'OK',
+                    'data' => $rowCount,
+                    'log' => 'Mantenimiento programado exitosamente.',
+                    'route' => 'maint'
+                );
+            } else {
+                $respuesta = array(
+                    'status' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error programar el mantenimiento',
+                    'route' => 'maint'
+                );
+            }
+
             echo json_encode($respuesta);
             break;
         case 'salir':

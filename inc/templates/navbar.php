@@ -8,27 +8,33 @@
 <link rel="shortcut icon" href="img/icoMQ.ico">
 
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary justify-content-between">
   <a class="navbar-brand">
     <img src="img/mexq_logo.png" width="150" alt="Logo MEXQ" class="responsive-img">
   </a>
   <?php if (!isset($_SESSION['login']) || empty($_SESSION['login'])){  ?>
-    <a class="nav-item nav-link disabled">Resguardo de Equipos MEXQ</a>
+    <a class="nav-item nav-link disabled text-white">Resguardo de Equipos MEXQ</a>
     <?php } else {?>
-    <?php $usuario_nombre = $_SESSION['usuario_nombre'];?>
+    <?php 
+          $usuario_nombre = $_SESSION['usuario_nombre'];
+          $usuario_id = $_SESSION['usuario_activo'];
+    ?>
+    
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav float-right">
-      <a class="nav-item nav-link active" href="index.php?request=main-page">Menu <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Equipos de computo</a>
-      <a class="nav-item nav-link" href="#">Smartphones</a>
-      <a class="nav-item nav-link" href="#">Impresoras</a>
-      <a class="nav-item nav-link disabled" href="#">Bienvenido (a): <?php echo $usuario_nombre; ?></a>
-      <a class="nav-item nav-link btn btn-danger" type="button" id="btnSalir"> Cerrar Sesión <i class="fas fa-sign-out-alt"></i></a>
+  <form class="form-inline">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="index.php?request=main-page">Menu <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="#">Equipos de computo</a>
+        <a class="nav-item nav-link" href="#">Smartphones</a>
+        <a class="nav-item nav-link" href="#">Impresoras</a>
+        <a class="nav-item nav-link disabled text-white" href="#">Bienvenido (a): <?php echo $usuario_nombre; ?></a>
+        <a class="nav-item nav-link btn btn-danger" type="button" id="btnSalir"> Cerrar Sesión <i class="fas fa-sign-out-alt"></i></a>
+      </div>
     </div>
-  </div>
+  </form>
   <?php } ?>
 </nav>
 <br>

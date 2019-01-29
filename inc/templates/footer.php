@@ -7,7 +7,24 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <?php if (empty($request)){ ?>
+
     <script src="js/forms.js"></script>
+
 <?php } else { ?>
     <script src="js/control.js"></script>
+<br><br><br>
+<nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-info">
+    <a class="navbar-brand" href="#">Soporte MEXQ</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+        <div class="footer-copyright text-center py-3 text-white"><i class="far fa-copyright"></i> 2019 Copyright</i>
+        <!-- <a href="http://mexq.com.mx"><i class="far fa-building"></i> </a> -->
+        </div>
+    </ul>
+    </div>
+</nav>
+
 <?php } ?>
