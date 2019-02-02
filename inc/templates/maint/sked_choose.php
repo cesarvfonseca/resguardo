@@ -22,7 +22,7 @@
             <div class="col-md-12">
                 <div class="card text-white text-center bg-info mb-3">
                     <div class="card-header">
-                    <small class="text-white h3">2. Elegir equipos</small>
+                    <small class="text-white h3">2. Elegir los equipos</small>
                     </div>
                     <div class="card-body">
                         <div class="form-row">

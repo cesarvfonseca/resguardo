@@ -124,7 +124,8 @@
             break;
         case 'maintenance':
             // die(json_encode($_POST));
-            $query = 'SELECT * FROM `maint`';
+
+            $query = "SELECT * FROM `maint`";
             $stmt = $conn -> prepare($query);
             $stmt -> execute();
             $rows = $stmt -> fetchAll();
@@ -132,15 +133,24 @@
                 'status' => 'OK',
                 'data' => $rows
             );
-            // print_r($rows);
             echo json_encode($respuesta);
             break;
+
         case 'queryMaint':
             // die(json_encode($_POST));
-            // $deviceCode = $_POST['deviceCode'];
-            $query = "SELECT r.code,r.employee_name FROM `maint` m RIGHT JOIN `registry` r ON m.code = r.code WHERE r.branch='CORPORATIVO' AND r.type = 'PC'";
+            $monthSch = $_POST['month']; 
+            $yearSch = $_POST['year']; 
+            $scheduled_date = $_POST['scheduled_date']; 
+            $firstMaint = array('01','02','03','04','05','06');
+            $secondMaint = array('07','08','09','10','11','12');
+            $query = "SELECT r.code,r.employee_name,r.status,m.scheduled_date,YEAR(m.scheduled_date) AS maintYear,MONTH(m.scheduled_date) AS maintMonth
+                        FROM `maint` m 
+                        RIGHT JOIN `registry` r 
+                        ON m.code = r.code WHERE r.branch='CORPORATIVO' AND r.type = 'PC' AND r.status <> 'I'";
+
             $stmnt = $conn -> prepare($query);
-            // $stmnt -> bindParam(1, $deviceCode);
+            // $stmnt -> bindParam(1, $yearSch);
+            // $stmnt -> bindParam(2, $scheduled_date);
             $stmnt -> execute();
             $rowCount = $stmnt -> rowCount();
             $rows = $stmnt -> fetchAll();

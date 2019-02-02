@@ -1244,6 +1244,7 @@ if (window.location.href.indexOf("?request=chooseMaint") > -1) {
     document.getElementById('txtscheduledDate').innerHTML = scheduled_date;
     var dataMaint = new FormData();
     dataMaint.append('action', action);
+    dataMaint.append('scheduled_date', scheduled_date);
     dataMaint.append('year', schYear);
     dataMaint.append('month', schMonth);
     var xmlhr = new XMLHttpRequest();
@@ -1267,15 +1268,31 @@ if (window.location.href.indexOf("?request=chooseMaint") > -1) {
 
     function populateFields(rowInfo){
 
-        // console.log(rowInfo.code);
-
         var div = document.createElement('div');
+        
+        var maint_st = '',
+            firstMaint = ["01","02","03","04","05","06"],
+            secondMaint = ["07","08","09","10","11","12"];
+
+        if(rowInfo.maintYear === schYear){
+            maint_st='disabled';
+            
+        } else if(rowInfo.maintYear !== schYear & rowInfo.maintMonth !== null) {
+            if(firstMaint.indexOf(rowInfo.maintMonth)){
+                console.log(rowInfo.code + ' - Primer semestre');
+                console.log(rowInfo.maintMonth);
+            } else if(secondMaint.indexOf(rowInfo.maintMonth)){ 
+                console.log(rowInfo.code + ' - Segundo semestre ');
+                console.log(rowInfo.maintMonth);
+            }
+        }
+        
 
         div.className = 'row';
 
         div.innerHTML = 
-            '<input class="form-check-input" type="checkbox" name="computerCode[]" value="'+rowInfo.code+'" id="'+rowInfo.code+'">'+
-            '<label class="form-check-label" for="'+rowInfo.code+'">'+rowInfo.code + ' - ' + rowInfo.employee_name+'</label>';
+            '<input class="form-check-input" type="checkbox" name="computerCode[]" value="'+rowInfo.code+'" id="'+rowInfo.code+'" ' + maint_st + '>'+
+            '<label class="form-check-label" for="'+rowInfo.code+'">'+ rowInfo.code + ' - ' + rowInfo.employee_name + ' - ' + rowInfo.scheduled_date + '</label>';
             
         document.getElementById('computerList').appendChild(div);
                 
