@@ -6,12 +6,16 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+
+
 <?php if (empty($request)){ ?>
 
     <script src="js/forms.js"></script>
 
 <?php } else { ?>
     <script src="js/control.js"></script>
+    <!-- <script src="js/toPDF.js"></script> -->
 <br><br><br>
 <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-info">
     <a class="navbar-brand" href="#">Soporte MEXQ</a>

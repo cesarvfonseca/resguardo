@@ -19,12 +19,20 @@
 <br>
 
 <div class="row">
+    <?php if(!(substr($section, 0, 4) == 'hist')): ?>
     <div class="col-md-9">
         <a class="btn btn-success text-white" id="btnNew" data-type="<?php echo $section ?>" title="Nuevo registro">
-            Nuevo equipo
-        <i class="fas fa-plus"></i>
+            <i class="fas fa-plus"></i>
+            Nuevo registro
+        </a>
+
+
+        <a class="btn btn-primary text-white" id="btnGA" title="Cuentas de Google" <?php echo $btnG ?>>
+            <i class="fab fa-google"></i>
+            Cuentas Google
         </a>
     </div>
+    <?php endif; ?>
     <div class="col-md-3">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -57,6 +65,12 @@
     <?php include 'smartphones/edit.php' ?>
 <?php elseif ($section == 'modifysmartphone'): ?>
     <?php include 'smartphones/modify.php' ?>
+<?php elseif ($section == 'google-accounts'): ?>
+    <?php include 'accounts/accounts_view.php' ?>
+<?php elseif ($section == 'newaccount'): ?>
+    <?php include 'accounts/new.php' ?>
+<?php elseif ($section == 'edit-account'): ?>
+    <?php include 'accounts/edit.php' ?>     
 <?php elseif ($section == 'history'): ?>
     <?php include 'history/history_view.php' ?>
 <?php elseif ($section == 'maintControl'): ?>

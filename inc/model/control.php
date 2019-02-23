@@ -507,11 +507,140 @@
 
             echo json_encode($respuesta);
             break;
+        case 'newAccount':
+            // die(json_encode($_POST));
+            $accountBranch = $_POST['accountBranch'];
+            $accountName = $_POST['accountName']; 
+            $accountPassword = $_POST['accountPassword']; 
+            $accountInsert = date('Y-m-d');
+            $userControl = $_SESSION['usuario_activo'];
+
+
+            $insert = 'INSERT INTO `accounts`(`branch`, `account`, `pwd`, `update_date`, `update_user`) VALUES 
+                        (?,?,?,?,?);';
+            
+            $stmnt = $conn -> prepare($insert);
+            $stmnt -> bindParam(1, $accountBranch);
+            $stmnt -> bindParam(2, $accountName);
+            $stmnt -> bindParam(3, $accountPassword);   
+            $stmnt -> bindParam(4, $accountInsert);   
+            $stmnt -> bindParam(5, $userControl);   
+            
+            $stmnt -> execute();
+   
+                        
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'status' => 'OK',
+                    'data' => $rowCount,
+                    'log' => 'Cuenta de correo creada.',
+                    'route' => 'google-accounts'
+                );
+            } else {
+                $respuesta = array(
+                    'status' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al crear cuenta',
+                    'route' => 'google-accounts'
+                );
+            }
+
+            echo json_encode($respuesta);
+            break;
+        case 'editAccount':
+            // die(json_encode($_POST));
+            $accountID = $_POST['_ipaccountID'];
+            $accountName = $_POST['accountName'];
+            $accountBranch = $_POST['accountBranch'];
+            $accountPassword = $_POST['accountPassword'];
+            $deviceUpdate = date('Y-m-d H:i:s');
+            $userControl = $_SESSION['usuario_activo'];
+
+            $route = 'google-accounts';
+
+            $update = 'UPDATE `accounts` SET `branch`= ? ,`account`= ? ,`pwd`= ? ,`update_date`= ? ,`update_user`= ? WHERE `id`= ?';
+            $stmnt = $conn->prepare($update);
+                        
+            $stmnt -> bindParam(1, $accountBranch);
+            $stmnt -> bindParam(2, $accountName);
+            $stmnt -> bindParam(3, $accountPassword);
+            $stmnt -> bindParam(4, $deviceUpdate);
+            $stmnt -> bindParam(5, $userControl);
+            $stmnt -> bindParam(6, $accountID);
+
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'estado' => 'OK',
+                    'data' => $rowCount,
+                    'log' => $route
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al eliminar el registro'
+                );
+            }
+            echo json_encode($respuesta);
+            break;
+        case 'deleteSmartphone':
+            // die(json_encode($_POST));
+            $deviceCode = $_POST['deviceCode'];
+
+            $route = 'smartphone';
+
+            $deleteDevice = 'DELETE FROM `smartphone` WHERE id = ?';
+            $stmnt = $conn -> prepare($deleteDevice);
+            $stmnt -> bindParam(1, $deviceCode);
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'estado' => 'OK',
+                    'data' => $rowCount,
+                    'log' => $route
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al eliminar el registro'
+                );
+            }
+            echo json_encode($respuesta);
+        case 'deleteAccount':
+            // die(json_encode($_POST));
+            $accountID = $_POST['accountID'];
+
+            $route = 'google-accounts';
+
+            $deleteDevice = 'DELETE FROM `accounts` WHERE id = ?';
+            $stmnt = $conn -> prepare($deleteDevice);
+            $stmnt -> bindParam(1, $accountID);
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'estado' => 'OK',
+                    'data' => $rowCount,
+                    'log' => $route
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al eliminar el registro'
+                );
+            }
+            echo json_encode($respuesta);
+            break;
         case 'salir':
             // die(json_encode($_POST));
-            session_start();
-            session_destroy();
-            $_SESSION = array();   
+            // session_start();
+            $_SESSION = array();  
             $respuesta = array (
                 'estado' => 'OK',
                 'tipo' => 'success',
@@ -519,6 +648,8 @@
                 'informacion' => 'Su sesión fue cerrada exitosamente.'
             );
             echo json_encode($respuesta);
+            session_destroy();
+            session_commit();
             break;
         default:
             $respuesta = array(

@@ -7,7 +7,6 @@
 
 <link rel="shortcut icon" href="img/icoMQ.ico">
 
-
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary justify-content-between">
   <a class="navbar-brand">
     <img src="img/mexq_logo.png" width="150" alt="Logo MEXQ" class="responsive-img">
@@ -26,15 +25,16 @@
   <form class="form-inline">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="index.php?request=main-page">Menu <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="#">Equipos de computo</a>
-        <a class="nav-item nav-link" href="#">Smartphones</a>
-        <a class="nav-item nav-link" href="#">Impresoras</a>
+        <a class="nav-item nav-link menuLink" href="index.php?request=main-page">Menu <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link computersLink" href="index.php?request=computers">Equipos de computo</a>
+        <a class="nav-item nav-link smartphonesLink" href="index.php?request=smartphone">Smartphones</a>
+        <a class="nav-item nav-link printersLink" href="index.php?request=printers">Impresoras</a>
         <a class="nav-item nav-link disabled text-white" href="#">Bienvenido (a): <?php echo $usuario_nombre; ?></a>
         <a class="nav-item nav-link btn btn-danger" type="button" id="btnSalir"> Cerrar Sesión <i class="fas fa-sign-out-alt"></i></a>
       </div>
     </div>
   </form>
+  
   <?php } ?>
 </nav>
 <br>

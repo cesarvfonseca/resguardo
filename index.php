@@ -32,13 +32,16 @@
                   case 'maint':
                     include 'inc/templates/maint/menu.php'; 
                     break;
+                  case 'responsiveL':
+                    include 'inc/templates/responsive.php'; 
+                    break;
                   case 'chooseMaint':
                     include 'inc/templates/maint/sked_choose.php'; 
                     break;
                   case 'skedMaint':
                     include 'inc/templates/maint/sked_maint.php'; 
                     break;
-                  case 'computers' || 'printers' || 'newcomputer' || 'editcomputer' || 'editprinter' || 'smartphone' || 'newsmartphone' || 'editsmartphone' || 'modifysmartphone' || 'history' || 'maintControl':
+                  case 'computers' || 'printers' || 'newcomputer' || 'editcomputer' || 'editprinter' || 'smartphone' || 'newsmartphone' || 'editsmartphone' || 'modifysmartphone' || 'history' || 'maintControl' || 'google-accounts' || 'newaccount' || 'edit-account':
                     include 'inc/templates/table_template.php'; 
                     break;      
                   default:

@@ -122,9 +122,31 @@
             }
             echo json_encode($respuesta);
             break;
+        case 'queryAccount':
+            // die(json_encode($_POST));
+            $accountCode = $_POST['accountCode'];
+            $query = "SELECT * FROM `accounts` WHERE `accounts`.`id` = ?";
+            $stmnt = $conn -> prepare($query);
+            $stmnt -> bindParam(1, $accountCode);
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            $rows = $stmnt -> fetchAll();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'status' => 'OK',
+                    'data' => $rows
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al recuperar los datos.'
+                );
+            }
+            echo json_encode($respuesta);
+            break;
         case 'maintenance':
             // die(json_encode($_POST));
-
             $query = "SELECT * FROM `maint`";
             $stmt = $conn -> prepare($query);
             $stmt -> execute();
@@ -135,7 +157,18 @@
             );
             echo json_encode($respuesta);
             break;
-
+        case 'google-accounts':
+            // die(json_encode($_POST));
+            $query = "SELECT * FROM `accounts` ORDER BY update_date DESC";
+            $stmt = $conn -> prepare($query);
+            $stmt -> execute();
+            $rows = $stmt -> fetchAll();
+            $respuesta = array(
+                'status' => 'OK',
+                'data' => $rows
+            );
+            echo json_encode($respuesta);
+            break;
         case 'queryMaint':
             // die(json_encode($_POST));
             $monthSch = $_POST['month']; 

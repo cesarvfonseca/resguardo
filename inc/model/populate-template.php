@@ -1,4 +1,10 @@
 <?php
+include 'inc/function/connection.php';
+$conn = Connect();
+$conn -> query("SET NAMES utf8");
+
+$btnG = 'hidden';
+
 //EQUIPOS DE COMPUTO
 $section = $_REQUEST['request'];
 switch ($section){
@@ -7,6 +13,7 @@ switch ($section){
         break;
     case 'smartphone':
         $title = 'de Smartphones.';
+        $btnG = '';
         break;
     case 'newsmartphone':
         $title = 'Nuevo Smartphone.';
@@ -16,7 +23,16 @@ switch ($section){
         break;  
     case 'modifysmartphone':
         $title = 'añadir responsable de smartphone';
-        break;      
+        break;
+    case 'google-accounts':
+        $title = 'Cuentas de Google';
+        break;     
+    case 'newaccount':
+        $title = 'Nueva Cuenta de Google';
+        break; 
+    case 'edit-account':
+        $title = 'Actualizar Cuenta de Google';
+        break; 
     case 'printers':
         $title = 'de Impresoras.';
         break;  
@@ -37,6 +53,33 @@ switch ($section){
         break;
     case 'maintControl':
         $title = 'Mantenimiento de equipos';
+        break;
+    case 'responsiveL':
+        $deviceCode = $_GET['deviceCode'];
+        $query = "SELECT * FROM `registry` WHERE `registry`.`code` = ?";
+        $stmnt = $conn -> prepare($query);
+        $stmnt -> bindParam(1, $deviceCode);
+        $stmnt -> execute();
+        while($row = $stmnt -> fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)){
+            $data_employeecode = $row[2];
+            $data_employeename = $row[3];
+            $data_employeposition = $row[4];
+            $data_employemail = $row[7];
+            $data_employebranch = $row[5];
+            $data_employearea = $row[6];
+            $data_employephone = $row[8];
+            $data_devicebrand = $row[12];
+            $data_devicemodel = $row[13];
+            $data_deviceserie = $row[10];
+            $data_invoice = $row[15];
+            $data_invoicedate = $row[16];
+            $data_provider = $row[17];
+            $data_comments = $row[19];
+            $data_devicetype = $row[14];
+
+            $data_devicetype = ($data_devicetype == 'MQ') ? 'Laptop' : 'Desktop';
+
+        }
         break;
     default:
         $title = null;     

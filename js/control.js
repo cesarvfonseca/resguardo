@@ -2,6 +2,7 @@ $('#link_1').click(function(){
     console.log('Link 1');
     var url = "index.php?request=computers";
     $(location).attr('href',url);
+
 });
 
 $('#link_2').click(function(){
@@ -32,8 +33,17 @@ $('#btnSalir').click(function(){
     cerrarSesion();
 });
 
+if (window.location.href.indexOf("?request=main-page") > -1) {
+    $('.menuLink').addClass('active');
+    $('.computersLink').removeClass('active');
+    $('.smartphonesLink').removeClass('active');
+    $('.printersLink').removeClass('active');
+}
+
 if (window.location.href.indexOf("?request=computers") > -1) {
     console.log('Computers page');
+    // jQuery('#link_1').addClass('active').removeClass('test2');
+    // ('#link_1').addClass('active');
     var action  = 'registry';
     var dataTable = new FormData();
     dataTable.append('action', action);
@@ -96,7 +106,7 @@ if (window.location.href.indexOf("?request=computers") > -1) {
         // COLUMNA ACCION
         row.append($("<td class='text-center'>"
                     + "<a tabindex='0' class='btn btn-sm btn-primary btnEdit' data-code='"+rowInfo.code+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
-                    + "<a tabindex='1' class='btn btn-sm btn-warning mx-2 btnHelp' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
+                    + "<a tabindex='1' class='btn btn-sm btn-info mx-2 btnHelp' data-code='"+rowInfo.code+"' target='_blank' role='button' title='Carta responsiva'><i class='fas fa-file-pdf text-white'></i></a>" 
                     + "<a tabindex='2' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
                     + "</td>"));
                 
@@ -112,8 +122,20 @@ if (window.location.href.indexOf("?request=computers") > -1) {
             $(location).attr('href',url);
         });
 
+        $(".btnHelp").unbind().click(function() {
+            var deviceCode = $((this)).data('code'),
+                newTab = window.open('index.php?request=responsiveL&deviceCode='+deviceCode, '_blank');
+            // console.info(deviceCode);
+            // localStorage.setItem('deviceCode', deviceCode);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
+            newTab.focus();
+        });
+
     }
         
+    $('.menuLink').removeClass('active');
+    $('.computersLink').addClass('active');
+    $('.smartphonesLink').removeClass('active');
+    $('.printersLink').removeClass('active');
 
 }
 
@@ -242,15 +264,12 @@ function deleteComputer (computerRow){
                     }
                 }
             }
-            
-            
         }
       })
 }
 
 $('#btnNew').click(function(){
     var type = $(this).data('type');
-    // console.info(type);
     switch (type){
         case 'computers':
             var url = "index.php?request=newcomputer";
@@ -262,6 +281,10 @@ $('#btnNew').click(function(){
             break;
         case 'smartphone':
             var url = "index.php?request=newsmartphone";
+            $(location).attr('href',url);
+            break;
+        case 'google-accounts':
+            var url = "index.php?request=newaccount";
             $(location).attr('href',url);
             break;
         default:
@@ -500,6 +523,7 @@ $(document).ready(function(){
     });
   });
 
+//TABLA SMARTPHONES
 if (window.location.href.indexOf("?request=smartphone") > -1) {
     console.log('Smartphone page');
     var action  = 'smartphones';
@@ -588,6 +612,11 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
         });
 
     }
+
+    $('.menuLink').removeClass('active');
+    $('.computersLink').removeClass('active');
+    $('.smartphonesLink').addClass('active');
+    $('.printersLink').removeClass('active');
 }
 
 //NUEVO SMARTPHONE
@@ -933,6 +962,271 @@ function deleteSmartphone (computerRow){
     })
 }
 
+//GOOGLE ACCOUNTS
+$('#btnGA').click(function(){
+    console.info('Cuentas de google');
+    var url = "index.php?request=google-accounts";
+    $(location).attr('href',url);
+});
+
+if (window.location.href.indexOf("?request=google-accounts") > -1) {
+    console.log('Accounts page');
+    var action  = 'google-accounts';
+    var dataTable = new FormData();
+    dataTable.append('action', action);
+    var xmlhr = new XMLHttpRequest();
+    xmlhr.open('POST', 'inc/model/data-service.php', true);
+    xmlhr.onload = function(){
+        if (this.status === 200) {
+          var respuesta = JSON.parse(xmlhr.responseText);
+          console.log(respuesta);
+          if (respuesta.status === 'OK') {
+            var informacion = respuesta.data;
+            // console.log(informacion);
+            for(var i in informacion){
+                accountsTable(informacion[i]);
+            }     
+          } else if(respuesta.status === 'error'){
+            var informacion = respuesta.data;
+          }
+        }
+        }
+    xmlhr.send(dataTable);
+
+    function accountsTable(rowInfo){
+        
+        var row = $("<tr class='secondary'>");
+        
+        $("#dataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+        // NUMERO DE EQUIPO
+        row.append($("<td class='trCode'>" + rowInfo.id + " </td>"));
+        // NUMERO DE EQUIPO
+        row.append($("<td>" + rowInfo.branch + " </td>"));
+        // NOMINA DEL EMPLEADO
+        row.append($("<td class='trAccount'> " + rowInfo.account + " </td>"));
+        // NOMBRE DEL EMPLEADO
+        row.append($("<td> " + rowInfo.pwd + " </td>"));
+        // TIPO DE SUCURSAL
+        row.append($("<td> " + rowInfo.update_date + " </td>"));   
+        // COLUMNA ACCION
+        row.append($("<td class='text-center'>"
+                + "<a tabindex='0' class='btn btn-primary btnEdit' data-id='"+rowInfo.id+"' role='button' title='Editar Registro'><i class='fas fa-pen-square'></i></a>"
+                + "<a tabindex='1' class='btn btn-danger btnDelete' data-id='"+rowInfo.id+"' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
+                + "</td>"));
+                
+        $(".btnDelete").unbind().click(function() {
+            // var accountID = $((this)).data('id');
+            // console.log(accountID);
+            deleteAccount($((this)));
+        });
+
+        $(".btnEdit").unbind().click(function() {
+            var accountCode = $((this)).data('id'),
+                url = "index.php?request=edit-account";
+            // console.info(deviceCode);
+            localStorage.setItem('accountCode', accountCode);//GUARAR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
+            $(location).attr('href',url);
+        });
+
+    }    
+}
+
+$('#btnsaveAccount').click(function(){
+    console.log('SALVAR EQUIPO DE COMPUTO');
+    var jobType = 'newAccount',
+        accountBranch = document.querySelector('#ipBranch').value,
+        accountName = document.querySelector('#ipMail').value,
+        accountPassword = document.querySelector('#ipClave').value;
+
+    if  (
+        accountBranch.trim() === '' || accountName.trim() === '' ||
+        accountPassword.trim() === ''
+        ){
+            swal({
+                type: 'error',
+                title: 'Error!',
+                text: 'Todos los campos son obligatorios!'
+            })
+        } else {
+            var dataAccount = new FormData();
+            dataAccount.append('accountBranch', accountBranch);
+            dataAccount.append('accountName', accountName);
+            dataAccount.append('accountPassword', accountPassword);
+            dataAccount.append('jobType', jobType);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataAccount);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    console.log(respuesta);
+                    if (respuesta.status === 'OK') {
+                        var destination = respuesta.route;
+                        swal({
+                                title: 'Guardado exitoso!',
+                                text: 'Guardado de la información exitoso!',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                    if(resultado.value) {
+                                        location.reload();
+                                        window.location.href = 'index.php?request='+destination;
+                                    }
+                                })
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }            
+        }
+});
+
+if (window.location.href.indexOf("?request=edit-account") > -1) {
+    console.log('Edit Printer');
+    var jobType = 'queryAccount';
+    var accountCode = localStorage.getItem('accountCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    localStorage.removeItem('accountCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    console.info(deviceCode);
+    var dataComputer = new FormData();
+    dataComputer.append('action', jobType);
+    dataComputer.append('accountCode', accountCode);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'inc/model/data-service.php', true);
+    xhr.send(dataComputer);
+    xhr.onload = function(){
+        if (this.status === 200) {
+            var respuesta = JSON.parse(xhr.responseText);
+            console.log(respuesta);
+            if (respuesta.status === 'OK') {
+                var informacion = respuesta.data;
+                for(var i in informacion){
+                    editAccount(informacion[i]);
+                }
+            }
+        }
+    }
+}
+
+function editAccount(rowInfo){
+    $('#_ipaccountID').val(rowInfo.id);
+    $('#ipBranch').val(rowInfo.branch);
+    $('#ipMail').val(rowInfo.account);
+    $('#ipClave').val(rowInfo.pwd);
+}
+
+$('#btnupdateAccount').click(function(){
+    // console.log('EDITAR EQUIPO DE COMPUTO');
+    var jobType = 'editAccount',
+        _accountID = document.querySelector('#_ipaccountID').value,
+        accountName = document.querySelector('#ipMail').value,
+        accountBranch = document.querySelector('#ipBranch').value,
+        accountPassword = document.querySelector('#ipClave').value;
+    if  (
+        accountName.trim() === '' || accountBranch.trim() === '' ||
+        accountPassword.trim() === ''
+        ){
+            swal({
+                type: 'error',
+                title: 'Error!',
+                text: 'Todos los campos son obligatorios!'
+            })
+        } else {
+            var dataAccount = new FormData();
+            dataAccount.append('_ipaccountID', _accountID);
+            dataAccount.append('accountName', accountName);
+            dataAccount.append('accountBranch', accountBranch);
+            dataAccount.append('accountPassword', accountPassword);
+            dataAccount.append('jobType', jobType);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataAccount);
+            xhr.onload = function(){
+                if (this.status === 200 && this.readyState == 4) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    console.log(respuesta);
+                    if (respuesta.estado === 'OK') {
+                        var destination = respuesta.log;
+                        swal({
+                                title: 'Modificación exitosa!',
+                                text: 'Modificación de la información exitosa!',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                    if(resultado.value) {
+                                        location.reload();
+                                        window.location.href = 'index.php?request='+destination;
+                                    }
+                                })
+                    } else {
+                        // Hubo un error
+                        
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }            
+        }
+});
+
+function deleteAccount (accountRow){    
+    var jobType = 'deleteAccount',
+        accountName = accountRow.closest("tr").find(".trAccount").text(),
+        accountID = accountRow.closest("tr").find(".trCode").text(); 
+    console.log(jobType + ' ' + accountID );
+    Swal({
+        title: 'Eliminar la cuenta',
+        text: '¿Estas seguro de eliminar esta cuenta de correo?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si, borrar!'
+      }).then((result) => {
+        if (result.value) {
+            var dataAccount = new FormData();
+            dataAccount.append('jobType', jobType);
+            dataAccount.append('accountID', accountID);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataAccount);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    // console.log(respuesta);
+                    accountRow.parents("tr").remove();//ELIMINAR LINEA DEL REGISTRO BORRADO
+                    if (respuesta.estado === 'OK') {
+                        Swal(
+                            'Registro eliminado!',
+                            'El registro ' + accountName + ' fue eliminado exitosamente.',
+                            'success'
+                        )
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }
+        }
+      })
+}
+
+
+
 
 
 //IMPRESORAS
@@ -1017,6 +1311,11 @@ if (window.location.href.indexOf("?request=printers") > -1) {
         });
 
     }    
+
+    $('.menuLink').removeClass('active');
+    $('.computersLink').removeClass('active');
+    $('.smartphonesLink').removeClass('active');
+    $('.printersLink').addClass('active');
 }
 
 if (window.location.href.indexOf("?request=editprinter") > -1) {
@@ -1366,6 +1665,5 @@ $('#btn_maintControl').click(function(){
     var url = "index.php?request=maintControl";
     $(location).attr('href',url);
 });
-
 
 /** MANTENIMIENTOS **/

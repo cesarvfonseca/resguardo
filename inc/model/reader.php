@@ -16,9 +16,6 @@ if(!file_exists($dir))
 }
 else
 {
-	// echo "existe";
-	// echo "<p>";
-	// echo $dir.$filename.".".$filex;
 	rsort($files);
 	foreach($files as $file)
 	{
