@@ -135,7 +135,10 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="ipAccount" placeholder="Cuenta de Google">
+                                <!-- <input type="text" class="form-control" id="ipAccount" placeholder="Cuenta de Google"> -->
+                                <select class="custom-select" id="ipAccount">
+
+                                </select>
                             </div>
                         </div>
                     </div>  

@@ -22,6 +22,23 @@
             $resultado = $stmnt->fetchAll(PDO::FETCH_COLUMN, 0);
             echo json_encode($resultado);
             break;
+        case 'searchAccount':
+            $query = "SELECT account FROM `accounts` group by account";
+            $stmnt = $conn -> prepare($query);
+            $stmnt -> execute();
+        
+            $resultado = $stmnt->fetchAll(PDO::FETCH_COLUMN, 0);
+            echo json_encode($resultado);
+            break;
+        case 'searcheAccount':
+            $param = $_GET['param'];
+            $query = "SELECT account FROM `accounts` WHERE account <> '.$param.' group by account";
+            $stmnt = $conn -> prepare($query);
+            $stmnt -> execute();
+        
+            $resultado = $stmnt->fetchAll(PDO::FETCH_COLUMN, 0);
+            echo json_encode($resultado);
+            break;
         default:
             break;
     }

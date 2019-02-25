@@ -52,10 +52,8 @@ if (window.location.href.indexOf("?request=computers") > -1) {
     xmlhr.onload = function(){
         if (this.status === 200) {
           var respuesta = JSON.parse(xmlhr.responseText);
-        //   console.log(respuesta);
           if (respuesta.status === 'OK') {
             var informacion = respuesta.data;
-            // console.log(informacion);
             for(var i in informacion){
                 computersTable(informacion[i]);
             }     
@@ -117,7 +115,6 @@ if (window.location.href.indexOf("?request=computers") > -1) {
         $(".btnEdit").unbind().click(function() {
             var deviceCode = $((this)).data('code'),
                 url = "index.php?request=editcomputer";
-            // console.info(deviceCode);
             localStorage.setItem('deviceCode', deviceCode);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
             $(location).attr('href',url);
         });
@@ -125,8 +122,6 @@ if (window.location.href.indexOf("?request=computers") > -1) {
         $(".btnHelp").unbind().click(function() {
             var deviceCode = $((this)).data('code'),
                 newTab = window.open('index.php?request=responsiveL&deviceCode='+deviceCode, '_blank');
-            // console.info(deviceCode);
-            // localStorage.setItem('deviceCode', deviceCode);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
             newTab.focus();
         });
 
@@ -148,7 +143,6 @@ if (window.location.href.indexOf("?request=editcomputer") > -1) {
     var jobType = 'queryDevice';
     var deviceCode = localStorage.getItem('deviceCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
     localStorage.removeItem('deviceCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
-    console.info(deviceCode);
     var dataComputer = new FormData();
     dataComputer.append('action', jobType);
     dataComputer.append('deviceCode', deviceCode);
@@ -158,7 +152,6 @@ if (window.location.href.indexOf("?request=editcomputer") > -1) {
     xhr.onload = function(){
         if (this.status === 200) {
             var respuesta = JSON.parse(xhr.responseText);
-            console.log(respuesta);
             if (respuesta.status === 'OK') {
                 var informacion = respuesta.data;
                 for(var i in informacion){
@@ -225,7 +218,6 @@ function editDevice(rowInfo){
 function deleteComputer (computerRow){    
     var jobType = 'deleteComputer',
         deviceCode = computerRow.closest("tr").find(".trCode").text(); 
-    // console.log(deviceCode);
     Swal({
         title: 'Eliminar el registro',
         text: '¿Estas seguro de eliminar este registro?',
@@ -246,7 +238,6 @@ function deleteComputer (computerRow){
             xhr.onload = function(){
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    // console.log(respuesta);
                     computerRow.parents("tr").remove();//ELIMINAR LINEA DEL REGISTRO BORRADO
                     if (respuesta.estado === 'OK') {
                         Swal(
@@ -365,7 +356,6 @@ $('#btnsaveComputer').click(function(){
             xhr.onload = function(){
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log(respuesta);
                     if (respuesta.estado === 'OK') {
                         var destination = respuesta.log;
                         swal({
@@ -484,7 +474,6 @@ $('#btnEditcomputer').click(function(){
             xhr.onload = function(){
                 if (this.status === 200 && this.readyState == 4) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log(respuesta);
                     if (respuesta.estado === 'OK') {
                         var destination = respuesta.log;
                         swal({
@@ -534,10 +523,8 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
     xmlhr.onload = function(){
         if (this.status === 200) {
           var respuesta = JSON.parse(xmlhr.responseText);
-        //   console.log(respuesta);
           if (respuesta.status === 'OK') {
             var informacion = respuesta.data;
-            // console.log(informacion);
             for(var i in informacion){
                 smartTable(informacion[i]);
             }     
@@ -579,7 +566,7 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
         // COLUMNA # SERIE
         row.append($("<td>" + rowInfo.imei + "</td>"));
         // COLUMNA # PRODUCTO
-        row.append($("<td>" + rowInfo.account + "</td>"));
+        row.append($("<td><a class='showacckey' data-acc='"+rowInfo.account+"'>"+rowInfo.account+"</a></td>"));
         // COLUMNA FECHA
         row.append($("<td>" + rowInfo.phone_number + "</td>"));
         // COLUMNA # FACTURA
@@ -587,7 +574,7 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
         // COLUMNA ACCION
         row.append($("<td class='text-center'>"
                 + "<a tabindex='0' class='btn btn-sm btn-primary mx-1 btnEdit' data-code='"+rowInfo.id+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
-                + "<a tabindex='1' class='btn btn-sm btn-success mx-1 btnAdd' data-id='"+rowInfo.id+"' role='button' title='Añadir responsable'><i class='fas fa-plus-circle'></i></a>" 
+                // + "<a tabindex='1' class='btn btn-sm btn-success mx-1 btnAdd' data-id='"+rowInfo.id+"' role='button' title='Añadir responsable'><i class='fas fa-plus-circle'></i></a>" 
                 + "<a tabindex='2' class='btn btn-sm btn-danger mx-1 btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
                 + "</td>"));
                 
@@ -598,7 +585,6 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
         $(".btnAdd").unbind().click(function() {
             var deviceID = $((this)).data('id'),
                 url = "index.php?request=modifysmartphone";
-            console.info(deviceID);
             localStorage.setItem('deviceID', deviceID);//GUARAR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
             $(location).attr('href',url);
         });
@@ -606,9 +592,13 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
         $(".btnEdit").unbind().click(function() {
             var deviceCode = $((this)).data('code'),
                 url = "index.php?request=editsmartphone";
-            console.info(deviceCode);
             localStorage.setItem('deviceCode', deviceCode);//GUARAR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
             $(location).attr('href',url);
+        });
+
+        $(".showacckey").unbind().click(function() {
+            var accName = $((this)).data('acc');
+            showKey(accName);
         });
 
     }
@@ -617,6 +607,39 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
     $('.computersLink').removeClass('active');
     $('.smartphonesLink').addClass('active');
     $('.printersLink').removeClass('active');
+
+}
+
+function showKey (accName) {
+    var action = 'acc-key';
+    var dataAcc = new FormData();
+    dataAcc.append('action', action);
+    dataAcc.append('param', accName);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'inc/model/data-service.php', true);
+    xhr.send(dataAcc);
+    xhr.onload = function(){
+        if (this.status === 200) {
+            var respuesta = JSON.parse(xhr.responseText);
+            if (respuesta.status === 'OK') {
+                var clave = respuesta.data[0].pwd,
+                    cuenta = respuesta.data[0].account;
+                Swal.fire({
+                    title: 'Clave de la cuenta ' + cuenta,
+                    confirmButtonText: '<i class="far fa-check-circle"></i>',
+                    text: clave
+                  })
+            } else {
+                // Hubo un error
+                swal({
+                    title: 'Error!',
+                    text: 'Hubo un error',
+                    type: 'error'
+                })
+            }
+        }
+    }
 }
 
 //NUEVO SMARTPHONE
@@ -674,7 +697,6 @@ $('#btnsaveSmartphone').click(function(){
             xhr.onload = function(){
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log(respuesta);
                     if (respuesta.estado === 'OK') {
                         var destination = respuesta.log;
                         swal({
@@ -700,14 +722,61 @@ $('#btnsaveSmartphone').click(function(){
             }            
         }
 });
-//NUEVO SMARTPHONE
+
+if (window.location.href.indexOf("?request=newsmartphone") > -1) {
+    var action = 'searchAccount';
+    populateDrops(action);
+}
+
+function populateDrops(action, accName = ''){
+    var dropdown = $("#ipAccount");
+    switch(action){
+        case 'searchAccount':
+            $.ajax({
+                url: "inc/model/search.php",
+                type:'get',
+                data: 'action='+ action,
+                dataType: 'json',
+                success: function(response) {
+                    // console.log(response);
+                    for (var i = 0; i < response.length; i++) {
+                        dropdown.append('<option value="' + response[i] + '">' + response[i] + '</option>');
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr);
+                }
+            });
+            break;
+        case 'searcheAccount':
+            $.ajax({
+                url: "inc/model/search.php",
+                type:'get',
+                data: 'action=' + action + '&param=' + accName,
+                dataType: 'json',
+                success: function(response) {
+                    //PONER NOMBRE DE LA CUENTA GUARDADO EN LA BD PARA EL DISPOSITIVO POR DEFAULT 
+                    dropdown.append('<option value="' + accName + '" selected>' + accName + '</option>');
+                    for (var i = 0; i < response.length; i++) {
+                        dropdown.append('<option value="' + response[i] + '">' + response[i] + '</option>');
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr);
+                }
+            });
+            break;
+        default:
+            console.info('No hay parametros especificados');
+            break;
+    }
+}
 
 //EDITAR SMARTPHONE
 if (window.location.href.indexOf("?request=editsmartphone") > -1 || window.location.href.indexOf("?request=modifysmartphone") > -1) {
     console.log('Edit Smartphone');
     var jobType = 'querySmartphone';
     var deviceCode = localStorage.getItem('deviceCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
-    // console.info(deviceCode);
     var dataComputer = new FormData();
     dataComputer.append('action', jobType);
     dataComputer.append('deviceCode', deviceCode);
@@ -717,7 +786,6 @@ if (window.location.href.indexOf("?request=editsmartphone") > -1 || window.locat
     xhr.onload = function(){
         if (this.status === 200) {
             var respuesta = JSON.parse(xhr.responseText);
-            console.log(respuesta);
             if (respuesta.status === 'OK') {
                 var informacion = respuesta.data;
                 for(var i in informacion){
@@ -729,6 +797,8 @@ if (window.location.href.indexOf("?request=editsmartphone") > -1 || window.locat
 }
 
 function editSmartphone(rowInfo){
+    var action = 'searcheAccount',
+        accName = rowInfo.account;
     $('#ipdeviceCode').val(rowInfo.code_smartphone);
     $('#ipEmployeecode').val(rowInfo.employee_code);
     $('#ipPhone').val(rowInfo.phone_number);
@@ -743,6 +813,7 @@ function editSmartphone(rowInfo){
     $('#ipIMEI').val(rowInfo.imei);
     $('#ipAccount').val(rowInfo.account);
     $('#ipComment').val(rowInfo.comment);
+    populateDrops(action,accName);
 }
 
 $('#btneditSmartphone').click(function(){
@@ -800,17 +871,18 @@ $('#btneditSmartphone').click(function(){
             xhr.onload = function(){
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log(respuesta);
-                    // localStorage.removeItem('deviceCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
                     if (respuesta.estado === 'OK') {
                         var destination = respuesta.log;
-                        swal({
-                                title: 'Guardado exitoso!',
+                        Swal.fire({
+                                position: 'top-end',
+                                title: 'Modificacion de la información exitoso!',
                                 text: 'Guardado de la información exitoso!',
+                                showConfirmButton: false,
+                                timer: 1500,
                                 type: 'success'
                             })
                             .then(resultado => {
-                                    if(resultado.value) {
+                                    if(resultado.dismiss === Swal.DismissReason.timer) {
                                         location.reload();
                                         window.location.href = 'index.php?request='+destination;
                                     }
@@ -887,20 +959,24 @@ $('#btnmodSmartphone').click(function(){
             xhr.onload = function(){
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log(respuesta);
                     if (respuesta.estado === 'OK') {
                         var destination = respuesta.log;
-                        swal({
-                                title: 'Guardado exitoso!',
-                                text: 'Guardado de la información exitoso!',
-                                type: 'success'
+                       
+                        Swal.fire({
+                            position: 'top-end',
+                            title: 'Guardado exitoso!',
+                            text: 'Modificación de la información exitoso!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            type: 'success'
+                        })
+                        .then(resultado => {
+                                if(resultado.dismiss === Swal.DismissReason.timer) {
+                                    location.reload();
+                                    window.location.href = 'index.php?request='+destination;
+                                }
                             })
-                            .then(resultado => {
-                                    if(resultado.value) {
-                                        location.reload();
-                                        window.location.href = 'index.php?request='+destination;
-                                    }
-                                })
+
                     } else {
                         // Hubo un error
                         swal({
@@ -943,11 +1019,14 @@ function deleteSmartphone (computerRow){
                     var respuesta = JSON.parse(xhr.responseText);
                     computerRow.parents("tr").remove();//ELIMINAR LINEA DEL REGISTRO BORRADO
                     if (respuesta.estado === 'OK') {
-                        Swal(
-                            'Registro eliminado!',
-                            'El registro ' + deviceCode + ' fue eliminado exitosamente.',
-                            'success'
-                            )
+                        Swal.fire({
+                                position: 'top-end',
+                                title: 'Registro eliminado!',
+                                text: 'El registro ' + deviceCode + ' fue eliminado exitosamente.',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                type: 'success'
+                            })
                     } else {
                         // Hubo un error
                         swal({
@@ -979,10 +1058,8 @@ if (window.location.href.indexOf("?request=google-accounts") > -1) {
     xmlhr.onload = function(){
         if (this.status === 200) {
           var respuesta = JSON.parse(xmlhr.responseText);
-          console.log(respuesta);
           if (respuesta.status === 'OK') {
             var informacion = respuesta.data;
-            // console.log(informacion);
             for(var i in informacion){
                 accountsTable(informacion[i]);
             }     
@@ -1015,8 +1092,6 @@ if (window.location.href.indexOf("?request=google-accounts") > -1) {
                 + "</td>"));
                 
         $(".btnDelete").unbind().click(function() {
-            // var accountID = $((this)).data('id');
-            // console.log(accountID);
             deleteAccount($((this)));
         });
 
@@ -1060,7 +1135,6 @@ $('#btnsaveAccount').click(function(){
             xhr.onload = function(){
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log(respuesta);
                     if (respuesta.status === 'OK') {
                         var destination = respuesta.route;
                         swal({
@@ -1092,7 +1166,6 @@ if (window.location.href.indexOf("?request=edit-account") > -1) {
     var jobType = 'queryAccount';
     var accountCode = localStorage.getItem('accountCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
     localStorage.removeItem('accountCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
-    console.info(deviceCode);
     var dataComputer = new FormData();
     dataComputer.append('action', jobType);
     dataComputer.append('accountCode', accountCode);
@@ -1102,7 +1175,6 @@ if (window.location.href.indexOf("?request=edit-account") > -1) {
     xhr.onload = function(){
         if (this.status === 200) {
             var respuesta = JSON.parse(xhr.responseText);
-            console.log(respuesta);
             if (respuesta.status === 'OK') {
                 var informacion = respuesta.data;
                 for(var i in informacion){
@@ -1150,7 +1222,6 @@ $('#btnupdateAccount').click(function(){
             xhr.onload = function(){
                 if (this.status === 200 && this.readyState == 4) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log(respuesta);
                     if (respuesta.estado === 'OK') {
                         var destination = respuesta.log;
                         swal({
@@ -1182,7 +1253,6 @@ function deleteAccount (accountRow){
     var jobType = 'deleteAccount',
         accountName = accountRow.closest("tr").find(".trAccount").text(),
         accountID = accountRow.closest("tr").find(".trCode").text(); 
-    console.log(jobType + ' ' + accountID );
     Swal({
         title: 'Eliminar la cuenta',
         text: '¿Estas seguro de eliminar esta cuenta de correo?',
@@ -1203,7 +1273,6 @@ function deleteAccount (accountRow){
             xhr.onload = function(){
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    // console.log(respuesta);
                     accountRow.parents("tr").remove();//ELIMINAR LINEA DEL REGISTRO BORRADO
                     if (respuesta.estado === 'OK') {
                         Swal(
@@ -1240,10 +1309,8 @@ if (window.location.href.indexOf("?request=printers") > -1) {
     xmlhr.onload = function(){
         if (this.status === 200) {
           var respuesta = JSON.parse(xmlhr.responseText);
-        //   console.log(respuesta);
           if (respuesta.status === 'OK') {
             var informacion = respuesta.data;
-            // console.log(informacion);
             for(var i in informacion){
                 printersTable(informacion[i]);
             }     
@@ -1323,7 +1390,6 @@ if (window.location.href.indexOf("?request=editprinter") > -1) {
     var jobType = 'queryDevice';
     var deviceCode = localStorage.getItem('deviceCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
     localStorage.removeItem('deviceCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
-    // console.info(deviceCode);
     var dataComputer = new FormData();
     dataComputer.append('action', jobType);
     dataComputer.append('deviceCode', deviceCode);
@@ -1333,7 +1399,6 @@ if (window.location.href.indexOf("?request=editprinter") > -1) {
     xhr.onload = function(){
         if (this.status === 200) {
             var respuesta = JSON.parse(xhr.responseText);
-            console.log(respuesta);
             if (respuesta.status === 'OK') {
                 var informacion = respuesta.data;
                 for(var i in informacion){
@@ -1350,7 +1415,6 @@ if (window.location.href.indexOf("?request=editprinter") > -1) {
 if (window.location.href.indexOf("?request=history") > -1) {
     console.log('History page');
     var action  = 'oldRegistry';
-    console.info(action);
     var hTable = new FormData();
     hTable.append('action', action);
     var xmlhr = new XMLHttpRequest();
@@ -1358,10 +1422,8 @@ if (window.location.href.indexOf("?request=history") > -1) {
     xmlhr.onload = function(){
         if (this.status === 200) {
           var respuesta = JSON.parse(xmlhr.responseText);
-          console.log(respuesta);
           if (respuesta.status === 'OK') {
             var informacion = respuesta.data;
-            // console.log(informacion);
             for(var i in informacion){
                 historyTable(informacion[i]);
             }     
@@ -1412,7 +1474,6 @@ function cerrarSesion(){
     xmlhr.onload = function(){
         if (this.status === 200){
             var respuesta = JSON.parse(xmlhr.responseText);
-            console.log(respuesta);
             var tipo = respuesta.tipo,
                         titulo = respuesta.mensaje,
                         mensaje = respuesta.informacion;
@@ -1454,10 +1515,8 @@ if (window.location.href.indexOf("?request=maintControl") > -1) {
     xmlhr.onload = function(){
         if (this.status === 200) {
           var respuesta = JSON.parse(xmlhr.responseText);
-          console.log(respuesta);
           if (respuesta.status === 'OK') {
             var informacion = respuesta.data;
-            // console.log(informacion);
             for(var i in informacion){
                 maintenanceTable(informacion[i]);
             }     
@@ -1511,7 +1570,6 @@ if (window.location.href.indexOf("?request=maintControl") > -1) {
         // $(".btnEdit").unbind().click(function() {
         //     var deviceCode = $((this)).data('code'),
         //         url = "index.php?request=editcomputer";
-        //     // console.info(deviceCode);
         //     localStorage.setItem('deviceCode', deviceCode);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
         //     $(location).attr('href',url);
         // });
@@ -1521,13 +1579,11 @@ if (window.location.href.indexOf("?request=maintControl") > -1) {
 }
 
 $('#btn_sked').click(function(){
-    // console.log('Programar Manteimiento anual');
     var url = "index.php?request=skedMaint";
     $(location).attr('href',url);
 });
 
 $('#btn_toChoose').click(function(){
-    // console.log('Programar Manteimiento anual');
     var url = "index.php?request=chooseMaint";
     var scheduled_date = document.querySelector('#ip_scheduled').value;
     localStorage.setItem('scheduledDate', scheduled_date);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
@@ -1551,10 +1607,8 @@ if (window.location.href.indexOf("?request=chooseMaint") > -1) {
     xmlhr.onload = function(){
         if (this.status === 200){
             var respuesta = JSON.parse(xmlhr.responseText);
-            // console.log(respuesta);
             if (respuesta.status === 'OK') {
                 var informacion = respuesta.data;
-                // console.log(informacion);
                 for(var i in informacion){
                     populateFields(informacion[i]);
                 }     
@@ -1600,7 +1654,6 @@ if (window.location.href.indexOf("?request=chooseMaint") > -1) {
 
 
 $('#btnSelecteditems').click(function(){
-    // console.log('Seleccionar items');
     localStorage.removeItem('scheduledDate'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
     var jobType = 'newMaint';
     var items = document.getElementsByName('computerCode[]');

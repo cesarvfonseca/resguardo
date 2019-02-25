@@ -14,7 +14,6 @@ function checkIN (e)
         password = document.querySelector('#txtPwd').value,
         action = document.querySelector('#type').value;
 
-    // console.log(user + ' ' + password + ' ' + type);
     if(user === '' || password === '')
     {
         // la validación falló
@@ -44,7 +43,6 @@ function checkIN (e)
                 if(this.status === 200 && this.readyState === 4) {
                     var respuesta = JSON.parse(xhr.responseText);
                     
-                    console.log(respuesta);
                     // Si la respuesta es correcta
                     if(respuesta.estado === 'OK') 
                     {
@@ -116,7 +114,6 @@ function asignarSesion( id, name ){
         var u_nombre = name,
             u_activo = id;
     
-        console.log(u_nombre + ' ' + u_activo);
         $.ajax({
             url: 'inc/model/newSession.php',
             type: 'GET',

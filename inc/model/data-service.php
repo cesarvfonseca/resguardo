@@ -32,6 +32,30 @@
             );
             echo json_encode($respuesta);                
             break;
+        case 'acc-key':
+            // die(json_encode($_POST));
+            $param = $_POST['param'];
+            $query = "SELECT pwd,account FROM `accounts` WHERE account = ?";
+            $stmnt = $conn -> prepare($query);
+            $stmnt -> bindParam(1, $param);
+            $stmnt -> execute();
+            $rowCount = $stmnt -> rowCount();
+            $rows = $stmnt -> fetchAll();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'status' => 'OK',
+                    'data' => $rows
+                );
+            } else {
+                $respuesta = array(
+                    'estado' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al recuperar los datos.'
+                );
+            }
+            echo json_encode($respuesta); 
+
+            break;
         case 'oldRegistry':
             // die(json_encode($_POST));
             $query = 'SELECT * FROM `history` WHERE names <> "" ORDER BY fin_date desc,code';
