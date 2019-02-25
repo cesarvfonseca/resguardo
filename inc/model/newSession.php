@@ -6,8 +6,9 @@
         session_start();
         $_SESSION['usuario_activo'] = $_GET['id'];
         $_SESSION['usuario_nombre'] = $_GET['name'];
+        $_SESSION['usuario_departamento'] = $_GET['depto_id'];
         $_SESSION['login'] = true;
-        echo 'Sesion: ' . $_SESSION['usuario_activo'] . ' ' . $_SESSION['usuario_nombre'];
+        // echo 'Sesion: ' . $_SESSION['usuario_activo'] . ' ' . $_SESSION['usuario_nombre'];
     }
 
 ?>

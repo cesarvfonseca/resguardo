@@ -1,18 +1,24 @@
 <?php
-    if(isset($_GET['accion'])){
+    header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+    header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+    $method = $_SERVER['REQUEST_METHOD'];
+    if($method == "OPTIONS") {
+        die();
+    }
 
         include '../function/connection.php';   
-        // $conn = Connect();
-        $action  = $_GET['tipo'];
-
+        $action  = $_POST['action'];
         
         if($action == 'login')
         {
-            $user = $_GET['usuario'];
-            $password = $_GET['clave'];
+            // die(json_encode($_POST));
+            $user = $_POST['usuario'];
+            $password = $_POST['clave'];
             $password = hash('sha512', $password);
 
-            $query = "SELECT pe.employee Anomina, ui.badgenumber Bnomina,pe.emp_name, ui.name,ui.lastname,dp.code,dp.deptname,aw.password
+            $query = "SELECT aw.employee Anomina, ui.badgenumber Bnomina,pe.emp_name, ui.name,ui.lastname,dp.code depto_id,dp.deptname,aw.password
                         FROM 
                         PJEMPLOY pe
                         RIGHT JOIN P1ACCESOWEB aw
@@ -23,8 +29,14 @@
                         ON ui.defaultdeptid = dp.deptid
                         WHERE aw.employee = ?"; 
 
+            
+
             $params = array($user);//Pasar parametros a las consulta ?
+
             $stmt = sqlsrv_query( $con, $query, $params );// Asignar parametros al Statement a ejecutar
+
+            // die(json_encode($params));
+
 
             if( !$stmt ) {
                 $respuesta = array(
@@ -40,10 +52,11 @@
                 $clave_bd = trim($row['password']);
                 if( strcasecmp($clave_bd, $password) == 0 )
                 {
-                    $usuario_activo = trim($row['Bnomina']);
+                    $usuario_activo = trim($row['employee']);
+                    $usuario_departamento = trim($row['depto_id']);
                     $usuario_nombre = trim(ucwords(strtolower($row['name'])));
                     $sesion = true;
-                    session_start();//INICIAR LA SESION
+                    // session_start();//INICIAR LA SESION
                     $respuesta = array(
                         'estado' => 'OK',
                         'ubicacion' => 'main-page',
@@ -51,6 +64,7 @@
                         'mensaje' => 'Ingreso exitoso!',
                         'informacion' => 'Bienvenido',
                         'usuario_activo' => $usuario_activo,
+                        'usuario_departamento' => $usuario_departamento,
                         'usuario_nombre' => $usuario_nombre,
                         'sesion' => $sesion
                     );
@@ -72,14 +86,12 @@
                 $respuesta = array(
                     'estado' => 'OK',
                     'tipo' => 'error',
-                    'informacion' => 'nO HAY',
+                    'informacion' => 'No existe usuario',
                     'mensaje' => 'Usuario y/o clave incorrectos.',
                     'sesion' => $sesion
                     
                 );
             }
-            echo $_GET['accion'].'('.json_encode($respuesta).')';
-           
+            echo json_encode($respuesta);
         }
-    }
 ?>

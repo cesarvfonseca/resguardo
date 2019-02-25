@@ -17,6 +17,7 @@
     <?php 
           $usuario_nombre = $_SESSION['usuario_nombre'];
           $usuario_id = $_SESSION['usuario_activo'];
+          $usuario_departamento = $_SESSION['usuario_departamento'];
     ?>
     
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
