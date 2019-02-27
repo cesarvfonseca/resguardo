@@ -10,7 +10,7 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <title>Resguardo MEXQ</title>
+    <title>Resguardo de equipos MEXQ</title>
   </head>
   <body>
     <head>
