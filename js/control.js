@@ -1,3 +1,7 @@
+var deptoID = $('#ipDepto').val();//VARIABLE DE DEPARTAMENTO DEL USUARIO LOGGUEADO
+var deptoTI = $('#ipTI').val();//VARIABLE DE DEPARTAMENTO DE TI
+
+
 $('#link_1').click(function(){
     console.log('Link 1');
     var url = "index.php?request=computers";
@@ -41,9 +45,8 @@ if (window.location.href.indexOf("?request=main-page") > -1) {
 }
 
 if (window.location.href.indexOf("?request=computers") > -1) {
+    // deptoID = $('#ipDepto').val();
     console.log('Computers page');
-    // jQuery('#link_1').addClass('active').removeClass('test2');
-    // ('#link_1').addClass('active');
     var action  = 'registry';
     var dataTable = new FormData();
     dataTable.append('action', action);
@@ -95,18 +98,59 @@ if (window.location.href.indexOf("?request=computers") > -1) {
         row.append($("<td>" + rowInfo.model + "</td>"));
         // COLUMNA # SERIE
         row.append($("<td>" + rowInfo.serial + "</td>"));
-        // COLUMNA # PRODUCTO
-        row.append($("<td>" + rowInfo.product + "</td>"));
         // COLUMNA FECHA
         row.append($("<td>" + rowInfo.date + "</td>"));
         // COLUMNA # FACTURA
-        row.append($("<td>" + rowInfo.invoicenbr + "</td>"));    
+        row.append($("<td>" + rowInfo.invoicenbr + "</td>"));  
+        // COLUMNA PROVEEDOR
+        row.append($("<td>" + rowInfo.supplier + "</td>"));  
         // COLUMNA ACCION
-        row.append($("<td class='text-center'>"
-                    + "<a tabindex='0' class='btn btn-sm btn-primary btnEdit' data-code='"+rowInfo.code+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
-                    + "<a tabindex='1' class='btn btn-sm btn-info mx-2 btnHelp' data-code='"+rowInfo.code+"' target='_blank' role='button' title='Carta responsiva'><i class='fas fa-file-pdf text-white'></i></a>" 
-                    + "<a tabindex='2' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
-                    + "</td>"));
+        if(deptoID === deptoTI){
+            row.append($("<td class='text-center'>"
+                        + "<a tabindex='0' class='btn btn-sm btn-primary mx-1 btnEdit' data-code='"+rowInfo.code+"' target='_blank' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
+                        + "<a tabindex='1' class='btn btn-sm btn-info mx-1 btnHelp' data-code='"+rowInfo.code+"' role='button' title='Carta responsiva'><i class='fas fa-file-pdf text-white'></i></a>" 
+                        + "<a tabindex='2' class='btn btn-sm btn-danger mx-1 btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
+                        + "</td>"));
+        }else{
+            row.append($("<td class='text-center'>"
+                        + "<a tabindex='0' class='btn btn-info btnInfo'" + 
+                        "data-code='" + rowInfo.code + "'" + 
+                        "data-empcode='" + rowInfo.id_employee + "'" + 
+                        "data-empname='" + rowInfo.employee_name + "'" +
+                        "data-emparea='" + rowInfo.workstation + "'" +
+                        "data-empbranch='" + rowInfo.branch + "'" +
+                        "data-devicebrand='" + rowInfo.brand + "'" +
+                        "data-devicemodel='" + rowInfo.model + "'" +
+                        "data-deviceserie='" + rowInfo.serial + "'" +
+                        "data-deliverydate='" + rowInfo.date + "'" +
+                        "' role='button' title='Información del registro' target='_blank'><i class='fas fa-info-circle'></i></a>"
+                        + "</td>"));
+        }
+
+        $(".btnInfo").unbind().click(function() {
+            var deviceCode = $((this)).data('code'),
+                empcode = $((this)).data('empcode'),
+                empname = $((this)).data('empname'),
+                emparea = $((this)).data('emparea'),
+                empbranch = $((this)).data('empbranch'),
+                devicebrand = $((this)).data('devicebrand'),
+                devicemodel = $((this)).data('devicemodel'),
+                deviceserie = $((this)).data('deviceserie'),
+                deliverydate = $((this)).data('deliverydate');
+            Swal.fire({
+                title: '<strong>Datos del equipo ' + deviceCode + '</strong>',
+                type: 'info',
+                html:
+                  '<b>Responsable: </b> <strong>' + empcode + '</strong>'+ ' ' + empname + '<br>' +
+                  '<b>Sucursal: </b> ' + empbranch + '<b> Departamento: </b> ' + emparea + '<br>' + 
+                  '<b>Marca: </b> ' + devicebrand + '<b> Modelo: </b> ' + devicemodel+ '<br>' + 
+                  '<b>No. de serie: </b> ' + deviceserie + '<br>' + 
+                  '<b>Fecha: </b> ' + deliverydate+ '<br>',
+                focusConfirm: false,
+                confirmButtonText:
+                  '<i class="fas fa-check-circle"></i>'
+            })
+        });
                 
         $(".btnDelete").unbind().click(function() {
             deleteComputer($(this));
@@ -114,14 +158,16 @@ if (window.location.href.indexOf("?request=computers") > -1) {
 
         $(".btnEdit").unbind().click(function() {
             var deviceCode = $((this)).data('code'),
-                url = "index.php?request=editcomputer";
+                url = "index.php?request=editcomputer",
+                newTab = window.open(url, '_blank');
             localStorage.setItem('deviceCode', deviceCode);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
-            $(location).attr('href',url);
+            // $(location).attr('href',url);
+            newTab.focus();
         });
 
         $(".btnHelp").unbind().click(function() {
             var deviceCode = $((this)).data('code'),
-                newTab = window.open('index.php?request=responsiveL&deviceCode='+deviceCode, '_blank');
+                newTab = window.open('inc/templates/responsive.php?deviceCode='+deviceCode, '_blank');
             newTab.focus();
         });
 
@@ -1352,12 +1398,12 @@ if (window.location.href.indexOf("?request=printers") > -1) {
         row.append($("<td>" + rowInfo.model + "</td>"));
         // COLUMNA # SERIE
         row.append($("<td>" + rowInfo.serial + "</td>"));
-        // COLUMNA # PRODUCTO
-        row.append($("<td>" + rowInfo.product + "</td>"));
         // COLUMNA FECHA
         row.append($("<td>" + rowInfo.date + "</td>"));
         // COLUMNA # FACTURA
-        row.append($("<td>" + rowInfo.invoicenbr + "</td>"));    
+        row.append($("<td>" + rowInfo.invoicenbr + "</td>")); 
+        // COLUMNA PROVEEDOR
+        row.append($("<td>" + rowInfo.supplier + "</td>"));     
         // COLUMNA ACCION
         row.append($("<td class='text-center'>"
                 + "<a tabindex='0' class='btn btn-sm btn-primary btnEdit' data-code='"+rowInfo.code+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"

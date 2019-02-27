@@ -3,7 +3,7 @@
   	if (empty($_REQUEST['request']))
 		  $request = null;
     else
-		  $request = $_REQUEST['request'];
+      $request = $_REQUEST['request'];
 ?>
 <!doctype html>
 <html lang="es">
@@ -33,7 +33,7 @@
                     include 'inc/templates/maint/menu.php'; 
                     break;
                   case 'responsiveL':
-                    include 'inc/templates/responsive.php'; 
+                    include 'inc/templates/report.php'; 
                     break;
                   case 'chooseMaint':
                     include 'inc/templates/maint/sked_choose.php'; 

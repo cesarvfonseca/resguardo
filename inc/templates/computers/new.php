@@ -1,3 +1,4 @@
+<?php if($usuario_departamento == $ti_acceso): ?>
 <form action="">
     <div class="row">
         <div class="col-md-6">
@@ -233,3 +234,14 @@
     <br>
 
 </form>
+
+<?php else: ?>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="alert alert-danger" role="alert">
+            <b>No cuenta con los permisos necesarios para entrar a este sitio.</b>
+        </div>
+    </div>
+</div>
+
+<?php endif; ?>

@@ -1,4 +1,4 @@
-<?php include 'inc/model/populate-template.php'; ?>
+<?php include 'inc/model/populate-template.php';?>
 
 <div class="row">
     <div class="col-md-12">
@@ -19,7 +19,7 @@
 <br>
 
 <div class="row">
-    <?php if(!(substr($section, 0, 4) == 'hist')): ?>
+    <?php if(!(substr($section, 0, 4) == 'hist') && $usuario_departamento == $ti_acceso): ?>
     <div class="col-md-9">
         <a class="btn btn-success text-white" id="btnNew" data-type="<?php echo $section ?>" title="Nuevo registro">
             <i class="fas fa-plus"></i>

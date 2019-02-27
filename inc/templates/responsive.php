@@ -1,18 +1,45 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8'); 
 setlocale(LC_ALL,"es_ES");
-include_once 'inc/assets/tcpdf/tcpdf.php';
-include_once 'inc/assets/phpqrcode/qrlib.php';
-include 'inc/model/populate-template.php';
+include '../../inc/assets/tcpdf/tcpdf.php';
+include '../../inc/assets/phpqrcode/qrlib.php';
+include '../../inc/function/connection.php';
+$conn = Connect();
+$conn -> query("SET NAMES utf8");
 
-// $deviceCode = $_GET['deviceCode'];
+$deviceCode = $_GET['deviceCode'];
+        $query = "SELECT * FROM `registry` WHERE `registry`.`code` = ?";
+        $stmnt = $conn -> prepare($query);
+        $stmnt -> bindParam(1, $deviceCode);
+        $stmnt -> execute();
+        while($row = $stmnt -> fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)){
+            $data_employeecode = $row[2];
+            $data_employeename = $row[3];
+            $data_employeposition = $row[4];
+            $data_employemail = $row[7];
+            $data_employebranch = $row[5];
+            $data_employearea = $row[6];
+            $data_employephone = $row[8];
+            $data_devicebrand = $row[12];
+            $data_deliverydate = $row[9];
+            $data_devicemodel = $row[13];
+            $data_deviceserie = $row[10];
+            $data_invoice = $row[15];
+            $data_invoicedate = $row[16];
+            $data_provider = $row[17];
+            $data_comments = $row[19];
+            $data_devicetype = $row[14];
+
+            $data_devicetype = ($data_devicetype == 'MQ') ? 'Laptop' : 'Desktop';
+        }
+
 $fechaActual = date("d/m/Y");
 
-$textQR = 'http://mylink.com?deviceCode='.$deviceCode;
+$textQR = $deviceCode;
 $fileName = $deviceCode.".png";
-$tempDir = "inc/assets/qr/";
+$tempDir = "../../inc/assets/qr/";
 $pngAbsoluteFilePath = $tempDir.$fileName;
-$urlRelativeFilePath = EXAMPLE_TMP_URLRELPATH.$fileName;
+$urlRelativeFilePath = $fileName;
 QRcode::png($textQR, $pngAbsoluteFilePath);
 
 $pdf = new TCPDF('P', 'mm', 'LETTER', true, 'UTF-8', false);
@@ -22,21 +49,20 @@ $pdf->SetAuthor('MEXQ');
 
 $pdf->setPrintHeader(false); 
 $pdf->setPrintFooter(false);
-$pdf->SetMargins(20, 15, 20, false); 
+$pdf->SetMargins(20, 15, 20, false);
 $pdf->SetAutoPageBreak(true, 10); 
 $pdf->SetFont('helvetica', '', 9);
 $pdf->addPage();
 
-
 $content = 	'
                 <table border="2" cellpadding="1">
                     <tr align="center">
-                        <th><img src="img/logo_st.png" alt="imagenQR" height="40" width="120"></th>
+                        <th><img src="../../img/logo_st.png" alt="imagenQR" height="40" width="120"></th>
                         <th>
                             <h4>Servicios de Aseguramiento de Calidad Muñing S.C.</h4>
                             <h5>Carta Responsiva</h5>
                         </th>
-                        <th><img src="inc/assets/qr/'.$fileName.'" alt="imagenQR" height="60" width="60"></th>
+                        <th><img src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="60" width="60"></th>
                     </tr>
                 </table>
                 <p>
@@ -167,7 +193,7 @@ $content = 	'
                     <tbody>
                         <tr>
                             <td border=".1" colspan="5">
-                                <img src="img/logo_st.png" alt="imagenQR" height="15" width="70">
+                                <img src="../../img/logo_st.png" alt="imagenQR" height="15" width="70">
                        
                                     <b>Propiedad MEXQ</b>
                             </td>
@@ -201,12 +227,12 @@ $content = 	'
                         </tr>
                         <tr>
                             <td colspan="3" border=".1">
-                                <b>Fecha</b> '.$fechaActual.'
+                                <b>Fecha</b> '.$data_deliverydate.'
                                 <p></p>
                                 <b>Sucursal</b> '.$data_employebranch.'
                             </td>
                             <td colspan="2" align="center" border=".1">
-                                <img src="inc/assets/qr/'.$fileName.'" alt="imagenQR" height="50" width="50">
+                                <img src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="50" width="50">
                             </td>
                         </tr>
                     </tbody>
@@ -216,9 +242,9 @@ $content = 	'
                     <tbody>
                         <tr>
                             <td height="40">
-                                <img src="inc/assets/qr/'.$fileName.'" alt="imagenQR" height="35" width="35">
-                                <img src="inc/assets/qr/'.$fileName.'" alt="imagenQR" height="35" width="35">
-                                <img src="inc/assets/qr/'.$fileName.'" alt="imagenQR" height="35" width="35">
+                                <img src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="35" width="35">
+                                <img src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="35" width="35">
+                                <img src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="35" width="35">
                             </td>
                         </tr>
                     </tbody>
@@ -228,5 +254,5 @@ $content = 	'
 $pdf->writeHTML($content, true, 0, true, 0);
 ob_end_clean();
 $pdf->lastPage();
-$pdf->output('Reporte.pdf', 'I');
+$pdf->output();
 ?>

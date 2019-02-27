@@ -11,9 +11,9 @@
                     <th scope="col">Marca</th>
                     <th scope="col">Modelo</th>
                     <th scope="col">No. Serie</th>
-                    <th scope="col">No. Parte</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">No. Factura</th>
+                    <th scope="col">Proveedor</th>
                     <th style="width: 8%;" scope="col">Accion</th>
                 </tr>
             </thead>

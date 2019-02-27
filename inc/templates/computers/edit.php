@@ -251,7 +251,7 @@
         <div class="col-md-12">
             <button type="button" class="btn btn-primary btn-lg btn-block" id="btnEditcomputer">Modificar Información <i class="fas fa-edit"></i></button>
             <hr>
-            <a href="javascript:history.back();" class="btn btn-danger btn-lg btn-block">Cancelar <i class="fas fa-times"></i></a>
+            <a href="javascript:window.open('','_self').close();" class="btn btn-danger btn-lg btn-block">Cancelar <i class="fas fa-times"></i></a>
         </div>
     </div>
     

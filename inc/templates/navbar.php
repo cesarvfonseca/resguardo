@@ -8,6 +8,7 @@
 <link rel="shortcut icon" href="img/icoMQ.ico">
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary justify-content-between">
+
   <a class="navbar-brand">
     <img src="img/mexq_logo.png" width="150" alt="Logo MEXQ" class="responsive-img">
   </a>
@@ -18,6 +19,7 @@
           $usuario_nombre = $_SESSION['usuario_nombre'];
           $usuario_id = $_SESSION['usuario_activo'];
           $usuario_departamento = $_SESSION['usuario_departamento'];
+          $ti_acceso = '117';//Variable departamento de sistemas
     ?>
     
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,6 +37,8 @@
       </div>
     </div>
   </form>
+<input id='ipDepto' type="hidden" value="<?php echo $usuario_departamento; ?>" disabled>
+<input id='ipTI' type="hidden" value="<?php echo $ti_acceso; ?>" disabled>
   
   <?php } ?>
 </nav>
