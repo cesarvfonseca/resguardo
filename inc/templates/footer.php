@@ -8,6 +8,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+
 
 <?php if (empty($request)){ ?>
 
@@ -15,7 +18,7 @@
 
 <?php } else { ?>
     <script src="js/control.js"></script>
-    <!-- <script src="js/toPDF.js"></script> -->
+    <!-- <script src="js/jquery.table2excel.js"></script> -->
 <br><br><br>
 <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-info">
     <a class="navbar-brand" href="#">Soporte MEXQ</a>

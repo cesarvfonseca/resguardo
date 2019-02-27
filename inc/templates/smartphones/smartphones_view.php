@@ -15,7 +15,9 @@
                     <th scope="col">Correo Google</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Fecha</th>
+                    <?php if ($usuario_departamento == $ti_acceso){ ?>
                     <th style="width: 8%;" scope="col">Accion</th>
+                    <?php } ?>
                 </tr>
             </thead>
             <tbody id="dataTable">

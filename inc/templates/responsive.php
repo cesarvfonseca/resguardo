@@ -30,7 +30,9 @@ $deviceCode = $_GET['deviceCode'];
             $data_comments = $row[19];
             $data_devicetype = $row[14];
 
-            $data_devicetype = ($data_devicetype == 'MQ') ? 'Laptop' : 'Desktop';
+            $data_devicetype =  $data_devicetype == 'MQ' ? 'Laptop' : 
+                                $data_devicetype == 'PC' ? 'Desktop' : 
+                                $data_devicetype == 'MF' ? 'Multifuncional' : 'N/A';
         }
 
 $fechaActual = date("d/m/Y");

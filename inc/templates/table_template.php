@@ -39,6 +39,7 @@
                 <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-search"></i></span>
             </div>
             <input type="text" class="form-control" aria-label="Sizing example input" id="searchBox" aria-describedby="inputGroup-sizing-default">
+            <button class="btn btn-success ml-3 exportTable"><i class="fas fa-file-excel"></i> Exportar</button>
         </div>
     </div>
 </div>

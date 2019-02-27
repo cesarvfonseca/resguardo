@@ -207,25 +207,25 @@ if (window.location.href.indexOf("?request=editcomputer") > -1) {
         }
     }
 
-    $( "#ipBranch" ).autocomplete({
-        source: function(request, response) {
-            $.getJSON(
-                "inc/model/search.php",
-                { value:$('#ipBranch').val(),action:'searchBranch' }, 
-                response
-            );
-        }
-    });
+    // $( "#ipBranch" ).autocomplete({
+    //     source: function(request, response) {
+    //         $.getJSON(
+    //             "inc/model/search.php",
+    //             { value:$('#ipBranch').val(),action:'searchBranch' }, 
+    //             response
+    //         );
+    //     }
+    // });
 
-    $( "#ipBrand" ).autocomplete({
-        source: function(request, response) {
-            $.getJSON(
-                "inc/model/search.php",
-                { value:$('#ipBrand').val(),action:'searchBrand' }, 
-                response
-            );
-        }
-    });
+    // $( "#ipBrand" ).autocomplete({
+    //     source: function(request, response) {
+    //         $.getJSON(
+    //             "inc/model/search.php",
+    //             { value:$('#ipBrand').val(),action:'searchBrand' }, 
+    //             response
+    //         );
+    //     }
+    // });
 
 }
 
@@ -530,7 +530,8 @@ $('#btnEditcomputer').click(function(){
                             .then(resultado => {
                                     if(resultado.value) {
                                         location.reload();
-                                        window.location.href = 'index.php?request='+destination;
+                                        // window.location.href = 'index.php?request='+destination;
+                                        window.close();
                                     }
                                 })
                     } else {
@@ -618,11 +619,27 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
         // COLUMNA # FACTURA
         row.append($("<td>" + rowInfo.deliver_date + "</td>"));    
         // COLUMNA ACCION
-        row.append($("<td class='text-center'>"
+        if(deptoID === deptoTI){
+            row.append($("<td class='text-center'>"
                 + "<a tabindex='0' class='btn btn-sm btn-primary mx-1 btnEdit' data-code='"+rowInfo.id+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
                 // + "<a tabindex='1' class='btn btn-sm btn-success mx-1 btnAdd' data-id='"+rowInfo.id+"' role='button' title='Añadir responsable'><i class='fas fa-plus-circle'></i></a>" 
                 + "<a tabindex='2' class='btn btn-sm btn-danger mx-1 btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
                 + "</td>"));
+        }else{
+            // row.append($("<td class='text-center'>"
+            //             + "<a tabindex='0' class='btn btn-info btnInfo'" + 
+            //             "data-code='" + rowInfo.code_smartphone + "'" + 
+            //             "data-empcode='" + rowInfo.id_employee + "'" + 
+            //             "data-empname='" + rowInfo.employee_name + "'" +
+            //             "data-emparea='" + rowInfo.workstation + "'" +
+            //             "data-empbranch='" + rowInfo.branch + "'" +
+            //             "data-devicebrand='" + rowInfo.brand + "'" +
+            //             "data-devicemodel='" + rowInfo.model + "'" +
+            //             "data-deviceserie='" + rowInfo.serial + "'" +
+            //             "data-deliverydate='" + rowInfo.date + "'" +
+            //             "' role='button' title='Información del registro' target='_blank'><i class='fas fa-info-circle'></i></a>"
+            //             + "</td>"));
+        }
                 
         $(".btnDelete").unbind().click(function() {
             deleteSmartphone($(this));
@@ -1405,11 +1422,52 @@ if (window.location.href.indexOf("?request=printers") > -1) {
         // COLUMNA PROVEEDOR
         row.append($("<td>" + rowInfo.supplier + "</td>"));     
         // COLUMNA ACCION
-        row.append($("<td class='text-center'>"
-                + "<a tabindex='0' class='btn btn-sm btn-primary btnEdit' data-code='"+rowInfo.code+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
-                + "<a tabindex='1' class='btn btn-sm btn-warning mx-1' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
-                + "<a tabindex='2' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
-                + "</td>"));
+        if(deptoID === deptoTI){
+            row.append($("<td class='text-center'>"
+                        + "<a tabindex='0' class='btn btn-sm btn-primary mx-1 btnEdit' data-code='"+rowInfo.code+"' target='_blank' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
+                        + "<a tabindex='1' class='btn btn-sm btn-info mx-1 btnHelp' data-code='"+rowInfo.code+"' role='button' title='Carta responsiva'><i class='fas fa-file-pdf text-white'></i></a>" 
+                        + "<a tabindex='2' class='btn btn-sm btn-danger mx-1 btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
+                        + "</td>"));
+        }else{
+            row.append($("<td class='text-center'>"
+                        + "<a tabindex='0' class='btn btn-info btnInfo'" + 
+                        "data-code='" + rowInfo.code + "'" + 
+                        "data-empcode='" + rowInfo.id_employee + "'" + 
+                        "data-empname='" + rowInfo.employee_name + "'" +
+                        "data-emparea='" + rowInfo.workstation + "'" +
+                        "data-empbranch='" + rowInfo.branch + "'" +
+                        "data-devicebrand='" + rowInfo.brand + "'" +
+                        "data-devicemodel='" + rowInfo.model + "'" +
+                        "data-deviceserie='" + rowInfo.serial + "'" +
+                        "data-deliverydate='" + rowInfo.date + "'" +
+                        "' role='button' title='Información del registro' target='_blank'><i class='fas fa-info-circle'></i></a>"
+                        + "</td>"));
+        }
+
+        $(".btnInfo").unbind().click(function() {
+            var deviceCode = $((this)).data('code'),
+                empcode = $((this)).data('empcode'),
+                empname = $((this)).data('empname'),
+                emparea = $((this)).data('emparea'),
+                empbranch = $((this)).data('empbranch'),
+                devicebrand = $((this)).data('devicebrand'),
+                devicemodel = $((this)).data('devicemodel'),
+                deviceserie = $((this)).data('deviceserie'),
+                deliverydate = $((this)).data('deliverydate');
+            Swal.fire({
+                title: '<strong>Datos del equipo ' + deviceCode + '</strong>',
+                type: 'info',
+                html:
+                  '<b>Responsable: </b> <strong>' + empcode + '</strong>'+ ' ' + empname + '<br>' +
+                  '<b>Sucursal: </b> ' + empbranch + '<b> Departamento: </b> ' + emparea + '<br>' + 
+                  '<b>Marca: </b> ' + devicebrand + '<b> Modelo: </b> ' + devicemodel+ '<br>' + 
+                  '<b>No. de serie: </b> ' + deviceserie + '<br>' + 
+                  '<b>Fecha: </b> ' + deliverydate+ '<br>',
+                focusConfirm: false,
+                confirmButtonText:
+                  '<i class="fas fa-check-circle"></i>'
+            })
+        });
                 
         $(".btnDelete").unbind().click(function() {
             deleteComputer($(this));
@@ -1418,11 +1476,15 @@ if (window.location.href.indexOf("?request=printers") > -1) {
         $(".btnEdit").unbind().click(function() {
             var deviceCode = $((this)).data('code'),
                 url = "index.php?request=editprinter";
-            // console.info(deviceCode);
             localStorage.setItem('deviceCode', deviceCode);//GUARAR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
             $(location).attr('href',url);
         });
 
+        $(".btnHelp").unbind().click(function() {
+            var deviceCode = $((this)).data('code'),
+                newTab = window.open('inc/templates/responsive.php?deviceCode='+deviceCode, '_blank');
+            newTab.focus();
+        });
     }    
 
     $('.menuLink').removeClass('active');
@@ -1608,18 +1670,6 @@ if (window.location.href.indexOf("?request=maintControl") > -1) {
                     + "<a tabindex='1' class='btn btn-sm btn-warning mx-2 btnHelp' role='button' title='Soporte tecnico'><i class='far fa-bookmark'></i></a>" 
                     + "<a tabindex='2' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
                     + "</td>"));
-                
-        // $(".btnDelete").unbind().click(function() {
-        //     deleteComputer($(this));
-        // });
-
-        // $(".btnEdit").unbind().click(function() {
-        //     var deviceCode = $((this)).data('code'),
-        //         url = "index.php?request=editcomputer";
-        //     localStorage.setItem('deviceCode', deviceCode);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
-        //     $(location).attr('href',url);
-        // });
-
     }
 
 }
@@ -1766,3 +1816,10 @@ $('#btn_maintControl').click(function(){
 });
 
 /** MANTENIMIENTOS **/
+
+/** EXPORTAR A EXCEL */
+$('.exportTable').click(function(){
+    $("table").table2excel({
+        filename: "Datos" //do not include extension
+    }); 
+});
