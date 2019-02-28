@@ -4,6 +4,11 @@
 		  $request = null;
     else
       $request = $_REQUEST['request'];
+    
+    if (empty($_REQUEST['deviceCode']))
+		  $dc = null;
+    else
+      $dc = $_REQUEST['deviceCode'];
 ?>
 <!doctype html>
 <html lang="es">
@@ -21,6 +26,9 @@
         <?php 
               if (!isset($_SESSION['usuario_nombre']) || empty($_SESSION['usuario_nombre']))
               {
+                if(isset($dc))
+                include 'inc/templates/report.php';
+                else
                 include 'inc/templates/login.php';
               }
               else
@@ -32,7 +40,7 @@
                   case 'maint':
                     include 'inc/templates/maint/menu.php'; 
                     break;
-                  case 'responsiveL':
+                  case 'deviceCode':
                     include 'inc/templates/report.php'; 
                     break;
                   case 'chooseMaint':

@@ -30,14 +30,21 @@ $deviceCode = $_GET['deviceCode'];
             $data_comments = $row[19];
             $data_devicetype = $row[14];
 
-            $data_devicetype =  $data_devicetype == 'MQ' ? 'Laptop' : 
-                                $data_devicetype == 'PC' ? 'Desktop' : 
-                                $data_devicetype == 'MF' ? 'Multifuncional' : 'N/A';
+            switch ($data_devicetype){
+                case 'MQ' : $data_devicetype = 'Laptop'; break;
+                case 'PC' : $data_devicetype = 'Desktop'; break;
+                case 'MF' : $data_devicetype = 'Multifuncional'; break;
+                case 'SP' : $data_devicetype = 'Smartphone'; break;
+                default : $data_devicetype = 'N/A'; break;
+            }
         }
 
 $fechaActual = date("d/m/Y");
 
-$textQR = $deviceCode;
+$deviceCode_ = $deviceCode;
+$deviceCode = hash('sha512', $deviceCode);
+$url = 'http://mexq.mx/resguardo/index.php?deviceCode=';
+$textQR = $url.$deviceCode;
 $fileName = $deviceCode.".png";
 $tempDir = "../../inc/assets/qr/";
 $pngAbsoluteFilePath = $tempDir.$fileName;
@@ -127,7 +134,7 @@ $content = 	'
                                 No. Serie: '.$data_deviceserie.'
                             </td>
                             <td width="125">
-                                Usuario: '.$deviceCode.'
+                                Usuario: '.$deviceCode_.'
                             </td> 
                             <td width="108">
                                 Contraseña: P@ssw0rd
@@ -221,10 +228,10 @@ $content = 	'
                         </tr>
                         <tr bgcolor="#b3b3b3">
                             <td colspan="2">
-                                <b>ID</b> '.$deviceCode.'
+                                <b>Codigo</b> '.$deviceCode_.'
                             </td>
                             <td colspan="3">
-                                <b>#Serie</b> '.$data_deviceserie.'
+                                <b># Serie</b> '.$data_deviceserie.'
                             </td>
                         </tr>
                         <tr>

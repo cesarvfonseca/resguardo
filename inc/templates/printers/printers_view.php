@@ -14,6 +14,7 @@
                     <th scope="col">Fecha</th>
                     <th scope="col">No. Factura</th>
                     <th scope="col">Proveedor</th>
+                    <th scope="col">Estado</th>
                     <th style="width: 8%;" scope="col">Accion</th>
                 </tr>
             </thead>

@@ -70,14 +70,18 @@ if (window.location.href.indexOf("?request=computers") > -1) {
     function computersTable(rowInfo){
         
         var st = rowInfo.status,
+            status = '',
             estado = '';
         
         if(st === 'A'){
             estado = "table-secondary";
+            status = 'Activo';
         } else if(st === 'I'){
             estado = "table-danger";
+            status = 'Baja';
         } else if(st === 'X'){
             estado = "table-warning";
+            status = 'Soporte';
         }
         var row = $("<tr class='" + estado + "'>");
         
@@ -103,7 +107,9 @@ if (window.location.href.indexOf("?request=computers") > -1) {
         // COLUMNA # FACTURA
         row.append($("<td>" + rowInfo.invoicenbr + "</td>"));  
         // COLUMNA PROVEEDOR
-        row.append($("<td>" + rowInfo.supplier + "</td>"));  
+        row.append($("<td>" + rowInfo.supplier + "</td>")); 
+        // COLUMNA PROVEEDOR
+        row.append($("<td>" + status + "</td>")); 
         // COLUMNA ACCION
         if(deptoID === deptoTI){
             row.append($("<td class='text-center'>"
@@ -585,12 +591,15 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
     function smartTable(rowInfo){
         
         var st = rowInfo.status,
+            status = '',
             estado = '';
         
         if(st === '1'){
             estado = "table-secondary";
+            status = 'Activo';
         } else if(st === '0'){
             estado = "table-danger";
+            status = 'Baja';
         }
         var row = $("<tr class='" + estado + "'>");
         
@@ -617,7 +626,9 @@ if (window.location.href.indexOf("?request=smartphone") > -1) {
         // COLUMNA FECHA
         row.append($("<td>" + rowInfo.phone_number + "</td>"));
         // COLUMNA # FACTURA
-        row.append($("<td>" + rowInfo.deliver_date + "</td>"));    
+        row.append($("<td>" + rowInfo.deliver_date + "</td>"));
+        // COLUMNA # FACTURA
+        row.append($("<td>" + status + "</td>"));    
         // COLUMNA ACCION
         if(deptoID === deptoTI){
             row.append($("<td class='text-center'>"
@@ -1387,14 +1398,18 @@ if (window.location.href.indexOf("?request=printers") > -1) {
     function printersTable(rowInfo){
         
         var st = rowInfo.status,
+            status = '',
             estado = '';
         
         if(st === 'A'){
             estado = "table-secondary";
+            status = 'Activo';
         } else if(st === 'I'){
             estado = "table-danger";
+            status = 'Baja';
         } else if(st === 'X'){
             estado = "table-warning";
+            status = 'Soporte';
         }
         var row = $("<tr class='" + estado + "'>");
         
@@ -1420,7 +1435,9 @@ if (window.location.href.indexOf("?request=printers") > -1) {
         // COLUMNA # FACTURA
         row.append($("<td>" + rowInfo.invoicenbr + "</td>")); 
         // COLUMNA PROVEEDOR
-        row.append($("<td>" + rowInfo.supplier + "</td>"));     
+        row.append($("<td>" + rowInfo.supplier + "</td>")); 
+        // COLUMNA PROVEEDOR
+        row.append($("<td>" + status + "</td>"));    
         // COLUMNA ACCION
         if(deptoID === deptoTI){
             row.append($("<td class='text-center'>"
