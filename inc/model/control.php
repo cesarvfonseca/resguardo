@@ -44,6 +44,7 @@
                 }
                 $temp = explode(".", $_FILES["fileAttach"]["name"]);
                 $newfilename = $deviceSerie . '.' . end($temp);
+                
                 move_uploaded_file($_FILES["fileAttach"]["tmp_name"], $targetDir . $newfilename);
             }
 
@@ -156,8 +157,8 @@
                 {
                     mkdir($directorio, 0777,true);
                 }
-                $temp = explode(".", $_FILES["responsive_Attach"]["name"]);
-                $newfilename = $deviceSerie . '.' . end($temp);
+                $temp = 'jpg';
+                $newfilename = $deviceSerie . '.' . $temp;
                 move_uploaded_file($_FILES["responsive_Attach"]["tmp_name"], $targetDir . $newfilename);
             }
 

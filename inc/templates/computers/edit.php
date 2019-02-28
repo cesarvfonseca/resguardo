@@ -235,10 +235,10 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <a href="" class="btn btn-outline-info btn-block" type="button" target="_blank" id="showPDF">Ver Factura</a>
+                            <a href="" class="btn btn-outline-info btn-block" role="button" target="_blank" id="showPDF">Ver Factura</a>
                         </div>
                         <div class="form-group col-md-6">
-                            <a href="" class="btn btn-outline-success btn-block" type="button" target="_blank" id="showIMG">Ver Carta responsiva</a>
+                            <a href="" class="btn btn-outline-success btn-block" role="button" target="_blank" id="showIMG">Ver Carta responsiva</a>
                         </div>
                     </div>                    
 

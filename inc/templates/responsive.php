@@ -58,7 +58,7 @@ $pdf->SetAuthor('MEXQ');
 
 $pdf->setPrintHeader(false); 
 $pdf->setPrintFooter(false);
-$pdf->SetMargins(20, 15, 20, false);
+$pdf->SetMargins(20, 10, 20, false);
 $pdf->SetAutoPageBreak(true, 10); 
 $pdf->SetFont('helvetica', '', 9);
 $pdf->addPage();
@@ -115,7 +115,7 @@ $content = 	'
                         </tr>
                         <tr>
                             <td colspan="2" align="center" bgcolor="#b3b3b3">
-                                <b>DATOS DEL EQUIPO</b>
+                                <b>DATOS DEL EQUIPO '.$deviceCode_.'</b>
                             </td>  
                         </tr>
                         <tr>
@@ -195,7 +195,6 @@ $content = 	'
                     </tbody>
                 </table>
                 <p></p>
-
                 <p>-    -    -   -   -   -   -   -   -   -   -   -   -   -   -   -   -    -   -   -   -   -   -   -   -   -   -   -   -   -   -   -    -   -   -   -   -   -   -   -   -   -   -   -   -   -   -    -   -   -   -   -   -   -   -   -   -   -   -   -   -   -    -   -   -   -   -   -   -   -   -   -   -   -   -   -   -    -   -   -   -   -   -   -   -   -   -   -   -   -   -   </p>
                 
                 <table cellpadding="2" width="350">
@@ -237,8 +236,8 @@ $content = 	'
                         <tr>
                             <td colspan="3" border=".1">
                                 <b>Fecha</b> '.$data_deliverydate.'
-                                <p></p>
-                                <b>Sucursal</b> '.$data_employebranch.'
+                                <br>
+                                <b>Area</b> '.$data_employearea.'
                             </td>
                             <td colspan="2" align="center" border=".1">
                                 <img src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="50" width="50">
@@ -247,13 +246,42 @@ $content = 	'
                     </tbody>
                 </table>
                 <p></p>
-                <table border="1" cellpadding="2">
+                <table border="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$deviceCode_.'
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$deviceCode_.'
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$deviceCode_.'
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$deviceCode_.'
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$deviceCode_.'
+                            </td>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
-                            <td height="40">
-                                <img src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="35" width="35">
-                                <img src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="35" width="35">
-                                <img src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="35" width="35">
+                            <td>
+                                <img border=".2" cellpadding="0" src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="55" width="55">
+                            </td>
+                            <td>
+                                <img border=".2" cellpadding="0" src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="55" width="55">
+                            </td>
+                            <td>
+                                <img border=".2" cellpadding="0" src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="55" width="55">
+                            </td>
+                            <td>
+                                <img border=".2" cellpadding="0" src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="55" width="55">
+                            </td>
+                            <td>
+                                <img border=".2" cellpadding="0" src="../../inc/assets/qr/'.$fileName.'" alt="imagenQR" height="55" width="55">
                             </td>
                         </tr>
                     </tbody>
