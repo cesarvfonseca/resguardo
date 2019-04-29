@@ -1,5 +1,6 @@
 var deptoID = $('#ipDepto').val();//VARIABLE DE DEPARTAMENTO DEL USUARIO LOGGUEADO
 var deptoTI = $('#ipTI').val();//VARIABLE DE DEPARTAMENTO DE TI
+var idUser = $('#ipID').val();//VARIABLE DE DEPARTAMENTO DE TI
 
 
 $('#link_1').click(function(){
@@ -328,6 +329,10 @@ $('#btnNew').click(function(){
             break;
         case 'google-accounts':
             var url = "index.php?request=newaccount";
+            $(location).attr('href',url);
+            break;
+        case 'mails':
+            var url = "index.php?request=newmail";
             $(location).attr('href',url);
             break;
         default:
@@ -1847,7 +1852,7 @@ if (window.location.href.indexOf("?request=mails") > -1) {
     xmlhr.onload = function(){
         if (this.status === 200) {
           var respuesta = JSON.parse(xmlhr.responseText);
-          console.log(respuesta);
+        //   console.log(respuesta);
           if (respuesta.estado === 'OK') {
             var informacion = respuesta.informacion;
             for(var i in informacion){
@@ -1863,26 +1868,23 @@ if (window.location.href.indexOf("?request=mails") > -1) {
     function emailTable(rowInfo){
         
         var st = rowInfo.estado,
-            status = '',
+            createdate = rowInfo.fecha_creacion,
             estado = '';
         
-        if(st === '1'){
-            estado = "table-secondary";
+        if(st === 0){
+            estado = "table-warning text-danger";
             status = 'Activo';
-        } else if(st === '0'){
-            estado = "table-danger";
-            status = 'Baja';
         }
         var row = $("<tr class='" + estado + "'>");
         
         $("#dataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
         // NUMERO DE EQUIPO
-        row.append($("<td class='text-muted trCode'>" + rowInfo.id_correo + " </td>"));
+        row.append($("<td class='text-muted d-none trCode'>" + rowInfo.id_correo + " </td>"));
         // NOMINA DEL EMPLEADO
         row.append($("<td> " + rowInfo.employee + " </td>"));
-        row.append($("<td> " + rowInfo.emp_name + " </td>"));
+        row.append($("<td class='text-uppercase'> " + rowInfo.emp_name + " </td>"));
         row.append($("<td> " + rowInfo.alias + '@mexq.com.mx' + " </td>"));
-        row.append($("<td> " + rowInfo.created_at.date + " </td>"));
+        row.append($("<td>" + createdate + " </td>"));
         // COLUMNA ACCION
             row.append($("<td class='text-center'>"
                         + "<a tabindex='0' class='btn btn-sm btn-primary mx-1 btnEdit' data-code='"+rowInfo.id_correo+"' target='_blank' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
@@ -1915,24 +1917,17 @@ if (window.location.href.indexOf("?request=mails") > -1) {
         });
                 
         $(".btnDelete").unbind().click(function() {
-            deleteComputer($(this));
+            deleteMail($(this));
         });
 
         $(".btnEdit").unbind().click(function() {
-            var deviceCode = $((this)).data('code'),
-                url = "index.php?request=editcomputer",
-                newTab = window.open(url, '_blank');
-            localStorage.setItem('deviceCode', deviceCode);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
-            // $(location).attr('href',url);
-            newTab.focus();
+            var mailID = $((this)).data('code'),
+                url = "index.php?request=editMail";
+                // newTab = window.open(url, '_blank');
+            localStorage.setItem('mailID', mailID);//GUARADR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
+            $(location).attr('href',url);
+            // newTab.focus();
         });
-
-        $(".btnHelp").unbind().click(function() {
-            var deviceCode = $((this)).data('code'),
-                newTab = window.open('inc/templates/responsive.php?deviceCode='+deviceCode, '_blank');
-            newTab.focus();
-        });
-
     }
         
     $('.menuLink').removeClass('active');
@@ -1941,6 +1936,214 @@ if (window.location.href.indexOf("?request=mails") > -1) {
     $('.printersLink').removeClass('active');
 
 }
+
+$('#btnsaveMail').click(function(){
+    console.log('SALVAR CORREO');
+    var action = 'newMail',
+        accountOwner = document.querySelector('#ipNomina').value,
+        accountName = document.querySelector('#ipMail').value,
+        accountType = document.querySelector('#igType').value,
+        accountStatus = document.querySelector('#igStatus').value,
+        userControl = idUser;
+    if  (
+        accountOwner.trim() === '' || accountName.trim() === '' 
+        ){
+            swal({
+                type: 'error',
+                title: 'Error!',
+                text: 'Todos los campos son obligatorios!'
+            })
+        } else {
+            var dataMail = new FormData();
+            dataMail.append('accountOwner', accountOwner);
+            dataMail.append('accountName', accountName);
+            dataMail.append('accountType', accountType);
+            dataMail.append('accountStatus', accountStatus);
+            dataMail.append('userControl', userControl);
+            dataMail.append('action', action);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://187.188.159.205:8090/web_serv/accessWeb/inc/model/forms.php', true);
+            xhr.send(dataMail);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    // console.log(respuesta);
+                    if (respuesta.estado === 'OK') {
+                        var destination = respuesta.route;
+                        swal({
+                                title: 'Guardado exitoso!',
+                                text: 'Guardado de la información exitoso!',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                    if(resultado.value) {
+                                        location.reload();
+                                        window.location.href = 'index.php?request='+destination;
+                                    }
+                                })
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }            
+        }
+});
+
+//ELIMINAR CORREO
+function deleteMail (mailRow){    
+    var action = 'deleteMail',
+        accountID = mailRow.closest("tr").find(".trCode").text(),
+        userControl = idUser;
+    Swal({
+        title: 'Eliminar cuenta de correo',
+        text: '¿Estas seguro de eliminar este registro?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si, borrar!'
+      }).then((result) => {
+        if (result.value) {
+            var dataMailD = new FormData();
+            dataMailD.append('action', action);
+            dataMailD.append('accountID', accountID);
+            dataMailD.append('userControl', userControl);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://187.188.159.205:8090/web_serv/accessWeb/inc/model/forms.php', true);
+            xhr.send(dataMailD);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    // console.log(respuesta);
+                    mailRow.parents("tr").remove();//ELIMINAR LINEA DEL REGISTRO BORRADO
+                    if (respuesta.estado === 'OK') {
+                        Swal(
+                            'Registro eliminado!',
+                            'El registro ' + accountID + ' fue eliminado exitosamente.',
+                            'success'
+                        )
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }
+        }
+      })
+}
+
+//EDITAR CORREO
+if (window.location.href.indexOf("?request=editMail") > -1) {
+    console.log('Edit Mail');
+    var action = 'searchMail';
+    var mailID = localStorage.getItem('mailID'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    localStorage.removeItem('mailID'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    var dataComputer = new FormData();
+    dataComputer.append('action', action);
+    dataComputer.append('mailID', mailID);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://187.188.159.205:8090/web_serv/accessWeb/inc/model/forms.php', true);
+    xhr.send(dataComputer);
+    xhr.onload = function(){
+        if (this.status === 200) {
+            var respuesta = JSON.parse(xhr.responseText);
+            console.log(respuesta);
+            if (respuesta.estado === 'OK') {
+                var informacion = respuesta.informacion;
+                for(var i in informacion){
+                    editMail(informacion[i]);
+                }
+            }
+        }
+    }
+}
+
+function editMail(rowInfo){
+    $('#ipMail').val(rowInfo.alias.trim());
+    $('#ipNomina').val(rowInfo.employee.trim());
+    $('#igType').val(rowInfo.tipo);
+    $('#igStatus').val(rowInfo.estado);
+    $('#igStatus').val(rowInfo.estado);
+    $('#ipIDaccount').val(rowInfo.id_correo);
+    $('#accountOwner').text('Editar cuenta de ' + rowInfo.emp_name);
+    // populateDrops(action,accName);
+}
+
+$('#btneditMail').click(function(){
+    // console.log('EDITAR EQUIPO DE COMPUTO');
+    var action = 'editMail',
+        accountID = document.querySelector('#ipIDaccount').value,
+        accountOwner = document.querySelector('#ipNomina').value,
+        accountName = document.querySelector('#ipMail').value,
+        accountStatus = parseInt(document.querySelector('#igStatus').value),
+        accountType = parseInt(document.querySelector('#igType').value),
+        userControl = idUser;       
+
+    if  (
+        accountOwner.trim() === '' || accountName.trim() === ''
+        ){
+            swal({
+                type: 'error',
+                title: 'Error!',
+                text: 'Todos los campos son obligatorios!'
+            })
+        } else {
+            var dataAccountE = new FormData();
+            dataAccountE.append('accountID', accountID);
+            dataAccountE.append('accountOwner', accountOwner);
+            dataAccountE.append('accountName', accountName);
+            dataAccountE.append('accountType', accountType);
+            dataAccountE.append('accountStatus', accountStatus);
+            dataAccountE.append('userControl', userControl);
+            dataAccountE.append('action', action);
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://187.188.159.205:8090/web_serv/accessWeb/inc/model/forms.php', true);
+            xhr.send(dataAccountE);
+            xhr.onload = function(){
+                if (this.status === 200 && this.readyState == 4) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    console.log(respuesta);
+                    if (respuesta.estado === 'OK') {
+                        var destination = respuesta.route;
+                        swal({
+                                title: 'Modificación exitosa!',
+                                text: 'Modificación de la información exitosa!',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                    if(resultado.value) {
+                                        location.reload();
+                                        window.location.href = 'index.php?request='+destination;
+                                        // window.close();
+                                    }
+                                })
+                    } else {
+                        // Hubo un error
+                        
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }            
+        }
+});
+
+
 /** CORREOS */
 
 /** EXPORTAR A EXCEL */

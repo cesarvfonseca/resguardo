@@ -39,6 +39,7 @@
   </form>
 <input id='ipDepto' type="hidden" value="<?php echo $usuario_departamento; ?>" disabled>
 <input id='ipTI' type="hidden" value="<?php echo $ti_acceso; ?>" disabled>
+<input id='ipID' type="hidden" value="<?php echo $usuario_id; ?>" disabled>
   
   <?php } ?>
 </nav>

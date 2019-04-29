@@ -5,11 +5,17 @@
 
 		$db_host		= 'localhost';
 
-		$db_user		= 'mexqmx_developer';
 
-		$db_pass		= 'n&Wi1UG[RNwo';
 
-		$db_database	= 'mexqcmmx_resguardo'; 
+		$db_user		= 'mexqmx_ti2';
+
+
+
+		$db_pass		= 'ibTM;.&gHj8r';
+
+
+
+		$db_database	= 'mexqmx_resguardo'; 
 */
 
 		$db_host		= 'localhost';

@@ -78,6 +78,10 @@
     <?php include 'history/history_view.php' ?>
 <?php elseif ($section == 'mails'): ?>
     <?php include 'mails/mails_view.php' ?>
+<?php elseif ($section == 'newmail'): ?>
+    <?php include 'mails/new.php' ?>
+<?php elseif ($section == 'editMail'): ?>
+    <?php include 'mails/edit.php' ?>
 <?php elseif ($section == 'maintControl'): ?>
     <?php include 'maint/maint_view.php' ?>
 <?php endif; ?>
