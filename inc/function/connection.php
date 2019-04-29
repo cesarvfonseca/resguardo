@@ -1,7 +1,6 @@
 <?php 
 
 	function Connect(){
-/*
 
 		$db_host		= 'localhost';
 
@@ -16,15 +15,14 @@
 
 
 		$db_database	= 'mexqmx_resguardo'; 
-*/
 
-		$db_host		= 'localhost';
+		// $db_host		= 'localhost';
 
-		$db_user		= 'root';
+		// $db_user		= 'root';
 
-		$db_pass		= '';
+		// $db_pass		= '';
 
-		$db_database	= 'resguardo'; 
+		// $db_database	= 'resguardo'; 
 
 
 		try{
