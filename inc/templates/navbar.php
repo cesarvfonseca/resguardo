@@ -29,7 +29,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link menuLink" href="index.php?request=main-page">Menu <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link computersLink" href="index.php?request=computers">Equipos de computo</a>
+        <a class="nav-item nav-link computersLink" href="index.php?request=computers">PC's</a>
         <a class="nav-item nav-link smartphonesLink" href="index.php?request=smartphone">Smartphones</a>
         <a class="nav-item nav-link printersLink" href="index.php?request=printers">Impresoras</a>
         <a class="nav-item nav-link disabled text-white" href="#">Bienvenido (a): <?php echo $usuario_nombre; ?></a>
