@@ -265,6 +265,8 @@ function editDevice(rowInfo){
     $('#ipComment').val(rowInfo.comment);
     document.querySelector('#showPDF').setAttribute('href', 'inc/model/reader.php?type=pdf&deviceSerie='+rowInfo.serial);
     document.querySelector('#showIMG').setAttribute('href', 'inc/model/reader.php?type=jpg&deviceSerie='+rowInfo.serial);
+    document.querySelector('#itSupport').setAttribute('href', 'index.php?request=newSupport&id='+rowInfo.code);
+    
 }
 
 // ELIMINAR EQUIPO DE COMPUTO
@@ -559,6 +561,169 @@ $('#btnEditcomputer').click(function(){
         }
 });
 //EDITAR EQUIPO DE COMPUTO
+
+//SOPORTE TECNICO A EQUIPO DE COMPUTO
+if (window.location.href.indexOf("?request=newSupport") > -1) {
+    var deviceCode = document.querySelector('#deviceCode').value,
+        jobType = 'queryDevice',
+        action = 'oneSupport';
+    console.log('Soporte al equipo de computo ' + deviceCode);
+    var data_Computer = new FormData();
+    data_Computer.append('action', jobType);
+    data_Computer.append('deviceCode', deviceCode);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'inc/model/data-service.php', true);
+    xhr.send(data_Computer);
+    xhr.onload = function(){
+        if (this.status === 200) {
+            var respuesta = JSON.parse(xhr.responseText);
+            console.log(respuesta);
+            if (respuesta.status === 'OK') {
+                var informacion = respuesta.data;
+                for(var i in informacion){
+                    infoDevice(informacion[i]);
+                }
+            }
+        }
+    }
+
+    var dataDevicesupport = new FormData();
+    dataDevicesupport.append('action', action);
+    dataDevicesupport.append('deviceCode', deviceCode);
+    var xhrd = new XMLHttpRequest();
+    xhrd.open('POST', 'inc/model/data-service.php', true);
+    xhrd.send(dataDevicesupport);
+    xhrd.onload = function(){
+        if (this.status === 200) {
+            var nrespuesta = JSON.parse(xhrd.responseText);
+            console.log(nrespuesta);
+            if (nrespuesta.status === 'OK') {
+                var informacion = nrespuesta.data;
+                for(var i in informacion){
+                    historySupport(informacion[i]);
+                }
+            }
+        }
+    }
+
+    function historySupport(rowInfo){
+        
+        var st = rowInfo.status,
+            status = '',
+            estado = '';
+        
+        if(st === '1'){
+            estado = "table-secondary";
+            status = 'Realizado';
+        } else if(st === '2'){
+            estado = "table-info";
+            status = 'En proceso';
+        } else if(st === '3'){
+            estado = "table-default";
+            status = 'En segimiento';
+        }
+        var row = $("<tr class='" + estado + "'>");
+        
+        
+        $("#dataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+        // NUMERO DE EQUIPO
+        row.append($("<td class='text-muted trID d-none'>" + rowInfo.id + " </td>"));
+        // NOMINA DEL EMPLEADO
+        row.append($("<td> " + rowInfo.agent + " </td>"));
+        // NOMBRE DEL EMPLEADO
+        row.append($("<td> " + rowInfo.employee_code + " </td>"));
+        // TIPO DE SUCURSAL
+        row.append($("<td> " + rowInfo.reason + " </td>"));
+        // COLUMNA DEPARTAMENTO
+        row.append($("<td>" + rowInfo.comment + "</td>"));
+        // COLUMNA MARCA
+        row.append($("<td>" + rowInfo.description + "</td>"));
+        // COLUMNA MODELO
+        row.append($("<td>" + rowInfo.support_date + "</td>"));
+        // COLUMNA # SERIE
+        row.append($("<td>" + status + "</td>"));
+         
+        // COLUMNA ACCION
+        row.append($("<td class='text-center'>"
+            + "<a tabindex='0' class='btn btn-sm btn-primary mx-1 btnEdit' data-code='"+rowInfo.id+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
+            // + "<a tabindex='1' class='btn btn-sm btn-success mx-1 btnAdd' data-id='"+rowInfo.id+"' role='button' title='Añadir responsable'><i class='fas fa-plus-circle'></i></a>" 
+            + "<a tabindex='2' class='btn btn-sm btn-danger mx-1 btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
+            + "</td>"));
+        
+
+    }
+
+}
+
+function infoDevice(rowInfo){
+    $('#ipNomina').val(rowInfo.id_employee);
+    $('#ipEmployee').val(rowInfo.employee_name);
+    $('#ipMail').val(rowInfo.mail);
+    $('#ipBranch').val(rowInfo.branch);    
+}
+
+$('#btnsaveSupport').click(function(){
+    console.log('NUEVO SOPORTE');
+    var jobType = 'newSupport',
+        deviceCode = document.querySelector('#deviceCode').value,
+        employeeCode = document.querySelector('#ipNomina').value,
+        supportCause = document.querySelector('#igCause').value,
+        supportComment = document.querySelector('#ipReason').value,
+        supportDesc = document.querySelector('#ipComment').value,
+        supportDate = document.querySelector('#ipsupportDate').value,
+        supportStatus = document.querySelector('#igStatus').value;
+    if  (
+        supportCause.trim() === '' || supportComment.trim() === '' ||
+        supportDesc.trim() === ''
+        ){
+            swal({
+                type: 'error',
+                title: 'Error!',
+                text: 'Todos los campos son obligatorios!'
+            })
+        } else {
+            var dataSupport = new FormData();
+            dataSupport.append('deviceCode', deviceCode);
+            dataSupport.append('employeeCode', employeeCode);
+            dataSupport.append('supportCause', supportCause);
+            dataSupport.append('supportComment', supportComment);
+            dataSupport.append('supportDesc', supportDesc);
+            dataSupport.append('supportDate', supportDate);
+            dataSupport.append('supportStatus', supportStatus);
+            dataSupport.append('jobType', jobType);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataSupport);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    console.log(respuesta);
+                    if (respuesta.status === 'OK') {
+                        var destination = respuesta.log;
+                        swal({
+                                title: 'Guardado exitoso!',
+                                text: 'Guardado de la información exitoso!',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                    if(resultado.value) {
+                                        location.reload();
+                                    }
+                                })
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }            
+        }
+});
+
 
 //BUSQUEDA DE INFORMACION
 $(document).ready(function(){
@@ -2142,7 +2307,6 @@ $('#btneditMail').click(function(){
             }            
         }
 });
-
 
 /** CORREOS */
 

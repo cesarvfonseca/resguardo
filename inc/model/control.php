@@ -638,6 +638,50 @@
             }
             echo json_encode($respuesta);
             break;
+        case 'newSupport':
+            // die(json_encode($_POST));
+            $deviceCode = $_POST['deviceCode'];
+            $employeeCode = $_POST['employeeCode']; 
+            $supportCause = $_POST['supportCause']; 
+            $supportComment = $_POST['supportComment']; 
+            $supportDesc = $_POST['supportDesc']; 
+            $supportDate = $_POST['supportDate']; 
+            $supportStatus = $_POST['supportStatus']; 
+            $userControl = $_SESSION['usuario_activo'];
+
+            $insert = 'INSERT INTO `support`(`computer_code`, `employee_code`, `reason`, `comment`, `description`, `support_date`, `agent`, `status`) VALUES 
+                        (?,?,?,?,?,?,?,?);';
+            
+            $stmnt = $conn -> prepare($insert);
+            $stmnt -> bindParam(1, $deviceCode);
+            $stmnt -> bindParam(2, $employeeCode);
+            $stmnt -> bindParam(3, $supportCause);   
+            $stmnt -> bindParam(4, $supportComment);   
+            $stmnt -> bindParam(5, $supportDesc);   
+            $stmnt -> bindParam(6, $supportDate);   
+            $stmnt -> bindParam(7, $userControl);   
+            $stmnt -> bindParam(8, $supportStatus);   
+            
+            $stmnt -> execute();
+   
+                        
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'status' => 'OK',
+                    'data' => $rowCount,
+                    'log' => 'Registro realizado.'
+                );
+            } else {
+                $respuesta = array(
+                    'status' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al crear el registro'
+                );
+            }
+
+            echo json_encode($respuesta);
+            break;
         case 'salir':
             // die(json_encode($_POST));
             // session_start();

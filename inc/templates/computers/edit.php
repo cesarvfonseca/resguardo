@@ -234,11 +234,14 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <a href="" class="btn btn-outline-info btn-block" role="button" target="_blank" id="showPDF">Ver Factura</a>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <a href="" class="btn btn-outline-success btn-block" role="button" target="_blank" id="showIMG">Ver Carta responsiva</a>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <a href="" class="btn btn-outline-warning btn-block" role="button" target="_blank" id="itSupport">Soporte técnico</a>
                         </div>
                     </div>                    
 

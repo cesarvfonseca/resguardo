@@ -51,7 +51,7 @@
                     break;
                   case 'computers' || 'printers' || 'newcomputer' || 'editcomputer' || 'editprinter' || 'smartphone' || 
                         'newsmartphone' || 'editsmartphone' || 'modifysmartphone' || 'support' || 'history' || 'maintControl' || 
-                        'google-accounts' || 'newaccount' || 'edit-account' || 'mails' || 'newmail' || 'editMail':
+                        'google-accounts' || 'newaccount' || 'edit-account' || 'mails' || 'newmail' || 'editMail' || 'newSupport':
                     include 'inc/templates/table_template.php'; 
                     break;      
                   default:

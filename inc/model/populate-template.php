@@ -66,6 +66,10 @@ switch ($section){
     case 'editMail':
         $title = 'Actualizar correo electrónico';
         break;
+    case 'newSupport':
+        $title = 'soporte técnico';
+        $deviceID = $_REQUEST['id'];
+        break;
     case 'responsiveL':
         $deviceCode = $_GET['deviceCode'];
         $query = "SELECT * FROM `registry` WHERE `registry`.`code` = ?";

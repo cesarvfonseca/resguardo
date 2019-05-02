@@ -225,6 +225,20 @@
             }
             echo json_encode($respuesta);
             break;
+        case 'oneSupport':
+            // die(json_encode($_POST));
+            $deviceCode = $_POST['deviceCode']; 
+            $query = "SELECT * FROM `support` WHERE computer_code = ?";
+            $stmt = $conn -> prepare($query);
+            $stmt -> bindParam(1, $deviceCode);
+            $stmt -> execute();
+            $rows = $stmt -> fetchAll();
+            $respuesta = array(
+                'status' => 'OK',
+                'data' => $rows
+            );
+            echo json_encode($respuesta);
+            break;
         default:
             $title = '';     
             break;

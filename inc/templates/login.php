@@ -11,7 +11,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-address-card"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="txtUser" aria-describedby="emailHelp" placeholder="Ingresar su número de nómina">
+                            <input type="text" class="form-control" id="txtUser" aria-describedby="emailHelp" placeholder="Ingresar su número de nómina" autofocus>
                         </div>
                     </div>
                     <div class="form-group">
