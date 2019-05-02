@@ -1,19 +1,9 @@
 <?php 
 
 	function Connect(){
-
 		$db_host		= 'localhost';
-
-
-
 		$db_user		= 'mexqmx_ti2';
-
-
-
 		$db_pass		= 'ibTM;.&gHj8r';
-
-
-
 		$db_database	= 'mexqmx_resguardo'; 
 
 		// $db_host		= 'localhost';
