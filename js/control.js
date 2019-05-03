@@ -195,6 +195,7 @@ if (window.location.href.indexOf("?request=editcomputer") > -1) {
     console.log('Edit Computer');
     var jobType = 'queryDevice';
     var deviceCode = localStorage.getItem('deviceCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    $('.tittlePage').text('Panel Editar Registro de ' + deviceCode);
     localStorage.removeItem('deviceCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
     var dataComputer = new FormData();
     dataComputer.append('action', jobType);
@@ -1684,6 +1685,7 @@ if (window.location.href.indexOf("?request=editprinter") > -1) {
     console.log('Edit Printer');
     var jobType = 'queryDevice';
     var deviceCode = localStorage.getItem('deviceCode'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    $('.tittlePage').text('Panel Editar Registro de ' + deviceCode);
     localStorage.removeItem('deviceCode'); //ELIMINAR EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
     var dataComputer = new FormData();
     dataComputer.append('action', jobType);
