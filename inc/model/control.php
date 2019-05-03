@@ -682,6 +682,76 @@
 
             echo json_encode($respuesta);
             break;
+        case 'editSupport':
+            // die(json_encode($_POST));
+            $supportID = $_POST['supportID'];
+            $supportCause = $_POST['supportCause']; 
+            $supportComment = $_POST['supportComment']; 
+            $supportDesc = $_POST['supportDesc']; 
+            $supportDate = $_POST['supportDate']; 
+            $supportStatus = $_POST['supportStatus']; 
+            $userControl = $_SESSION['usuario_activo'];
+
+            $insert = 'UPDATE `support` SET `reason` = ?, `comment` = ?, `description` = ?, `support_date` = ?, `agent` = ?, `status` = ? WHERE id = ?';
+            
+            $stmnt = $conn -> prepare($insert);
+            $stmnt -> bindParam(1, $supportCause);
+            $stmnt -> bindParam(2, $supportComment);
+            $stmnt -> bindParam(3, $supportDesc);   
+            $stmnt -> bindParam(4, $supportDate);   
+            $stmnt -> bindParam(5, $userControl);   
+            $stmnt -> bindParam(6, $supportStatus);   
+            $stmnt -> bindParam(7, $supportID);
+            
+            $stmnt -> execute();
+   
+                        
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'status' => 'OK',
+                    'data' => $rowCount,
+                    'log' => 'Registro actualizado.'
+                );
+            } else {
+                $respuesta = array(
+                    'status' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al actualizar el registro'
+                );
+            }
+
+            echo json_encode($respuesta);
+            break;
+        case 'deleteSupport':
+            // die(json_encode($_POST));
+            $supportID = $_POST['supportID'];
+
+            $insert = 'DELETE FROM `support` WHERE id = ?';
+            
+            $stmnt = $conn -> prepare($insert);
+            $stmnt -> bindParam(1, $supportID);
+            
+            $stmnt -> execute();
+   
+                        
+            $rowCount = $stmnt -> rowCount();
+            if($rowCount > 0){
+                $respuesta = array(
+                    'status' => 'OK',
+                    'data' => $rowCount,
+                    'log' => 'Registro eliminado.'
+                );
+            } else {
+                $respuesta = array(
+                    'status' => 'ERROR',
+                    'data' => $rowCount,
+                    'log' => 'Error al eliminado el registro'
+                );
+            }
+
+            echo json_encode($respuesta);
+            break;
         case 'salir':
             // die(json_encode($_POST));
             // session_start();

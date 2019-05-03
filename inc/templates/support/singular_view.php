@@ -12,7 +12,7 @@
                         <th scope="col">Descripcion</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Estado</th>
-                        <th style="width: 8%;" scope="col">Accion</th>
+                        <th style="width: 4%;" scope="col">Accion</th>
                     </tr>
                 </thead>
                 <tbody id="dataTable">

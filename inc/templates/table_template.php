@@ -84,6 +84,8 @@
     <?php include 'mails/edit.php' ?>
 <?php elseif ($section == 'newSupport'): ?>
     <?php include 'support/new.php' ?>
+<?php elseif ($section == 'editSupport'): ?>
+    <?php include 'support/edit.php' ?>
 <?php elseif ($section == 'maintControl'): ?>
     <?php include 'maint/maint_view.php' ?>
 <?php endif; ?>

@@ -227,8 +227,16 @@
             break;
         case 'oneSupport':
             // die(json_encode($_POST));
-            $deviceCode = $_POST['deviceCode']; 
-            $query = "SELECT * FROM `support` WHERE computer_code = ?";
+            if (isset($_POST['deviceCode']))
+            {
+                $deviceCode = $_POST['deviceCode'];
+                $query = "SELECT * FROM `support` WHERE computer_code = ?";
+            }
+            else
+            {
+                $deviceCode = $_POST['supportID'];
+                $query = "SELECT * FROM `support` WHERE id = ?";
+            }
             $stmt = $conn -> prepare($query);
             $stmt -> bindParam(1, $deviceCode);
             $stmt -> execute();

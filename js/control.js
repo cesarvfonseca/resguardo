@@ -621,7 +621,7 @@ if (window.location.href.indexOf("?request=newSupport") > -1) {
             status = 'En proceso';
         } else if(st === '3'){
             estado = "table-default";
-            status = 'En segimiento';
+            status = 'Seguimiento';
         }
         var row = $("<tr class='" + estado + "'>");
         
@@ -648,12 +648,20 @@ if (window.location.href.indexOf("?request=newSupport") > -1) {
         row.append($("<td class='text-center'>"
             + "<a tabindex='0' class='btn btn-sm btn-primary mx-1 btnEdit' data-code='"+rowInfo.id+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
             // + "<a tabindex='1' class='btn btn-sm btn-success mx-1 btnAdd' data-id='"+rowInfo.id+"' role='button' title='Añadir responsable'><i class='fas fa-plus-circle'></i></a>" 
-            + "<a tabindex='2' class='btn btn-sm btn-danger mx-1 btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
+            + "<a tabindex='1' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
             + "</td>"));
-        
 
+        $(".btnEdit").unbind().click(function() {
+            var supportID = $((this)).data('code'),
+                url = "index.php?request=editSupport"
+            localStorage.setItem('supportID', supportID);//GUARDAR CODIGO DEL EQUIPO EN LA MEMORIA LOCAL DEL NAVEGADOR
+            $(location).attr('href',url);
+        });
+
+        $(".btnDelete").unbind().click(function() {
+            deleteSupport($(this));
+        });
     }
-
 }
 
 function infoDevice(rowInfo){
@@ -662,7 +670,7 @@ function infoDevice(rowInfo){
     $('#ipMail').val(rowInfo.mail);
     $('#ipBranch').val(rowInfo.branch);    
 }
-
+//GUARDAR SOPORTE
 $('#btnsaveSupport').click(function(){
     console.log('NUEVO SOPORTE');
     var jobType = 'newSupport',
@@ -725,6 +733,151 @@ $('#btnsaveSupport').click(function(){
         }
 });
 
+//EDITAR SOPORTE
+if (window.location.href.indexOf("?request=editSupport") > -1) {
+    console.log('Edit Support');
+    var action = 'oneSupport';
+    var supportID = localStorage.getItem('supportID'); //OBTENER EL CODIGO DEL EQUIPO DE LA MEMORIA LOCAL DEL NAVEGADOR
+    console.log(supportID)
+    var dataSupport = new FormData();
+    dataSupport.append('action', action);
+    dataSupport.append('supportID', supportID);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'inc/model/data-service.php', true);
+    xhr.send(dataSupport);
+    xhr.onload = function(){
+        if (this.status === 200) {
+            var respuesta = JSON.parse(xhr.responseText);
+            console.log(respuesta);
+            if (respuesta.status === 'OK') {
+                var informacion = respuesta.data;
+                
+                for(var i in informacion){
+                    infoOwner(informacion[i]);
+                }
+            }
+        }
+    }
+}
+
+function infoOwner(rowInfo){
+    $('#ipNomina').val(rowInfo.employee_code);
+    $('#ipEmployee').val(rowInfo.employee_name);    
+    $('#igCause').val(rowInfo.reason);    
+    $('#ipReason').val(rowInfo.comment);    
+    $('#igStatus').val(rowInfo.status);    
+    $('#ipsupportDate').val(rowInfo.support_date);    
+    $('#ipComment').val(rowInfo.description);    
+    $('#supportID').val(rowInfo.id);    
+}
+
+$('#btneditSupport').click(function(){
+    console.log('ACTUALIZAR SOPORTE');
+    var jobType = 'editSupport',
+        supportID = document.querySelector('#supportID').value,
+        supportCause = document.querySelector('#igCause').value,
+        supportComment = document.querySelector('#ipReason').value,
+        supportDesc = document.querySelector('#ipComment').value,
+        supportDate = document.querySelector('#ipsupportDate').value,
+        supportStatus = document.querySelector('#igStatus').value;
+    if  (
+        supportCause.trim() === '' || supportComment.trim() === '' ||
+        supportDesc.trim() === ''
+        ){
+            swal({
+                type: 'error',
+                title: 'Error!',
+                text: 'Todos los campos son obligatorios!'
+            })
+        } else {
+            var dataSupport = new FormData();
+            dataSupport.append('supportID', supportID);
+            dataSupport.append('supportCause', supportCause);
+            dataSupport.append('supportComment', supportComment);
+            dataSupport.append('supportDesc', supportDesc);
+            dataSupport.append('supportDate', supportDate);
+            dataSupport.append('supportStatus', supportStatus);
+            dataSupport.append('jobType', jobType);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataSupport);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    console.log(respuesta);
+                    if (respuesta.status === 'OK') {
+                        var destination = respuesta.log;
+                        swal({
+                                title: 'Guardado exitoso!',
+                                text: 'Actualización de la información exitoso!',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                    if(resultado.value) {
+                                        window.history.back();
+                                    }
+                                })
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }            
+        }
+});
+
+//BORRAR SOPORTE
+function deleteSupport (supportRow){    
+    var jobType = 'deleteSupport',
+        supportID = supportRow.closest("tr").find(".trID").text().trim(); 
+    Swal({
+        title: 'Eliminar el registro',
+        text: '¿Estas seguro de eliminar este registro?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si, borrar!'
+      }).then((result) => {
+        if (result.value) {
+            var dataSupportD = new FormData();
+            dataSupportD.append('jobType', jobType);
+            dataSupportD.append('supportID', supportID);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'inc/model/control.php', true);
+            xhr.send(dataSupportD);
+            xhr.onload = function(){
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    if (respuesta.status === 'OK') {
+                        supportRow.parents("tr").remove();//ELIMINAR LINEA DEL REGISTRO BORRADO
+                        Swal.fire({
+                                position: 'top-end',
+                                title: 'Registro eliminado!',
+                                text: 'El registro ' + supportID + ' fue eliminado exitosamente.',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                type: 'success'
+                            })
+                    } else {
+                        // Hubo un error
+                        swal({
+                            title: 'Error!',
+                            text: 'Hubo un error',
+                            type: 'error'
+                        })
+                    }
+                }
+            }
+        }
+    })
+}
 
 //BUSQUEDA DE INFORMACION
 $(document).ready(function(){
