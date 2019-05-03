@@ -267,7 +267,6 @@ function editDevice(rowInfo){
     document.querySelector('#showPDF').setAttribute('href', 'inc/model/reader.php?type=pdf&deviceSerie='+rowInfo.serial);
     document.querySelector('#showIMG').setAttribute('href', 'inc/model/reader.php?type=jpg&deviceSerie='+rowInfo.serial);
     document.querySelector('#itSupport').setAttribute('href', 'index.php?request=newSupport&id='+rowInfo.code);
-    
 }
 
 // ELIMINAR EQUIPO DE COMPUTO
@@ -608,11 +607,11 @@ if (window.location.href.indexOf("?request=newSupport") > -1) {
     }
 
     function historySupport(rowInfo){
-        
+
         var st = rowInfo.status,
             status = '',
             estado = '';
-        
+            
         if(st === '1'){
             estado = "table-secondary";
             status = 'Realizado';
@@ -623,6 +622,7 @@ if (window.location.href.indexOf("?request=newSupport") > -1) {
             estado = "table-default";
             status = 'Seguimiento';
         }
+
         var row = $("<tr class='" + estado + "'>");
         
         
@@ -647,7 +647,6 @@ if (window.location.href.indexOf("?request=newSupport") > -1) {
         // COLUMNA ACCION
         row.append($("<td class='text-center'>"
             + "<a tabindex='0' class='btn btn-sm btn-primary mx-1 btnEdit' data-code='"+rowInfo.id+"' role='button' title='Editar registro'><i class='fas fa-pen-square'></i></a>"
-            // + "<a tabindex='1' class='btn btn-sm btn-success mx-1 btnAdd' data-id='"+rowInfo.id+"' role='button' title='Añadir responsable'><i class='fas fa-plus-circle'></i></a>" 
             + "<a tabindex='1' class='btn btn-sm btn-danger btnDelete' role='button' title='Eliminar registro'><i class='fas fa-trash'></i></a>" 
             + "</td>"));
 
@@ -661,6 +660,8 @@ if (window.location.href.indexOf("?request=newSupport") > -1) {
         $(".btnDelete").unbind().click(function() {
             deleteSupport($(this));
         });
+
+        
     }
 }
 

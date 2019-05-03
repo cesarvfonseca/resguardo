@@ -58,7 +58,6 @@
                                     <option value="Software">Software</option>
                                     <option value="Hardware">Hardware</option>
                                     <option value="5">Otro</option>
-                                    <option value="">Otro</option>
                                 </select>
                             </div>
                         </div>
