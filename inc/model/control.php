@@ -668,13 +668,13 @@
             $rowCount = $stmnt -> rowCount();
             if($rowCount > 0){
                 $respuesta = array(
-                    'status' => 'OK',
+                    'estado' => 'OK',
                     'data' => $rowCount,
                     'log' => 'Registro realizado.'
                 );
             } else {
                 $respuesta = array(
-                    'status' => 'ERROR',
+                    'estado' => 'ERROR',
                     'data' => $rowCount,
                     'log' => 'Error al crear el registro'
                 );

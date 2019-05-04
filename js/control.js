@@ -709,8 +709,7 @@ $('#btnsaveSupport').click(function(){
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
                     console.log(respuesta);
-                    if (respuesta.status === 'OK') {
-                        var destination = respuesta.log;
+                    if (respuesta.estado === 'OK') {
                         swal({
                                 title: 'Guardado exitoso!',
                                 text: 'Guardado de la información exitoso!',
