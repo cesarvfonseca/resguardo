@@ -57,7 +57,7 @@
                                     <option value="Correo">Correo</option>
                                     <option value="Software">Software</option>
                                     <option value="Hardware">Hardware</option>
-                                    <option value="5">Otro</option>
+                                    <option value="Otro">Otro</option>
                                 </select>
                             </div>
                         </div>
